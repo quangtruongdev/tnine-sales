@@ -1,29 +1,29 @@
-﻿(function(app) {
+﻿(function (app) {
     'use strict';
 
     app.service('notificationService', ['$http', '$q', 'baseService',
-        function($http, $q, baseService) {
-            this.getNotifications = function() {
+        function ($http, $q, baseService) {
+            this.getNotifications = function () {
                 var deferred = $q.defer();
                 baseService.get('/api/Notification/GetNotifications')
-                    .then(function(result) {
+                    .then(function (result) {
                         deferred.resolve(result);
-                    }, function(error) {
+                    }, function (error) {
                         deferred.reject(error);
                     });
                 return deferred.promise;
             };
 
-            this.markAsRead = function(notificationId) {
+            this.markAsRead = function (notificationId) {
                 var deferred = $q.defer();
                 baseService.post('/api/Notification/MarkAsRead', { notificationId: notificationId })
-                    .then(function(result) {
+                    .then(function (result) {
                         deferred.resolve(result);
-                    }, function(error) {
+                    }, function (error) {
                         deferred.reject(error);
                     });
                 return deferred.promise;
             };
         }
     ]);
-})
+})('tnine.services');

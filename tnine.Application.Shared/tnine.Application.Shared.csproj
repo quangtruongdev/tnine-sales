@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IProductService\IProductService.cs" />
     <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForViewDto.cs" />

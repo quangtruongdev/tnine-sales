@@ -7,10 +7,12 @@ namespace tnine.Core.Shared
     {
         public DatabaseContext() : base("name=DefaultConnection")
         {
+            Database.SetInitializer<DatabaseContext>(null);
             this.Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Todo> Todos { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUserLogin> UserLogins { get; set; }
         public DbSet<ApplicationUserClaim> UserClaims { get; set; }
         public DbSet<ApplicationUserRole> UserRoles { get; set; }

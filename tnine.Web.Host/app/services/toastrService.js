@@ -42,4 +42,4 @@
         };
 
     }
-})(angular.module('tnine.common'));
+})(angular.module('tnine.services'));

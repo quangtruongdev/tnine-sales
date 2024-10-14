@@ -1,0 +1,28 @@
+﻿<!-- layout.html -->
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Application</title>
+    <link rel="stylesheet" href="~/Content/styles.css">
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Include Top Bar -->
+        <div ng-include="sidebar.html"></div>
+
+        <div class="main-content">
+            <!-- Include Side Bar -->
+            <div ng-include="topbar.html"></div>
+
+            <div class="content">
+                <!-- Content goes here -->
+                <div ng-view></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

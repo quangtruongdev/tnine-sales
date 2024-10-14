@@ -1,0 +1,19 @@
+﻿<div>
+    <h1>Tất cả todo</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="todo in todos">
+            <tr>
+                <td>{{todo.Id}}</td>
+                <td>{{todo.Title}}</td>
+                <td>{{todo.Description}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

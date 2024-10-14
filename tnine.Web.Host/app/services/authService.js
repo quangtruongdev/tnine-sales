@@ -3,7 +3,19 @@
 
     app.servie('authService', ['$http', '$q', 'baseService',
         function ($http, $q, baseService) {
-            var user;
+            var user = null;
+            var token = null;
+
+            var authentication = {
+                isAuth: false,
+                userName: ""
+            };
+
+            this.setToken = function (token) {
+                token = token;
+                localStorage.setItem('token', token);
+            };
+
 
             this.login = function (username, password) {
                 var deferred = $q.defer();
@@ -16,5 +28,5 @@
                     });
                 return deferred.promise;
             };
-    }]);
-})(angular.module('tnine'))
+        }]);
+})(angular.module('tnine.services'));

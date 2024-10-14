@@ -6,11 +6,11 @@ using tnine.Application.Shared.ITodo;
 namespace tnine.Web.Host.Api
 {
     [RoutePrefix("api/todo")]
-    public class TodoController : ApiController
+    public class TodoApiController : ApiController
     {
         private ITodoService _todoService;
 
-        public TodoController(ITodoService todoService)
+        public TodoApiController(ITodoService todoService)
         {
             _todoService = todoService;
         }
