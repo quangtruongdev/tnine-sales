@@ -241,6 +241,9 @@
     <Content Include="app\components\ui\ui.module.js" />
     <Content Include="app\pages\home\home.component.html" />
     <Content Include="app\pages\home\home.module.js" />
+    <Content Include="app\pages\product\product.component.js" />
+    <Content Include="app\pages\product\product.componet.html" />
+    <Content Include="app\pages\product\product.moule.js" />
     <Content Include="app\pages\todo\create-or-edit-todo\create-or-edit-todo.html" />
     <Content Include="app\pages\todo\create-or-edit-todo\create-or-edit-todo-controller.js" />
     <Content Include="app\pages\todo\todo.component.html" />

@@ -18,10 +18,10 @@
 				//	loadModule: ['$ocLazyLoad', function ($ocLazyLoad) {
 				//		return $ocLazyLoad.load([
 				//			'/app/pages/todo/todo.module.js',
-    //                        '/app/pages/todo/todo.controller.js',
-    //                        '/app/pages/todo/todo.service.js'
-    //                    ]);
-    //                }]
+                //          '/app/pages/todo/todo.controller.js',
+                //          '/app/pages/todo/todo.service.js'
+                //         ]);
+                //   }]
 				//}
 			});
 		$urlRouterProvider.otherwise('/todo');
