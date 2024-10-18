@@ -1,6 +1,6 @@
 ﻿namespace tnine.Core.Shared.Dto
 {
-    public class PagedResultDto
+    public class PagedResultDto<T> where T : class
     {
         public int TotalCount { get; set; }
         public int TotalPages { get; set; }

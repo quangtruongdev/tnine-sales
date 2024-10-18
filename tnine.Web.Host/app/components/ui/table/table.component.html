@@ -1,0 +1,19 @@
+﻿<div class="tnine-table">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th ng-repeat="column in vm.columns">
+                    {{ column.headerName }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in vm.data" ng-click="vm.onRowClick({item: item})">
+                <td ng-repeat="column in vm.columns">{{item[column.field]}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="table-footer">
+
+    </div>
+</div>

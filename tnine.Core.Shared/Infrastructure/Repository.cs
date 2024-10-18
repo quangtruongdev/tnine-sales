@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace tnine.Core.Shared.Infrastructure
 {
@@ -75,6 +76,11 @@ namespace tnine.Core.Shared.Infrastructure
         public virtual IEnumerable<TEntity> GetAll()
         {
             return _dbSet.AsEnumerable();
+        }
+
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
         }
 
         public virtual IEnumerable<TEntity> GetAll(string[] includes = null)

@@ -9,17 +9,16 @@ namespace tnine.Web.Host
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
-                name: "Todo",
-                url: "todo.html",
-                defaults: new { controller = "Todo", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "tnine.Web.Host.Controllers" }
+                name: "Angular",
+                url: "{*url}",
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

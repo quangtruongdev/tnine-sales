@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace tnine.Web.Host
 {
@@ -25,6 +24,41 @@ namespace tnine.Web.Host
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Angular core
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/wwwroot/lib/angular/angular.js",
+                "~/wwwroot/lib/angular-ui-router/release/angular-ui-router.js"
+                ));
+
+            // App
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/app/app.module.js",
+                "~/app/app.config.js",
+                "~/app/shared/common/tnine.common.js"
+                ));
+
+            // Home
+            bundles.Add(new ScriptBundle("~/bundles/home").Include(
+                "~/app/pages/home/home.module.js",
+                "~/app/pages/home/home.controller.js",
+                "~/app/pages/home/home.service.js"
+                ));
+
+            // Todo
+            bundles.Add(new ScriptBundle("~/bundles/todo").Include(
+                "~/app/pages/todo/todo.module.js",
+                "~/app/pages/todo/todo.controller.js",
+                "~/app/pages/todo/todo.service.js"
+                ));
+
+            // UI
+            bundles.Add(new ScriptBundle("~/bundles/ui").Include(
+                "~/app/components/ui/ui.module.js",
+                "~/app/components/ui/table/table.module.js"
+
+                //"~/app/shared/ui/ui.directive.js"
+                ));
         }
     }
 }
