@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using System.Data.Entity;
@@ -23,6 +24,11 @@ namespace tnine.Web.Host.App_Start
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
             builder.RegisterType<DbContext>().AsSelf().InstancePerRequest();
+
+            // Automapper
+            var mapperConfiguration = AutoMapperConfig.GetConfiguration();
+            builder.RegisterInstance(mapperConfiguration.CreateMapper()).As<IMapper>().SingleInstance();
+
 
             // Asp .Net Identity
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();

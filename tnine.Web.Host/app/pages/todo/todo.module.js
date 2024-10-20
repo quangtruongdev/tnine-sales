@@ -2,8 +2,7 @@
 
 (function () {
 	angular.module('tnine.todo', [
-		'tnine.common',
-		//'tnine.ui'
+
 	]).config(config);
 
 	config.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -14,15 +13,7 @@
 				parent: 'base',
 				templateUrl: '/app/pages/todo/todo.component.html',
 				controller: 'todoController',
-				//resolve: {
-				//	loadModule: ['$ocLazyLoad', function ($ocLazyLoad) {
-				//		return $ocLazyLoad.load([
-				//			'/app/pages/todo/todo.module.js',
-                //          '/app/pages/todo/todo.controller.js',
-                //          '/app/pages/todo/todo.service.js'
-                //         ]);
-                //   }]
-				//}
+				controllerAs: 'vm', 
 			});
 		$urlRouterProvider.otherwise('/todo');
 	}

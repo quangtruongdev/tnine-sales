@@ -209,6 +209,7 @@
   <ItemGroup>
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\TodoApiController.cs" />
+    <Compile Include="Api\ValuesController1.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -234,6 +235,8 @@
   <ItemGroup>
     <Content Include="app\app.config.js" />
     <Content Include="app\app.module.js" />
+    <Content Include="app\components\ui\input-types\tnine-text-input\tnine-input-text.component.html" />
+    <Content Include="app\components\ui\input-types\tnine-text-input\tnine-input-text.component.js" />
     <Content Include="app\components\ui\table\table.component.css" />
     <Content Include="app\components\ui\table\table.component.html" />
     <Content Include="app\components\ui\table\table.component.js" />
@@ -241,15 +244,17 @@
     <Content Include="app\components\ui\ui.module.js" />
     <Content Include="app\pages\home\home.component.html" />
     <Content Include="app\pages\home\home.module.js" />
+    <Content Include="app\pages\home\hometest.html" />
+    <Content Include="app\pages\home\hometest.js" />
     <Content Include="app\pages\product\product.component.js" />
     <Content Include="app\pages\product\product.componet.html" />
     <Content Include="app\pages\product\product.moule.js" />
-    <Content Include="app\pages\todo\create-or-edit-todo\create-or-edit-todo.html" />
-    <Content Include="app\pages\todo\create-or-edit-todo\create-or-edit-todo-controller.js" />
+    <Content Include="app\pages\todo\create-or-edit-todo-modal\create-or-edit-todo-modal.component.html" />
+    <Content Include="app\pages\todo\create-or-edit-todo-modal\create-or-edit-todo-modal.component.js" />
     <Content Include="app\pages\todo\todo.component.html" />
     <Content Include="app\pages\todo\todo.module.js" />
     <Content Include="app\pages\todo\todo.service.js" />
-    <Content Include="app\pages\todo\todo.controller.js" />
+    <Content Include="app\pages\todo\todo.component.js" />
     <Content Include="app\services\authService.js" />
     <Content Include="app\services\baseService.js" />
     <Content Include="app\services\notificationService.js" />
@@ -1252,6 +1257,8 @@
     <Content Include="wwwroot\lib\bootstrap\site\static\docs\5.3\assets\img\favicons\manifest.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\components\ui\input-types\tnine-checkbox\" />
+    <Folder Include="app\components\ui\input-types\tnine-combobox\" />
     <Folder Include="App_Data\" />
     <Folder Include="logs\" />
   </ItemGroup>

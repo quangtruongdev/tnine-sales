@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IProductService;
-using tnine.Core;
+using tnine.Application.Shared.IProductService.Dto;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core.Shared.Repositories;
 
@@ -18,33 +19,32 @@ namespace tnine.Application
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Product>> GetAll()
-        {
-            var products = await _productRepo.GetAllAsync();
-            return products;
-        }
-
-        //public Task<List<PagedResultDto<GetProductForViewDto>>> GetAll(GetProductInputDto input)
+        //public async Task<PagedResultDto<GetProductForViewDto>> GetAll(GetProductInputDto input)
         //{
-        //    var products = from p in _productRepo.GetAll()
-        //                   .Where(e => e.Name == input.FilterText)
+        //    var products = from product in _productRepo.GetAll()
         //                   select new GetProductForViewDto
         //                   {
-        //                       Name = p.Name,
-        //                       Description = p.Description,
-        //                       Price = p.Price,
+        //                       Id = product.Id,
+        //                       Name = product.Name,
+        //                       Price = product.Price
         //                   };
 
-        //    var productList = products.ToList();
-        //    var totalCount = productList.Count;
+        //    var totalCount = products.Count();
+        //    var results = products;
 
-        //    var pagedResult = new PagedResultDto<GetProductForViewDto>
-        //    {
-        //        Items = productList,
-        //        TotalCount = totalCount
-        //    };
-
-        //    return Task.FromResult(new List<PagedResultDto<GetProductForViewDto>> { pagedResult });
+        //    return new PagedResultDto<GetProductForViewDto>(totalCount, results);
         //}
+
+        public async Task<List<GetProductForViewDto>> GetAll()
+        {
+            var products = await _productRepo.GetAllAsync();
+            return products.Select(p => new GetProductForViewDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price
+            }).ToList();
+
+        }
     }
 }

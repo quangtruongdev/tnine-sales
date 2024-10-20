@@ -42,13 +42,15 @@ namespace tnine.Web.Host
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                 "~/app/pages/home/home.module.js",
                 "~/app/pages/home/home.controller.js",
+                "~/app/pages/home/hometest.js",
                 "~/app/pages/home/home.service.js"
                 ));
 
             // Todo
             bundles.Add(new ScriptBundle("~/bundles/todo").Include(
                 "~/app/pages/todo/todo.module.js",
-                "~/app/pages/todo/todo.controller.js",
+                "~/app/pages/todo/todo.component.js",
+                "~/app/pages/todo/create-or-edit-todo-modal/create-or-edit-todo-modal.component.js",
                 "~/app/pages/todo/todo.service.js"
                 ));
 

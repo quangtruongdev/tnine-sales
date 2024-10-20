@@ -7,8 +7,6 @@
         .module('tnine.ui.table', [])
         .directive('tnineTable', tnineTable);
 
-    console.log('tnine.ui.table module loaded');
-
     function tnineTable() {
         return {
             restrict: 'E',

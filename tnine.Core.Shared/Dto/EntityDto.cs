@@ -2,6 +2,6 @@
 {
     public class EntityDto<TKey> : IEntityDto<TKey> where TKey : struct
     {
-        public TKey Id { get; set; }
+        public TKey? Id { get; set; }
     }
 }

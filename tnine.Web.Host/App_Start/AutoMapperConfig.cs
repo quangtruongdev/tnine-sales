@@ -4,20 +4,45 @@ using tnine.Core;
 
 namespace tnine.Web.Host.App_Start
 {
-    public class AutoMapperConfig
+    public class AutoMapperProfile : Profile
     {
-        public AutoMapperConfig() { }
-
-        public static AutoMapperConfig Instance { get { return new AutoMapperConfig(); } }
-
-        public void Configure()
+        public AutoMapperProfile()
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<CreateOrEditTodoDto, Todo>().ReverseMap();
-            });
+            CreateMap<Todo, CreateOrEditTodoDto>().ReverseMap();
+        }
+    }
 
-            IMapper mapper = config.CreateMapper();
+    public static class AutoMapperConfig
+    {
+        // Cấu hình singleton cho AutoMapper
+        private static MapperConfiguration _mapperConfiguration;
+
+        public static void Configure()
+        {
+            _mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+        }
+
+        // Tạo phương thức để lấy IMapper
+        public static IMapper GetMapper()
+        {
+            if (_mapperConfiguration == null)
+            {
+                Configure();
+            }
+            return _mapperConfiguration.CreateMapper();
+        }
+
+        // Cấu hình MapperConfiguration cho DI
+        public static MapperConfiguration GetConfiguration()
+        {
+            if (_mapperConfiguration == null)
+            {
+                Configure();
+            }
+            return _mapperConfiguration;
         }
     }
 }

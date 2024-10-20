@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using tnine.Core.Auditing;
 
 namespace tnine.Core
 {
-    public class Product
+    public class Product : FullAuditedEntity<long>
     {
-        [Key]
-        public long Id { get; set; }
         [StringLength(255)]
         public string Name { get; set; }
         [StringLength(255)]

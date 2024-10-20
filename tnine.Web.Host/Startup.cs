@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
@@ -9,6 +10,7 @@ using System.Web;
 using System.Web.Http;
 using tnine.Core.Shared;
 using tnine.Core.Shared.Infrastructure;
+using tnine.Web.Host.App_Start;
 
 [assembly: OwinStartupAttribute(typeof(tnine.Web.Host.Startup))]
 namespace tnine.Web.Host
@@ -24,13 +26,22 @@ namespace tnine.Web.Host
         private void ConfigureAutofac(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
+            // Register MVC controllers
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
+
+            // Register Web API controllers
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
             builder.RegisterType<DatabaseContext>().AsSelf().InstancePerRequest();
+
+            // Automapper
+            var mapperConfiguration = AutoMapperConfig.GetConfiguration();
+            builder.RegisterInstance(mapperConfiguration.CreateMapper()).As<IMapper>().SingleInstance();
+
+            mapperConfiguration.AssertConfigurationIsValid();
 
             // Asp .Net Identity
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();

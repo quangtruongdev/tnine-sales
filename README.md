@@ -2,17 +2,18 @@
 
 Clone project: git clone https://github.com/quangtruongdev/tnine-sales.git
 
-node version v20.x
+Cài nodejs v20.x
 
-cmd: 
+Chạy lệnh cmd: 
 - npm install -g bower
-- bower install
 
-Open project
+Mở tnine.Web.Host -> Run CMD -> bower install
+
+Open project tnine.Web.sln
 - Click Build -> Clean Solution
 
-Rename connect string db:
-- Open tnine.Core.Shared
+CONFIG connect string db:
+- Open tnine.Core.Shared -> App.config
 - Open App.config -> Config connectionStrings
 
 Enable-Migrations

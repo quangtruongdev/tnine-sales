@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using tnine.Core;
+using tnine.Application.Shared.IProductService.Dto;
 
 namespace tnine.Application.Shared.IProductService
 {
@@ -8,6 +8,8 @@ namespace tnine.Application.Shared.IProductService
     {
         //IEnumerable<Product> GetAll();
         //Task<List<PagedResultDto<GetProductForViewDto>>> GetAll(GetProductInputDto input);
-        Task<List<Product>> GetAll();
+
+        //Task<PagedResultDto<GetProductForViewDto>> GetAll(GetProductInputDto input);
+        Task<List<GetProductForViewDto>> GetAll();
     }
 }

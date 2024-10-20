@@ -2,7 +2,6 @@
 
 (function () {
     'use strict';
-    console.log('tnine.ui module loaded');
     angular
         .module('tnine.ui', [
             'tnine.ui.table'

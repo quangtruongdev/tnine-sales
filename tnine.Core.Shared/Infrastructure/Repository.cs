@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using tnine.Core.Auditing;
 
 namespace tnine.Core.Shared.Infrastructure
 {
-    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class where TKey : struct
+    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : FullAuditedEntity<TKey> where TKey : struct
     {
         private DatabaseContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
@@ -29,12 +30,43 @@ namespace tnine.Core.Shared.Infrastructure
             return entity;
         }
 
+        #region CREATE ASYNC
+
+        public async Task<TEntity> InsertAsync(TEntity entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Added;
+            _dbSet.Add(entity);
+
+            await _dbContext.SaveChangesAsync();
+
+            return entity;
+        }
+
+
+        #endregion
+
+        #region UPDATE
         public virtual void Update(TEntity entity)
         {
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
+        #endregion
+
+        #region UPDATE ASYNC
+
+        public virtual async Task<TEntity> UpdateAsync(TEntity entity)
+        {
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            return entity;
+        }
+
+        #endregion
+
+        #region DELETE
         public virtual TEntity Delete(TEntity entity)
         {
             _dbContext.Entry(entity).State = EntityState.Deleted;
@@ -56,6 +88,25 @@ namespace tnine.Core.Shared.Infrastructure
                 _dbSet.Remove(obj);
             }
         }
+
+        #endregion
+
+        #region DELETE ASYNC
+
+        public virtual async Task DeleteAsync(TKey id)
+        {
+            var entity = await _dbSet.FindAsync(id);
+            await DeleteAsync(entity);
+        }
+
+        public virtual async Task DeleteAsync(TEntity entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Deleted;
+            entity.IsDeleted = true;
+            await _dbContext.SaveChangesAsync();
+        }
+
+        #endregion
 
         public virtual TEntity GetSingleById(TKey id)
         {
@@ -136,9 +187,21 @@ namespace tnine.Core.Shared.Infrastructure
             return _dbSet.Count(where);
         }
 
+        public Task<int> CountAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return _dbSet.CountAsync(where);
+        }
+
         public bool CheckContains(Expression<Func<TEntity, bool>> predicate)
         {
             return _dbSet.Count(predicate) > 0;
         }
+
+        #region READ ASYNC
+        public virtual async Task<TEntity> GetSingleByIdAsync(TKey id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+        #endregion
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IEntityDto<TKey> where TKey : struct
     {
-        TKey Id { get; set; }
+        TKey? Id { get; set; }
     }
 }
