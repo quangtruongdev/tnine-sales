@@ -51,12 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAuthService\Dto\LoginDto.cs" />
-    <Compile Include="IAuthService\IAuthService.cs" />
+    <Compile Include="IAccountService\Dto\LoginDto.cs" />
     <Compile Include="IProductService\Dto\CreateOrEditProductDto.cs" />
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />
     <Compile Include="IProductService\Dto\GetProductInputDto.cs" />
     <Compile Include="IProductService\IProductService.cs" />
+    <Compile Include="IRoleService\Dto\CreateOrEditRoleDto.cs" />
+    <Compile Include="IRoleService\Dto\GetRoleForViewDto.cs" />
+    <Compile Include="IRoleService\IRoleService.cs" />
     <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForEditOutputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />

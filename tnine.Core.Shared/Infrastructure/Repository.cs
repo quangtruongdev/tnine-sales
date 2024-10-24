@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using tnine.Core.Auditing;
 
@@ -202,6 +203,22 @@ namespace tnine.Core.Shared.Infrastructure
         {
             return await _dbSet.FindAsync(id);
         }
+
+        //public async Task<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default)
+        //{
+        //    return await _dbSet.ToListAsync(cancellationToken);
+        //}
+
+        //public async Task<long> GetCountAsync(CancellationToken cancellationToken = default)
+        //{
+        //    return await _dbSet.LongCountAsync(cancellationToken);
+        //}
+
+        //public async Task<List<TEntity>> GetPagedListAsync(int skipCount, int maxResultCount, string sorting, bool includeDetails = false, CancellationToken cancellationToken = default)
+        //{
+        //    return await _dbSet.Skip(skipCount).Take(maxResultCount).ToListAsync(cancellationToken);
+        //}
+
         #endregion
     }
 }

@@ -2,12 +2,15 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using tnine.Core;
 using tnine.Core.Shared;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Web.Host.App_Start;
@@ -44,6 +47,7 @@ namespace tnine.Web.Host
             mapperConfiguration.AssertConfigurationIsValid();
 
             // Asp .Net Identity
+            builder.RegisterType<UserStore<ApplicationUser, ApplicationRole, long, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>>().As<IUserStore<ApplicationUser, long>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();

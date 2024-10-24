@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using tnine.Core;
 using tnine.Web.Host.Models;
 
 namespace tnine.Web.Host.Controllers
@@ -55,7 +56,7 @@ namespace tnine.Web.Host.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View(new LoginViewModel());
         }
 
         //
@@ -136,7 +137,7 @@ namespace tnine.Web.Host.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
         }
 
         //
@@ -178,7 +179,11 @@ namespace tnine.Web.Host.Controllers
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            if (!long.TryParse(userId, out long userIdLong))
+            {
+                return View("Error");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userIdLong, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 

@@ -40,6 +40,26 @@ namespace tnine.Application
             }).ToList();
         }
 
+        //public async Task<PagedResultDto<GetTodoForViewDto>> GetAll(GetTodoForInputDto input)
+        //{
+        //    var todos = from todo in _todoRepository.GetAll()
+        //                select new GetTodoForViewDto
+        //                {
+        //                    Id = todo.Id,
+        //                    Title = todo.Title,
+        //                    Description = todo.Description
+        //                };
+
+        //    var totalCount = todos.Count();
+        //    var items = todos.Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
+
+        //    return new PagedResultDto<GetTodoForViewDto>
+        //    {
+        //        TotalCount = totalCount,
+        //        //Results = items
+        //    };
+        //}
+
         public async Task CreateOrEdit(CreateOrEditTodoDto input)
         {
             if (input.Id.HasValue)

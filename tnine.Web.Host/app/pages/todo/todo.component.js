@@ -6,9 +6,9 @@
             controllerAs: 'vm',
         });
 
-    todoController.$inject = ['$scope', 'todoService', '$state', '$element'];
+    todoController.$inject = ['$scope', 'serviceProxies','$state', '$element'];
 
-    function todoController($scope, todoService, $state, $element) {
+    function todoController($scope, serviceProxies, $state, $element) {
         var vm = this;
         vm.todos = [];
         vm.selectedId = null;
@@ -20,7 +20,7 @@
         ];
 
         vm.getTodos = function () {
-            todoService.getTodos().then(function (response) {
+            serviceProxies.todoService.getTodos().then(function (response) {
                 vm.todos = response.data;
             });
         }
@@ -39,13 +39,8 @@
         }
 
         vm.delete = function (id) {
-            //todoService.delete(id).then(function (response) {
-            //    vm.getTodos();
-            //});
-
-            // are you sure?
             if (confirm('Are you sure you want to delete?')) {
-                todoService.delete(id).then(function (response) {
+                serviceProxies.todoService.deleteTodo(id).then(function (response) {
                     vm.getTodos();
                 });
             }

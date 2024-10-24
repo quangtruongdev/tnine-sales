@@ -2,7 +2,7 @@
 
 (function () {
 	angular.module('tnine.todo', [
-
+		'tnine.services'
 	]).config(config);
 
 	config.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -16,5 +16,5 @@
 				controllerAs: 'vm', 
 			});
 		$urlRouterProvider.otherwise('/todo');
-	}
+	};
 })();

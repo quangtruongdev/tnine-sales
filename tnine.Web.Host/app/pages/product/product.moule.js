@@ -1,8 +1,5 @@
 ﻿(function () {
-    angular.module('tnine.product', [
-        'tnine.common',
-        'tnine.ui'
-    ]).config(config);
+    angular.module('tnine.product', []).config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
@@ -13,15 +10,6 @@
                 parent: 'base',
                 templateUrl: '/app/pages/product/product.component.html',
                 controller: 'productController',
-                //resolve: {
-                //    loadModule: ['$ocLazyLoad', function ($ocLazyLoad) {
-                //        return $ocLazyLoad.load([
-                //            '/app/pages/product/product.module.js',
-                //            '/app/pages/product/product.controller.js',
-                //            '/app/pages/product/product.service.js'
-                //        ]);
-                //    }]
-                //}
             });
         $urlRouterProvider.otherwise('/product');
     }

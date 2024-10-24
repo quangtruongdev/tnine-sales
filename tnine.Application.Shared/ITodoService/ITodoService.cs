@@ -8,6 +8,7 @@ namespace tnine.Application.Shared.ITodo
     public interface ITodoService
     {
         Task<List<GetTodoForViewDto>> GetAll();
+        //Task<PagedResultDto<GetTodoForViewDto>> GetAll(GetTodoForInputDto input);
         Task CreateOrEdit(CreateOrEditTodoDto input);
         Task<GetTodoForEditOutputDto> GetById(EntityDto<long> input);
         Task Delete(EntityDto<long> input);

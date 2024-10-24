@@ -9,9 +9,9 @@
             }
         });
 
-    createOrEditTodoController.$inject = ['$scope', 'todoService', '$stateParams', '$state'];
+    createOrEditTodoController.$inject = ['$scope', 'serviceProxies', '$stateParams', '$state'];
 
-    function createOrEditTodoController($scope, todoService, $stateParams, $state) {
+    function createOrEditTodoController($scope, serviceProxies, $stateParams, $state) {
         var vm = this;
         vm.message = 'Test';
         vm.todo = {};  
@@ -22,7 +22,7 @@
                 vm.todo = {};
                 $('#createOrEditTodoModal').modal('show');
             } else {
-                todoService.getTodoById(id).then(function (response) {
+                serviceProxies.todoService.getTodoById(id).then(function (response) {
                     vm.todo = response.data.Todo;
                     $('#createOrEditTodoModal').modal('show'); 
                 }).catch(function (error) {
@@ -33,7 +33,7 @@
 
         vm.save = function () {
             vm.saving = true;
-            todoService.createOrUpdate(vm.todo).then(function (response) {
+            serviceProxies.todoService.createOrUpdate(vm.todo).then(function (response) {
                 vm.saving = false;
                 vm.close();
                 vm.onSaved();

@@ -31,6 +31,12 @@ namespace tnine.Web.Host
                 "~/wwwroot/lib/angular-ui-router/release/angular-ui-router.js"
                 ));
 
+            // Services
+            bundles.Add(new ScriptBundle("~/bundles/services").Include(
+                "~/app/services/service-proxy.module.js",
+                "~/app/services/service-proxies.js"
+                ));
+
             // App
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/app/app.module.js",

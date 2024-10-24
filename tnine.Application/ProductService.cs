@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IProductService;
@@ -12,28 +13,18 @@ namespace tnine.Application
     {
         private readonly IProductRepository _productRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepo, IUnitOfWork unitOfWork)
+        public ProductService(
+            IProductRepository productRepo,
+            IUnitOfWork unitOfWork,
+            IMapper mapper
+            )
         {
             _productRepo = productRepo;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-
-        //public async Task<PagedResultDto<GetProductForViewDto>> GetAll(GetProductInputDto input)
-        //{
-        //    var products = from product in _productRepo.GetAll()
-        //                   select new GetProductForViewDto
-        //                   {
-        //                       Id = product.Id,
-        //                       Name = product.Name,
-        //                       Price = product.Price
-        //                   };
-
-        //    var totalCount = products.Count();
-        //    var results = products;
-
-        //    return new PagedResultDto<GetProductForViewDto>(totalCount, results);
-        //}
 
         public async Task<List<GetProductForViewDto>> GetAll()
         {
