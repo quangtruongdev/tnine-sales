@@ -79,12 +79,12 @@
         {
             name: 'customer',
             url: '/customer',
-            templateUrl: '/app/pages/customer/customer.component.html',
+            templateUrl: '/app/admin/customer/customer.component.html',
             controller: 'customerController',
             files: [
-                '/app/pages/customer/customer.module.js',
-                '/app/pages/customer/customer.component.js',
-                '/app/pages/customer/create-or-edit-customer-modal/create-or-edit-customer-modal.component.js'
+                '/app/admin/customer/customer.module.js',
+                '/app/admin/customer/customer.component.js',
+                '/app/admin/customer/create-or-edit-customer-modal/create-or-edit-customer-modal.component.js'
             ],
             requiresAuth: true,
             roles: ['admin']

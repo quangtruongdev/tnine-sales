@@ -222,6 +222,7 @@
   <ItemGroup>
     <Compile Include="Api\Authorization\AccountApiController.cs" />
     <Compile Include="Api\Authorization\PermissionApiController.cs" />
+    <Compile Include="Api\CustomerApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\Authorization\RoleApiController.cs" />
     <Compile Include="Api\TodoApiController.cs" />

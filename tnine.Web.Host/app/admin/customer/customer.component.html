@@ -1,10 +1,25 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+﻿<div ng-controller="customerController as vm">
+    <tnine-table data="vm.customers"
+                 columns="vm.columns"
+                 options="{}"
+                 on-row-click="vm.handleRowClick(item)">
+    </tnine-table>
+    <div class="d-flex float-end">
+        <div>
+            <button type="button" class="btn btn-outline-primary" ng-click="vm.add()">
+                <i class="fa-solid fa-plus me-1"></i>
+                Add
+            </button>
+            <button type="button" class="btn btn-outline-primary" ng-disabled="!vm.selectedId" ng-click="vm.edit()">
+                <i class="fa-solid fa-pen me-1"></i>
+                Edit
+            </button>
+            <button type="button" class="btn btn-outline-danger" ng-disabled="!vm.selectedId" ng-click="vm.delete()">
+                <i class="fa-solid fa-trash me-1"></i>
+                Delete
+            </button>
+        </div>
+    </div>
+    <create-or-edit-customer-modal on-saved="vm.reloads()">
+    </create-or-edit-customer-modal>
+</div>

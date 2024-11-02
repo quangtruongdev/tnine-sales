@@ -120,6 +120,21 @@
             }
         };
 
+        serviceProxies.customerService = {
+            getAll: function () {
+                return baseService.get('api/customer');
+            },
+            getCustomerForEdit: function (id) {
+                return baseService.get('api/customer/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/customer', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/customer/' + id);
+            }
+        };
+
         return serviceProxies;
     }
 
