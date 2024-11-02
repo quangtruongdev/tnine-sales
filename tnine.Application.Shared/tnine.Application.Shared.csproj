@@ -69,6 +69,11 @@
     <Compile Include="Authorization\IApplicationUserService\Dto\CreateOrEditApplicationUserDto.cs" />
     <Compile Include="Authorization\IApplicationUserService\Dto\GetApplicationUserForViewDto.cs" />
     <Compile Include="Authorization\IApplicationUserService\IApplicationUserService.cs" />
+    <Compile Include="ICustomerService\Dto\CreateOrEditCustomerDto.cs" />
+    <Compile Include="ICustomerService\Dto\GetCustomerForEditOutputDto.cs" />
+    <Compile Include="ICustomerService\Dto\GetCustomerForViewDto.cs" />
+    <Compile Include="ICustomerService\Dto\GetCustomerInputDto.cs" />
+    <Compile Include="ICustomerService\ICustomerService.cs" />
     <Compile Include="IProductService\Dto\CreateOrEditProductDto.cs" />
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />
     <Compile Include="IProductService\Dto\GetProductInputDto.cs" />
