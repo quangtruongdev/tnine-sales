@@ -1,24 +1,35 @@
-﻿<aside class="sidebar bg-light">
-    <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
-        <img src="~/wwwroot/assets/logo.jpeg" alt="tnine-logo" /> 
-        <button class="btn btn-primary">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+﻿<div ng-controller="sidebarController as vm">
+    <div class="sidebar bg-light border-end" style="width: 250px;">
+        <img src="path/to/logo.png" alt="Logo" class="img-fluid mb-3 mx-auto d-block" />
+
+        <nav class="nav nav-pills navbar-nav-scroll">
+            <ul class="nav flex-column">
+                <li class="nav-item" ng-repeat="item in vm.sidebar.items track by $index">
+                    <a ng-if="!item.external" class="nav-link text-decoration-none"
+                       ui-sref="{{ item.route }}">
+                        <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
+                    </a>
+
+                    <button ng-if="item.external" class="btn btn-light text-start"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ $index }}"
+                            aria-expanded="false"
+                            aria-controls="collapse{{ $index }}">
+                        <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
+                    </button>
+
+                    <div class="collapse" id="collapse{{$index}}">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item" ng-repeat="subItem in item.items track by $index">
+                                <a class="nav-link text-decoration-none" ui-sref="{{ subItem.route }}">
+                                    <i class="fas {{ subItem.icon }} me-2"></i> {{ subItem.displayName }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
     </div>
-    <div>
-        <ul class="nav flex-column p-3">
-            <li class="nav-item">
-                <a class="nav-link active" ui-sref="home">
-                    <i class="fa-solid fa-house"></i>
-                    <span class="ms-2">Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" ui-sref="todo">
-                    <i class="fa-solid fa-pen"></i>
-                    <span class="ms-2">Todo</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</aside>
+</div>

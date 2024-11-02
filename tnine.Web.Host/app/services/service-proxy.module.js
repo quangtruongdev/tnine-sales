@@ -3,5 +3,5 @@
 (function () {
     'use strict';
 
-    angular.module('tnine.services', [])
+    angular.module('app.services', [])
 })();

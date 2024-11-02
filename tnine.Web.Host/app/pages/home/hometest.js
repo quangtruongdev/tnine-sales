@@ -10,7 +10,6 @@
     function homeTestController() {
         var vm = this;
 
-        // Local message in the component
         vm.message = "Hello World!";
     }
 

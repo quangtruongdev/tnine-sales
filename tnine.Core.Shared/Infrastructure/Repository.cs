@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
-using tnine.Core.Auditing;
 
 namespace tnine.Core.Shared.Infrastructure
 {
-    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : FullAuditedEntity<TKey> where TKey : struct
+    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class where TKey : struct
     {
         private DatabaseContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
@@ -103,7 +101,7 @@ namespace tnine.Core.Shared.Infrastructure
         public virtual async Task DeleteAsync(TEntity entity)
         {
             _dbContext.Entry(entity).State = EntityState.Deleted;
-            entity.IsDeleted = true;
+            //entity.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
         }
 

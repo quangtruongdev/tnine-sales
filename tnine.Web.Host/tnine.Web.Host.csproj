@@ -90,6 +90,9 @@
     <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.2.2\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
@@ -217,10 +220,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\AccountApiController.cs" />
+    <Compile Include="Api\Authorization\AccountApiController.cs" />
+    <Compile Include="Api\Authorization\PermissionApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
+    <Compile Include="Api\Authorization\RoleApiController.cs" />
     <Compile Include="Api\TodoApiController.cs" />
-    <Compile Include="Api\ValuesController1.cs" />
+    <Compile Include="Api\Authorization\UserApiController.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -230,49 +235,77 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AngularController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infrastructure\Core\ServiceFactory.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\account\account.module.js" />
+    <Content Include="app\account\login\login.component.html" />
+    <Content Include="app\account\login\login.component.js" />
+    <Content Include="app\admin\authorization\account\account.component.html" />
+    <Content Include="app\admin\authorization\account\account.component.js" />
+    <Content Include="app\admin\authorization\account\account.module.js" />
+    <Content Include="app\admin\authorization\account\create-or-edit-account-modal\create-or-edit-account-modal.html" />
+    <Content Include="app\admin\authorization\account\create-or-edit-account-modal\create-or-edit-account-modal.js" />
+    <Content Include="app\admin\authorization\permission\create-or-edit-permission-modal\create-or-edit-permission-modal.component.html" />
+    <Content Include="app\admin\authorization\permission\create-or-edit-permission-modal\create-or-edit-permission-modal.component.js" />
+    <Content Include="app\admin\authorization\permission\permission.component.html" />
+    <Content Include="app\admin\authorization\permission\permission.component.js" />
+    <Content Include="app\admin\authorization\permission\permission.module.js" />
+    <Content Include="app\admin\authorization\role\create-or-edit-role-modal\create-or-edit-role-modal.component.html" />
+    <Content Include="app\admin\authorization\role\create-or-edit-role-modal\create-or-edit-role-modal.component.js" />
+    <Content Include="app\admin\authorization\role\role.component.html" />
+    <Content Include="app\admin\authorization\role\role.component.js" />
+    <Content Include="app\admin\authorization\role\role.module.js" />
+    <Content Include="app\admin\authorization\user\create-or-edit-user-modal\create-or-edit-user-modal.html" />
+    <Content Include="app\admin\authorization\user\create-or-edit-user-modal\create-or-edit-user-modal.js" />
+    <Content Include="app\admin\authorization\user\user.component.html" />
+    <Content Include="app\admin\authorization\user\user.component.js" />
+    <Content Include="app\admin\authorization\user\user.module.js" />
+    <Content Include="app\admin\customer\create-or-edit-customer-modal\create-or-edit-customer-modal.component.html" />
+    <Content Include="app\admin\customer\create-or-edit-customer-modal\create-or-edit-customer-modal.component.js" />
+    <Content Include="app\admin\customer\customer.component.html" />
+    <Content Include="app\admin\customer\customer.component.js" />
+    <Content Include="app\admin\customer\customer.module.js" />
     <Content Include="app\app.config.js" />
     <Content Include="app\app.module.js" />
-    <Content Include="app\components\ui\input-types\tnine-text-input\tnine-input-text.component.html" />
-    <Content Include="app\components\ui\input-types\tnine-text-input\tnine-input-text.component.js" />
-    <Content Include="app\components\ui\table\table.component.css" />
-    <Content Include="app\components\ui\table\table.component.html" />
-    <Content Include="app\components\ui\table\table.component.js" />
-    <Content Include="app\components\ui\table\table.module.js" />
-    <Content Include="app\components\ui\ui.module.js" />
+    <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.html" />
+    <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.js" />
+    <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-muiltiselect.component.html" />
+    <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-muiltiselect.component.js" />
+    <Content Include="app\shared\common\table\table.component.css" />
+    <Content Include="app\shared\common\table\table.component.html" />
+    <Content Include="app\shared\common\table\table.module.js" />
     <Content Include="app\pages\home\home.component.html" />
     <Content Include="app\pages\home\home.component.js" />
     <Content Include="app\pages\home\home.module.js" />
     <Content Include="app\pages\home\hometest.html" />
     <Content Include="app\pages\home\hometest.js" />
-    <Content Include="app\pages\login\login.component.css" />
-    <Content Include="app\pages\login\login.component.html" />
-    <Content Include="app\pages\login\login.component.js" />
-    <Content Include="app\pages\login\login.module.js" />
-    <Content Include="app\pages\product\product.component.js" />
-    <Content Include="app\pages\product\product.componet.html" />
-    <Content Include="app\pages\product\product.moule.js" />
     <Content Include="app\pages\todo\create-or-edit-todo-modal\create-or-edit-todo-modal.component.html" />
     <Content Include="app\pages\todo\create-or-edit-todo-modal\create-or-edit-todo-modal.component.js" />
     <Content Include="app\pages\todo\todo.component.html" />
     <Content Include="app\pages\todo\todo.module.js" />
     <Content Include="app\pages\todo\todo.component.js" />
+    <Content Include="app\services\auth-service.js" />
+    <Content Include="app\services\base-service.js" />
     <Content Include="app\services\dataFormatService.js" />
     <Content Include="app\services\service-proxies.js" />
     <Content Include="app\services\service-proxy.module.js" />
     <Content Include="app\services\toastrService.js" />
-    <Content Include="app\shared\common\tnine.common.js" />
+    <Content Include="app\shared\common\app-common.module.js" />
+    <Content Include="app\shared\layout\sidebar\app-menu-item.js" />
+    <Content Include="app\shared\layout\sidebar\app-menu.js" />
     <Content Include="app\shared\layout\layout.component.html" />
     <Content Include="app\shared\layout\layout.module.js" />
     <Content Include="app\shared\layout\sidebar\sidebar.component.css" />
@@ -1358,6 +1391,19 @@
     <Content Include="wwwroot\lib\moment\templates\empty.js" />
     <Content Include="wwwroot\lib\moment\templates\locale-header.js" />
     <Content Include="wwwroot\lib\moment\templates\test-header.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.core.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.directive.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.loaders.common.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.loaders.core.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.loaders.cssLoader.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.loaders.jsLoader.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.loaders.requireJSLoader.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.loaders.templatesLoader.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\modules\ocLazyLoad.polyfill.ie8.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\ocLazyLoad.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\ocLazyLoad.min.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\ocLazyLoad.require.js" />
+    <Content Include="wwwroot\lib\oclazyload\dist\ocLazyLoad.require.min.js" />
     <Content Include="wwwroot\lib\toastr\toastr.css" />
     <Content Include="wwwroot\lib\toastr\toastr.js" />
     <Content Include="wwwroot\lib\toastr\toastr.min.css" />
@@ -1365,6 +1411,7 @@
     <Content Include=".bowerrc" />
     <Content Include="AppSettings.config" />
     <Content Include="ConnectionStrings.config" />
+    <Content Include="app\app.route.js" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -1452,7 +1499,6 @@
     <Content Include="wwwroot\lib\jquery\external\sizzle\dist\sizzle.min.map" />
     <Content Include="wwwroot\lib\jquery\README.md" />
     <Content Include="wwwroot\lib\jquery\src\.jshintrc" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="wwwroot\lib\bootstrap\.bower.json" />
     <Content Include="wwwroot\lib\bootstrap\.browserslistrc" />
     <Content Include="wwwroot\lib\bootstrap\.bundlewatch.config.json" />
@@ -1810,13 +1856,16 @@
     <Content Include="wwwroot\lib\moment\package-lock.json" />
     <Content Include="wwwroot\lib\moment\README.md" />
     <Content Include="wwwroot\lib\moment\ts3.1-typing-tests\tsconfig.json" />
+    <Content Include="wwwroot\lib\oclazyload\.bower.json" />
+    <Content Include="wwwroot\lib\oclazyload\bower.json" />
+    <Content Include="wwwroot\lib\oclazyload\CHANGELOG.md" />
+    <Content Include="wwwroot\lib\oclazyload\LICENSE.md" />
+    <Content Include="wwwroot\lib\oclazyload\README.md" />
+    <Content Include="Views\Angular\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\components\ui\input-types\tnine-checkbox\" />
-    <Folder Include="app\components\ui\input-types\tnine-combobox\" />
-    <Folder Include="app\shared\common\session\" />
-    <Folder Include="App_Data\" />
-    <Folder Include="logs\" />
+    <Folder Include="app\shared\common\tree-views\" />
+    <Folder Include="app\shared\components\" />
     <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
   <ItemGroup>

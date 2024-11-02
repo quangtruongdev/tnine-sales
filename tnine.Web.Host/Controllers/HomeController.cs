@@ -6,7 +6,7 @@ namespace tnine.Web.Host.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Angular");
         }
     }
 }

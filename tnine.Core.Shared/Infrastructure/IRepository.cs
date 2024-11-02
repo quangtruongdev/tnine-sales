@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using tnine.Core.Auditing;
 
 namespace tnine.Core.Shared.Infrastructure
 {
-    public interface IRepository<TEntity, TKey> where TEntity : FullAuditedEntity<TKey> where TKey : struct
+    public interface IRepository<TEntity, TKey> where TEntity : class where TKey : struct
     {
         #region CREATE
         TEntity Add(TEntity entity);

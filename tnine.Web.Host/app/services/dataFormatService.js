@@ -3,7 +3,7 @@
 const moment = require("../../wwwroot/lib/moment/moment");
 
 (function () {
-    angular.module('tnine').factory('dataFormatService', function () {
+    angular.module('app.services').factory('dataFormatService', function () {
         return {
             dateFormat: function (date) {
                 if (moment(date).isValid()) {

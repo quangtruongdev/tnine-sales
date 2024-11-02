@@ -4,6 +4,6 @@
     var home = angular.module('tnine.home', []);
 
     home.controller('homeController', ['$scope', function ($scope) {
-        $scope.message = "ABC"; // Parent message
+        $scope.message = "BDES"; // Parent message
     }]);
 })();

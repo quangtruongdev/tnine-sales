@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
+using System.Data.Entity;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -38,7 +39,7 @@ namespace tnine.Web.Host
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
 
-            builder.RegisterType<DatabaseContext>().AsSelf().InstancePerRequest();
+            builder.RegisterType<DatabaseContext>().As<DbContext>().InstancePerRequest();
 
             // Automapper
             var mapperConfiguration = AutoMapperConfig.GetConfiguration();

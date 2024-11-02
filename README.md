@@ -32,3 +32,6 @@ Open Package Manager Console
 4. Open tnine.Application -> Tạo class <Tên bảng>Service.cs
 5. Open tnine.Web.Host -> App_Start -> AutoMapperCongfig.cs -> Thêm CreateMap<Tên bảng, CreateOrEdit<Tên bảng>Dto> trong AutoMapperProfile
 6. Open tnine.Web.Host -> Api -> Tạo Web Api Controller Class -> <Tên bảng>ApiController.cs
+
+# Hướng dẫn viết frontend
+1. 

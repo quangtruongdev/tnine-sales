@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
+using System.Threading.Tasks;
 using tnine.Core;
 using tnine.Core.Shared;
+
 
 namespace tnine.Web.Host
 {
@@ -18,6 +23,19 @@ namespace tnine.Web.Host
             app.CreatePerOwinContext(DatabaseContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
+            app.UseCors(CorsOptions.AllowAll);
+
+            // Cấu hình OAuth
+            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/oauth/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                Provider = new AuthorizationServerProvider(),
+                AllowInsecureHttp = true
+            });
+
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -34,17 +52,6 @@ namespace tnine.Web.Host
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
                         getUserIdCallback: (identity) => long.Parse(identity.GetUserId()))
-                    //{
-                    //    if (long.TryParse(identity.GetUserId(), out long userId))
-                    //    {
-                    //        return userId;
-                    //    }
-                    //    else
-                    //    {
-                    //        // Handle the error appropriately, e.g., log the error, throw a custom exception, etc.
-                    //        throw new FormatException($"Invalid user ID format: {identity.GetUserId()}");
-                    //    }
-                    //})
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
@@ -75,6 +82,56 @@ namespace tnine.Web.Host
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+
+        public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
+        {
+            public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+            {
+                context.Validated();
+                return Task.CompletedTask;
+            }
+
+            public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+            {
+                var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin") ?? "*";
+                if (!context.OwinContext.Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+                {
+                    context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+                }
+
+                var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+                ApplicationUser user;
+
+                try
+                {
+                    user = await userManager.FindAsync(context.UserName, context.Password);
+                }
+                catch (Exception ex)
+                {
+                    context.SetError("server_error", ex.Message);
+                    context.Rejected();
+                    return;
+                }
+
+                if (user != null)
+                {
+                    var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    context.Validated(identity);
+                }
+                else
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    context.Rejected();
+                }
+            }
+        }
+
+        private static UserManager<ApplicationUser, long> CreateUserManager(IdentityFactoryOptions<UserManager<ApplicationUser, long>> options, IOwinContext context)
+        {
+            var userStore = new UserStore<ApplicationUser, ApplicationRole, long, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>(context.Get<DatabaseContext>());
+            var owinManager = new UserManager<ApplicationUser, long>(userStore);
+            return owinManager;
         }
     }
 }

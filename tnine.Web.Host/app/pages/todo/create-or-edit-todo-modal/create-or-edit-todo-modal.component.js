@@ -6,39 +6,38 @@
             controllerAs: 'vm',
             bindings: {
                 onSaved: '&',
-            }
+            },
         });
 
     createOrEditTodoController.$inject = ['$scope', 'serviceProxies', '$stateParams', '$state'];
 
     function createOrEditTodoController($scope, serviceProxies, $stateParams, $state) {
         var vm = this;
-        vm.message = 'Test';
-        vm.todo = {};  
+        vm.todo = {};
         vm.saving = false;
 
         vm.show = function (id) {
             if (!id) {
                 vm.todo = {};
-                $('#createOrEditTodoModal').modal('show');
             } else {
                 serviceProxies.todoService.getTodoById(id).then(function (response) {
                     vm.todo = response.data.Todo;
-                    $('#createOrEditTodoModal').modal('show'); 
                 }).catch(function (error) {
                     console.error('Error fetching todo:', error);
                 });
             }
+            $('#createOrEditTodoModal').modal('show');
         };
 
         vm.save = function () {
             vm.saving = true;
-            serviceProxies.todoService.createOrUpdate(vm.todo).then(function (response) {
-                vm.saving = false;
-                vm.close();
+            serviceProxies.todoService.createOrUpdate(vm.todo).then(function () {
                 vm.onSaved();
+                vm.close();
             }).catch(function (error) {
                 console.error('Error saving todo:', error);
+            }).finally(function () {
+                vm.saving = false;
             });
         };
 

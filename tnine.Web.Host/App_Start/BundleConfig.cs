@@ -25,47 +25,32 @@ namespace tnine.Web.Host
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            // Angular core
+            // AngularJs
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/wwwroot/lib/angular/angular.js",
-                "~/wwwroot/lib/angular-ui-router/release/angular-ui-router.js"
-                ));
-
-            // Services
-            bundles.Add(new ScriptBundle("~/bundles/services").Include(
-                "~/app/services/service-proxy.module.js",
-                "~/app/services/service-proxies.js"
+                "~/wwwroot/lib/angular-ui-router/release/angular-ui-router.js",
+                "~/wwwroot/lib/oclazyload/dist/ocLazyLoad.js"
                 ));
 
             // App
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/app/app.module.js",
+                "~/app/app.route.js",
                 "~/app/app.config.js",
-                "~/app/shared/common/tnine.common.js"
+
+                "~/app/services/service-proxy.module.js",
+                "~/app/services/base-service.js",
+                "~/app/services/service-proxies.js",
+                "~/app/services/auth-service.js",
+                "~/app/services/toastrService.js"
                 ));
 
-            // Home
-            bundles.Add(new ScriptBundle("~/bundles/home").Include(
-                "~/app/pages/home/home.module.js",
-                "~/app/pages/home/home.controller.js",
-                "~/app/pages/home/hometest.js",
-                "~/app/pages/home/home.service.js"
-                ));
-
-            // Todo
-            bundles.Add(new ScriptBundle("~/bundles/todo").Include(
-                "~/app/pages/todo/todo.module.js",
-                "~/app/pages/todo/todo.component.js",
-                "~/app/pages/todo/create-or-edit-todo-modal/create-or-edit-todo-modal.component.js",
-                "~/app/pages/todo/todo.service.js"
-                ));
-
-            // UI
-            bundles.Add(new ScriptBundle("~/bundles/ui").Include(
-                "~/app/components/ui/ui.module.js",
-                "~/app/components/ui/table/table.module.js"
-
-                //"~/app/shared/ui/ui.directive.js"
+            // Common
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
+                "~/app/shared/common/app-common.module.js",
+                "~/app/shared/common/table/table.module.js",
+                "~/app/shared/layout/layout.module.js",
+                "~/app/shared/layout/sidebar/sidebar.component.js"
                 ));
         }
     }

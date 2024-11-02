@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using tnine.Application.Shared.Authorization.IPermissionService.Dto;
+using tnine.Application.Shared.IApplicationRoleService.Dto;
+using tnine.Application.Shared.IApplicationUserService.Dto;
 using tnine.Application.Shared.ITodoService.Dto;
 using tnine.Core;
 
@@ -8,6 +11,11 @@ namespace tnine.Web.Host.App_Start
     {
         public AutoMapperProfile()
         {
+            CreateMap<ApplicationUser, GetApplicationUserForViewDto>().ReverseMap();
+            CreateMap<ApplicationUser, CreateOrEditApplicationUserDto>().ReverseMap();
+            CreateMap<ApplicationRole, CreateOrEditRoleDto>().ReverseMap();
+            CreateMap<Permission, CreateOrEditPermissionDto>().ReverseMap();
+
             CreateMap<Todo, CreateOrEditTodoDto>().ReverseMap();
         }
     }

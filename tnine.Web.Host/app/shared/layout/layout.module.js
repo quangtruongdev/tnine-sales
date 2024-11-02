@@ -1,7 +1,5 @@
-﻿/// <reference path="../../../wwwroot/lib/angular/angular.js" />
-
-(function () {
-    'use strict';
-
-    angular.module('tnine.layout', []);
-})
+﻿(function () {
+    var layoutModule = angular.module('app.layout', [
+        'app.services'
+    ]);
+})();

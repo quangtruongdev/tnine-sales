@@ -1,25 +1,26 @@
-﻿<h1>Tat ca todo</h1>
-<tnine-table data="vm.todos"
-             columns="vm.columns"
-             options="{}"
-             on-row-click="vm.handleRowClick(item)">
-</tnine-table>
-<div class="d-flex float-end">
-    <div>
-        <button type="button" class="btn btn-outline-primary" ng-click="vm.add()">
-            <i class="fa-solid fa-plus me-1"></i>
-            Add
-        </button>
-        <button type="button" class="btn btn-outline-primary" ng-disabled="!vm.selectedId" ng-click="vm.edit()">
-            <i class="fa-solid fa-pen me-1"></i>
-            Edit
-        </button>
-        <button type="button" class="btn btn-outline-danger" ng-disabled="!vm.selectedId" ng-click="vm.delete()">
-            <i class="fa-solid fa-trash me-1"></i>
-            Delete
-        </button>
+﻿<div ng-controller="todoController as vm">
+    <h1>Tat ca todo</h1>
+    <tnine-table data="vm.todos"
+                 columns="vm.columns"
+                 options="{}"
+                 on-row-click="vm.handleRowClick(item)">
+    </tnine-table>
+    <div class="d-flex float-end">
+        <div>
+            <button type="button" class="btn btn-outline-primary" ng-click="vm.add(); console.log('Button Clicked from HTML')">
+                <i class="fa-solid fa-plus me-1"></i>
+                Add
+            </button>
+            <button type="button" class="btn btn-outline-primary" ng-disabled="!vm.selectedId" ng-click="vm.edit()">
+                <i class="fa-solid fa-pen me-1"></i>
+                Edit
+            </button>
+            <button type="button" class="btn btn-outline-danger" ng-disabled="!vm.selectedId" ng-click="vm.delete()">
+                <i class="fa-solid fa-trash me-1"></i>
+                Delete
+            </button>
+        </div>
     </div>
+    <create-or-edit-todo-modal on-saved="vm.reloads()">
+    </create-or-edit-todo-modal>
 </div>
-<create-or-edit-todo-modal on-saved="vm.reloads()">
-</create-or-edit-todo-modal>
-

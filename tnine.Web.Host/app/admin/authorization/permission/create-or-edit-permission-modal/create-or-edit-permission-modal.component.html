@@ -1,0 +1,49 @@
+﻿<div class="modal fade" id="createOrEditPermissionModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditPermissionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span ng-if="!vm.permission.Id">Create</span>
+                    <span ng-if="vm.permission.Id">Edit</span>
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-disabled="vm.saving"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Name</span>
+                            <input type="text" class="form-control" ng-model="vm.permission.Name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <tine-combobox 
+                            placeholder="Display Name"
+                            items="vm.permissions"
+                            display-member="DisplayName"
+                            ng-model="vm.permission.Name"
+                            ng-disabled="vm.saving"
+                            required="true">
+                        </tine-combobox>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-text">Description</span>
+                            <textarea class="form-control" ng-model="vm.permission.Description" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving">
+                    <i class="fa-regular fa-floppy-disk me-1"></i>
+                    <span>Save</span>
+                </button>
+                <button type="button" class="btn btn-outline-danger" ng-click="vm.close()" ng-disabled="vm.saving">
+                    <i class="fa-solid fa-xmark me-1"></i>
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

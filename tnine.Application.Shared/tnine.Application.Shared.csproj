@@ -51,14 +51,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAccountService\Dto\LoginDto.cs" />
+    <Compile Include="Authorization\IAccountService\Dto\LoginDto.cs" />
+    <Compile Include="Authorization\IAccountService\Dto\RegisterInput.cs" />
+    <Compile Include="Authorization\IAccountService\Dto\RegisterOutput.cs" />
+    <Compile Include="Authorization\IApplicationUserService\Dto\GetUserWithRoleForViewDto.cs" />
+    <Compile Include="Authorization\IPermissionService\Dto\CreateOrEditPermissionDto.cs" />
+    <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForEditOutputDto.cs" />
+    <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForViewDto.cs" />
+    <Compile Include="Authorization\IPermissionService\IPermissionService.cs" />
+    <Compile Include="IApplicationGroupService\IApplicationGroupService.cs" />
+    <Compile Include="IApplicationRolePermissionService\IApplicationRolePermissionService.cs" />
+    <Compile Include="Authorization\IApplicationRoleService\Dto\CreateOrEditRoleDto.cs" />
+    <Compile Include="Authorization\IApplicationRoleService\Dto\GetRoleForEditOutputDto.cs" />
+    <Compile Include="Authorization\IApplicationRoleService\Dto\GetRoleForInputDto.cs" />
+    <Compile Include="Authorization\IApplicationRoleService\Dto\GetRoleForViewDto.cs" />
+    <Compile Include="Authorization\IApplicationRoleService\IApplicationRoleService.cs" />
+    <Compile Include="Authorization\IApplicationUserService\Dto\CreateOrEditApplicationUserDto.cs" />
+    <Compile Include="Authorization\IApplicationUserService\Dto\GetApplicationUserForViewDto.cs" />
+    <Compile Include="Authorization\IApplicationUserService\IApplicationUserService.cs" />
     <Compile Include="IProductService\Dto\CreateOrEditProductDto.cs" />
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />
     <Compile Include="IProductService\Dto\GetProductInputDto.cs" />
     <Compile Include="IProductService\IProductService.cs" />
-    <Compile Include="IRoleService\Dto\CreateOrEditRoleDto.cs" />
-    <Compile Include="IRoleService\Dto\GetRoleForViewDto.cs" />
-    <Compile Include="IRoleService\IRoleService.cs" />
     <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForEditOutputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />
@@ -79,6 +93,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IApplicationGroupService\Dto\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

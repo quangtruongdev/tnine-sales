@@ -1,0 +1,21 @@
+﻿<div ng-controller="tnineComboboxController as vm" class="form-group">
+    <input type="text"
+           class="form-control"
+           placeholder="{{ vm.placeholder }}"
+           ng-model="vm.searchText"
+           ng-disabled="vm.disabled"
+           ng-required="vm.required"
+           ng-focus="vm.isFocused = true"
+           ng-blur="vm.isFocused = false"
+           ng-keyup="vm.filterItems()" />
+
+    <div class="dropdown" ng-show="vm.isFocused && vm.filteredItems.length > 0">
+        <div class="dropdown-menu show">
+            <a class="dropdown-item"
+               ng-repeat="item in vm.filteredItems"
+               ng-click="vm.selectItem(item)"
+               ng-bind="item[vm.displayMember]">
+            </a>
+        </div>
+    </div>
+</div>

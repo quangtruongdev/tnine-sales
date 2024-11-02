@@ -1,40 +1,60 @@
 ﻿(function (app) {
     app.factory('serviceProxies', serviceProxies);
 
-    serviceProxies.$inject = ['$http', '$q'];
+    serviceProxies.$inject = ['$http', '$q', '$injector', 'baseService'];
 
-    function serviceProxies($http, $q) {
+    function serviceProxies($http, $q, $injector, baseService) {
         //var serviceBase = 'http://localhost:44332/';
         var serviceProxies = {};
 
-        function getToken() {
-            return sessionStorage.getItem('token');
-        }
-
-        function httpConfig(contentType = 'application/json') {
-            var token = getToken();
-            var config = {
-                headers: {
-                    'Content-Type': contentType,
-                    'Authorization': 'Bearer ' + token,
-                }
-            };
-            return config;
-        }
-
-        serviceProxies['apiTokenAuth'] = function (data) {
-            return $http({
-                url: serviceBase + 'TokenAuth/Authenticate',
-                method: 'POST',
-                data: data,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(function (response) {
-                sessionStorage.setItem('token', response.data.result.accessToken);
-                return response.data;
-            });
+        var tokenInfo = {
+            accessToken: sessionStorage.getItem('access_token')
         };
+
+        this.setHeaders = function () {
+            delete $http.defaults.headers.common['X-Requested-With'];
+            if (tokenInfo) {
+                $http.defaults.headers.common['Authorization'] = 'Bearer ' + tokenInfo.accessToken;
+                $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+            }
+        }
+
+        serviceProxies.accountService = {
+            login: function (data) {
+                var deferred = $q.defer();
+                var requestData = "grant_type=password&username=" + encodeURIComponent(data.username) + "&password=" + encodeURIComponent(data.password);
+
+                $http.post('oauth/token', requestData, {
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                })
+                    .then(function (response) {
+                        sessionStorage.setItem('access_token', response.data.access_token);
+                        tokenInfo.accessToken = response.data.access_token;
+                        return getUserInfo(response.data.access_token);
+                    })
+                    .then(function (userInfoResponse) {
+                        deferred.resolve(userInfoResponse);
+                    })
+                    .catch(function (err) {
+                        console.error(err);
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            logout: function () {
+                sessionStorage.removeItem('access_token');
+                sessionStorage.removeItem('userInfo');
+            },
+        };
+
+        function getUserInfo(token) {
+            return $http.get('api/user/GetUserInfo', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            }).then(function (response) {
+                sessionStorage.setItem('userInfo', JSON.stringify(response.data));
+            });
+        }
 
         serviceProxies.todoService = {
             getTodos: function () {
@@ -51,20 +71,56 @@
             }
         };
 
-        serviceProxies['apiUpload'] = function (data) {
-            var formData = new FormData();
+        serviceProxies.roleService = {
+            getAll: function () {
+                return baseService.get('api/role');
+            },
+            getById: function (id) {
+                return baseService.get('api/role/' + id);
+            },
+            createOrUpdate: function (data) {
+                return baseService.post('api/role', data);
+            },
+            delete: function (id) {
+                return baseService.delete('api/role/' + id);
+            },
+            hasRole: function (roleName) {
+                var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+                return userInfo && userInfo.role && userInfo.role.includes(roleName);
+            }
+        };
 
-            formData.append('file', data);
+        serviceProxies.permissionService = {
+            getAll: function () {
+                return baseService.get('api/permission');
+            },
+            getById: function (id) {
+                return baseService.get('api/permission/' + id);
+            },
+            createOrUpdate: function (data) {
+                return baseService.post('api/permission', data);
+            },
+            delete: function (id) {
+                return baseService.delete('api/permission/' + id);
+            }
+        };
 
-            return $http.post(serviceBase + 'upload', formData, {
-                transformRequest: angular.identity,
-                headers: {
-                    'Content-Type': undefined
-                }
-            });
+        serviceProxies.userService = {
+            getAll: function () {
+                return baseService.get('api/user');
+            },
+            getById: function (id) {
+                return baseService.get('api/user/' + id);
+            },
+            createOrUpdate: function (data) {
+                return baseService.post('api/user', data);
+            },
+            delete: function (id) {
+                return baseService.delete('api/user/' + id);
+            }
         };
 
         return serviceProxies;
     }
 
-})(angular.module('tnine.services'));
+})(angular.module('app.services'));
