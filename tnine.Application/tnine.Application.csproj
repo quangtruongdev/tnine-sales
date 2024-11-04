@@ -84,8 +84,10 @@
     <Compile Include="Authorization\Roles\ApplicationRoleService.cs" />
     <Compile Include="Authorization\Users\ApplicationUserService.cs" />
     <Compile Include="CustomerService.cs" />
+    <Compile Include="ColorService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SizeService.cs" />
     <Compile Include="tnineBaseService.cs" />
     <Compile Include="TodoService.cs" />
   </ItemGroup>

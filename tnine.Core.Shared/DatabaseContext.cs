@@ -18,6 +18,8 @@ namespace tnine.Core.Shared
         public DbSet<ApplicationUserRole> UserRoles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Colors> Colors { get; set; }
+        public DbSet<Sizes> Sizes { get; set; }
 
         public static DatabaseContext Create()
         {

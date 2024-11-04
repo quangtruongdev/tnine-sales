@@ -43,7 +43,6 @@
     "commit": "c282f8f47736c195a4079024f62f3c9e16420619"
   },
   "_source": "https://github.com/ocombe/ocLazyLoad.git",
-  "_target": "^1.1.0",
-  "_originalSource": "oclazyload",
-  "_direct": true
+  "_target": "1.1.0",
+  "_originalSource": "oclazyload"
 }

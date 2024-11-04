@@ -223,8 +223,10 @@
     <Compile Include="Api\Authorization\AccountApiController.cs" />
     <Compile Include="Api\Authorization\PermissionApiController.cs" />
     <Compile Include="Api\CustomerApiController.cs" />
+    <Compile Include="Api\ColorApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\Authorization\RoleApiController.cs" />
+    <Compile Include="Api\SizeApiController.cs" />
     <Compile Include="Api\TodoApiController.cs" />
     <Compile Include="Api\Authorization\UserApiController.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
