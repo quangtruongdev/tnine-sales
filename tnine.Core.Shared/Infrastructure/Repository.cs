@@ -41,7 +41,15 @@ namespace tnine.Core.Shared.Infrastructure
             return entity;
         }
 
+        public async Task<TKey> InsertAndGetIdAsync(TEntity entity)
+        {
+            _dbSet.Add(entity);
+            await _dbContext.SaveChangesAsync();
 
+            var keyProperty = typeof(TEntity).GetProperty("Id");
+
+            return (TKey)keyProperty.GetValue(entity);
+        }
         #endregion
 
         #region UPDATE
@@ -200,6 +208,21 @@ namespace tnine.Core.Shared.Infrastructure
         public virtual async Task<TEntity> GetSingleByIdAsync(TKey id)
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string[] includes = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync(predicate);
         }
 
         //public async Task<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default)

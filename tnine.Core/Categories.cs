@@ -4,11 +4,12 @@ using tnine.Core.Auditing;
 
 namespace tnine.Core
 {
-    [Table("Sizes")]
-    public class Sizes : FullAuditedEntity<long>
+    [Table("Categories")]
+    public class Categories : FullAuditedEntity<long>
     {
         [MaxLength(255)]
         public string Name { get; set; }
+        [MaxLength(255)]
         public string Description { get; set; }
     }
 }

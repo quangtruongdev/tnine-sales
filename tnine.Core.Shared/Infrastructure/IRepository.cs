@@ -13,6 +13,7 @@ namespace tnine.Core.Shared.Infrastructure
 
         #region CREATE ASYNC
         Task<TEntity> InsertAsync(TEntity entity);
+        Task<TKey> InsertAndGetIdAsync(TEntity entity);
         #endregion
 
         #region UPDATE
@@ -51,6 +52,8 @@ namespace tnine.Core.Shared.Infrastructure
         #region READ ASYNC
         Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetSingleByIdAsync(TKey id);
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string[] includes = null);
+
         #endregion
 
     }

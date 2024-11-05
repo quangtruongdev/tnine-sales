@@ -9,7 +9,6 @@ namespace tnine.Core.Shared.Repositories
     public class ColorRepository : Repository<Colors, long>, IColorRepository
     {
         public ColorRepository(IDbFactory dbFactory) : base(dbFactory)
-        {
-        }
+        { }
     }
 }

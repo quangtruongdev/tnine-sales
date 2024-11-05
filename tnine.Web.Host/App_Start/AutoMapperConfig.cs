@@ -4,6 +4,8 @@ using tnine.Application.Shared.IApplicationRoleService.Dto;
 using tnine.Application.Shared.IApplicationUserService.Dto;
 using tnine.Application.Shared.ICustomerService.Dto;
 using tnine.Application.Shared.ISizeService.Dto;
+using tnine.Application.Shared.IProductService.Dto;
+using tnine.Application.Shared.IProductVariationDto.Dto;
 using tnine.Application.Shared.ITodoService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.IColorService.Dto;
@@ -23,8 +25,8 @@ namespace tnine.Web.Host.App_Start
             CreateMap<Todo, CreateOrEditTodoDto>().ReverseMap();
             CreateMap<Colors, CreateOrEditColorDto>().ReverseMap();
             CreateMap<Sizes, CreateOrEditSizeDto>().ReverseMap();
-
-
+            CreateMap<Product, CreateOrEditProductDto>().ReverseMap();
+            CreateMap<ProductVariations, CreateOrEditProductVariayionDto>().ReverseMap();
         }
     }
 

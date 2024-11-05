@@ -283,6 +283,11 @@
     <Content Include="app\admin\customer\customer.module.js" />
     <Content Include="app\app.config.js" />
     <Content Include="app\app.module.js" />
+    <Content Include="app\pages\product\create-or-edit-product-modal\create-or-edit-product-modal.component.html" />
+    <Content Include="app\pages\product\create-or-edit-product-modal\create-or-edit-product-modal.component.js" />
+    <Content Include="app\pages\product\product.component.js" />
+    <Content Include="app\pages\product\product.component.html" />
+    <Content Include="app\pages\product\product.module.js" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.html" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.js" />
     <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-muiltiselect.component.html" />

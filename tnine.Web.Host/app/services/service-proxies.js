@@ -135,6 +135,28 @@
             }
         };
 
+        serviceProxies.productService = {
+            getAll: function () {
+                return baseService.get('api/product');
+            },
+            getProductForEdit: function (id) {
+                return baseService.get('api/product/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/product', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/product/' + id);
+            }
+        };
+
+        serviceProxies.categoryService = {
+            getList: function () {
+                return baseService.get('api/product/category');
+            },
+        };
+        
+
         return serviceProxies;
     }
 

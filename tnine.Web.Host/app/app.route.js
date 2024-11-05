@@ -88,7 +88,20 @@
             ],
             requiresAuth: true,
             roles: ['admin']
-        }
+        },
+        {
+            name: 'product',
+            url: '/product',
+            templateUrl: '/app/pages/product/product.component.html',
+            controller: 'productController',
+            files: [
+                '/app/pages/product/product.module.js',
+                '/app/pages/product/product.component.js',
+                '/app/pages/product/create-or-edit-product-modal/create-or-edit-product-modal.component.js'
+            ],
+            requiresAuth: true,
+            roles: ['admin']
+        },
 
     ]);
 })(angular.module('root'));
