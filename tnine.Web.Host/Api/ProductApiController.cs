@@ -53,13 +53,13 @@ namespace tnine.Web.Host.Api
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [HttpGet]
-        [Route("category")]
-        public async Task<HttpResponseMessage> GetListCategories()
-        {
-            var products = await _productService.GetListCategories();
+        //[HttpGet]
+        //[Route("category")]
+        //public async Task<HttpResponseMessage> GetListCategories()
+        //{
+        //    var products = await _productService.GetListCategories();
 
-            return Request.CreateResponse(HttpStatusCode.OK, products);
-        }
+        //    return Request.CreateResponse(HttpStatusCode.OK, products);
+        //}
     }
 }

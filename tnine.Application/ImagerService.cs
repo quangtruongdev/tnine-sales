@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using tnine.Application.Shared.IImageService;
 using tnine.Application.Shared.IImageService.Dto;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Repositories;
 
 namespace tnine.Application

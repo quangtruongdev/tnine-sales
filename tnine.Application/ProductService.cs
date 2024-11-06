@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using tnine.Application.Shared.ICatagoryService.Dto;
+//using tnine.Application.Shared.ICatagoryService.Dto;
 using tnine.Application.Shared.IProductService;
 using tnine.Application.Shared.IProductService.Dto;
 using tnine.Core;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core.Shared.Repositories;
 
@@ -158,15 +157,15 @@ namespace tnine.Application
             return new PagedResultDto<GetProductForViewDto>(totalCount, items);
         }
 
-        public async Task<List<GetCategoryForViewDto>> GetListCategories()
-        {
-            var categories = await _categoreisRepo.GetAllAsync();
-            return categories.Select(o => new GetCategoryForViewDto
-            {
-                Id = o.Id,
-                Name = o.Name
-            }).ToList();
+        //public async Task<List<GetCategoryForViewDto>> GetListCategories()
+        //{
+        //    var categories = await _categoreisRepo.GetAllAsync();
+        //    return categories.Select(o => new GetCategoryForViewDto
+        //    {
+        //        Id = o.Id,
+        //        Name = o.Name
+        //    }).ToList();
 
-        }
+        //}
     }
 }
