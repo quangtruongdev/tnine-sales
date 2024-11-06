@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using tnine.Core.Auditing;
 
 namespace tnine.Core
@@ -10,5 +11,6 @@ namespace tnine.Core
         [StringLength(255)]
         public string Description { get; set; }
         public long ParentId { get; set; }
+        public virtual ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

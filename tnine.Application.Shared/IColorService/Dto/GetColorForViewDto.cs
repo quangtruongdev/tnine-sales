@@ -1,4 +1,4 @@
-﻿using tnine.Core.Shared.Dto;
+﻿using tnine.Core.Shared.Dtos;
 
 namespace tnine.Core.Shared.IColorService.Dto
 {

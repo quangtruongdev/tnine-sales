@@ -39,7 +39,7 @@
 
         vm.save = function () {
             vm.saving = true;
-            serviceProxies.permissionService.createOrUpdate(vm.permission).then(function () {
+            serviceProxies.permissionService.createOrEdit(vm.permission).then(function () {
                 vm.onSaved();
                 vm.close();
             }).catch(function (error) {

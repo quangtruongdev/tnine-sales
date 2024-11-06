@@ -1,4 +1,5 @@
-﻿<div class="modal fade" id="createOrEditTodoModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditModalLabel" aria-hidden="true">
+﻿<div class="modal fade" id="createOrEditTodoModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,7 +7,8 @@
                     <span ng-if="!vm.todo.Id">Create</span>
                     <span ng-if="vm.todo.Id">Edit</span>
                 </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-disabled="vm.saving"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    ng-disabled="vm.saving"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -19,7 +21,8 @@
                     <div class="col-md-12">
                         <div class="input-group">
                             <span class="input-group-text">Description</span>
-                            <textarea class="form-control" ng-model="vm.todo.Description" placeholder="Description"></textarea>
+                            <textarea class="form-control" ng-model="vm.todo.Description"
+                                placeholder="Description"></textarea>
                         </div>
                     </div>
                 </div>

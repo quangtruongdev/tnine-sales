@@ -1,21 +1,17 @@
-﻿<div ng-controller="tnineComboboxController as vm" class="form-group">
-    <input type="text"
-           class="form-control"
-           placeholder="{{ vm.placeholder }}"
-           ng-model="vm.searchText"
-           ng-disabled="vm.disabled"
-           ng-required="vm.required"
-           ng-focus="vm.isFocused = true"
-           ng-blur="vm.isFocused = false"
-           ng-keyup="vm.filterItems()" />
+﻿<div class="input-group mb-3">
+    <span class="input-group-text" ng-if="vm.text">
+        {{vm.text}}
+        <span ng-if="vm.isRequired" class="text-danger">*</span>
+    </span>
 
-    <div class="dropdown" ng-show="vm.isFocused && vm.filteredItems.length > 0">
-        <div class="dropdown-menu show">
-            <a class="dropdown-item"
-               ng-repeat="item in vm.filteredItems"
-               ng-click="vm.selectItem(item)"
-               ng-bind="item[vm.displayMember]">
-            </a>
-        </div>
-    </div>
+    <select class="form-select {{vm.class}} shadow-sm" ng-model="vm.selectedItem"
+        ng-options="item[vm.key] as item[vm.inputLabel] for item in vm.items" ng-change="vm.onSelectChange()"
+        ng-disabled="vm.isDisabled" ng-required="vm.isRequired">
+
+        <option value="" disabled selected hidden ng-if="vm.placeholder">{{vm.placeholder}}</option>
+    </select>
+</div>
+
+<div class="text-danger mt-1" ng-if="vm.isValidated && !vm.value">
+    <small>{{vm.errorMessage}}</small>
 </div>

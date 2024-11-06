@@ -80,9 +80,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationGroupService.cs" />
+    <Compile Include="Authorization\Accounts\AccountService.cs" />
     <Compile Include="Authorization\Permissions\PermissionService.cs" />
-    <Compile Include="Authorization\Roles\ApplicationRoleService.cs" />
-    <Compile Include="Authorization\Users\ApplicationUserService.cs" />
+    <Compile Include="Authorization\Roles\RoleService.cs" />
+    <Compile Include="Authorization\Users\UserService.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="ColorService.cs" />
     <Compile Include="ProductService.cs" />

@@ -34,4 +34,15 @@ Open Package Manager Console
 6. Open tnine.Web.Host -> Api -> Tạo Web Api Controller Class -> <Tên bảng>ApiController.cs
 
 # Hướng dẫn viết frontend
-1. 
+1. Đăng kí tài khoản với account/register
+- body: {Email: , Password: }
+2. Lấy token với oauth/token
+3. Tạo role 'admin' với api/role
+- body: {Name: , Description: , PermissionIds: []}
+4. Cập nhật role cho tài khoản api/user
+- body: {UserId: , RoleId: []}
+
+5. Cập nhật service trong app -> services -> service-proxies.js
+6. Tạo các thư mục trong admin tương tự pages -> todo
+7. Cập nhật route trong app.route.js
+8. Cập nhật sidebar trong app -> shared -> layout -> sidebar -> sidebar.component.js

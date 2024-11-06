@@ -12,15 +12,16 @@
         var vm = this;
 
         vm.loginData = {
-            username: '',
+            email: '',
             password: ''
         };
 
         vm.login = function () {
-            serviceProxies.accountService.login(vm.loginData).then(function (response) {
-                $state.go('home');
-            }).catch(function (error) {
-                console.error('Error logging in:', error);
+            var res = serviceProxies.accountService.login(vm.loginData);
+            res.then(function (result) {
+                if (result.success) {
+                    $state.go('home');
+                }
             });
         }
     }

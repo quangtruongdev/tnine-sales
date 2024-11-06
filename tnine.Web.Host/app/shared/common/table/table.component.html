@@ -8,14 +8,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in vm.data" ng-click="vm.onRowClick({item: item})">
+            <tr ng-repeat="item in vm.data track by $index" ng-click="vm.onRowClick({item: item})">
                 <td style="cursor:pointer;" ng-repeat="column in vm.columns">{{item[column.field]}}</td>
             </tr>
         </tbody>
     </table>
     <div class="table-footer d-flex align-content-center">
         <div>
-            
+
         </div>
         <div>
 

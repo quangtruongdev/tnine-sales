@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -24,7 +26,6 @@ namespace tnine.Core.Shared.Infrastructure
 
         public virtual TEntity Add(TEntity entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Added;
             _dbSet.Add(entity);
             return entity;
         }
@@ -33,14 +34,17 @@ namespace tnine.Core.Shared.Infrastructure
 
         public async Task<TEntity> InsertAsync(TEntity entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Added;
             _dbSet.Add(entity);
-
             await _dbContext.SaveChangesAsync();
-
             return entity;
         }
 
+        public async Task<TKey> InsertAndGetIdAsync(TEntity entity)
+        {
+            _dbSet.Add(entity);
+            await _dbContext.SaveChangesAsync();
+            return (TKey)entity.GetType().GetProperty("Id").GetValue(entity, null);
+        }
 
         #endregion
 
@@ -100,12 +104,47 @@ namespace tnine.Core.Shared.Infrastructure
 
         public virtual async Task DeleteAsync(TEntity entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Deleted;
-            //entity.IsDeleted = true;
-            await _dbContext.SaveChangesAsync();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), "Cannot delete a null entity.");
+            }
+
+            try
+            {
+                Console.WriteLine("Attempting to remove entity.");
+                _dbSet.Remove(entity);
+                await _dbContext.SaveChangesAsync();
+                Console.WriteLine("Entity removed successfully.");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                Console.WriteLine("DbEntityValidationException caught.");
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine($"Validation Error - Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                    }
+                }
+                throw; // Ném lại lỗi để có thể xử lý ở nơi khác
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine("DbUpdateException caught.");
+                Console.WriteLine($"Database update error: {ex.InnerException?.Message ?? ex.Message}");
+                throw; // Ném lại lỗi để xử lý
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("General exception caught.");
+                throw new Exception("Error deleting entity", ex);
+            }
         }
 
+
         #endregion
+
+        #region READ
 
         public virtual TEntity GetSingleById(TKey id)
         {
@@ -126,11 +165,6 @@ namespace tnine.Core.Shared.Infrastructure
         public virtual IEnumerable<TEntity> GetAll()
         {
             return _dbSet.AsEnumerable();
-        }
-
-        public async Task<List<TEntity>> GetAllAsync()
-        {
-            return await _dbSet.ToListAsync();
         }
 
         public virtual IEnumerable<TEntity> GetAll(string[] includes = null)
@@ -186,20 +220,38 @@ namespace tnine.Core.Shared.Infrastructure
             return _dbSet.Count(where);
         }
 
-        public Task<int> CountAsync(Expression<Func<TEntity, bool>> where)
-        {
-            return _dbSet.CountAsync(where);
-        }
-
         public bool CheckContains(Expression<Func<TEntity, bool>> predicate)
         {
             return _dbSet.Count(predicate) > 0;
         }
 
+        #endregion
+
         #region READ ASYNC
+
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
+
+        public async Task<List<TEntity>> GetAllByConditionAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbContext.Set<TEntity>().Where(predicate).ToListAsync();
+        }
+
         public virtual async Task<TEntity> GetSingleByIdAsync(TKey id)
         {
             return await _dbSet.FindAsync(id);
+        }
+
+        public virtual async Task<TEntity> GetSingleByConditionAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
+        }
+
+        public Task<int> CountAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return _dbSet.CountAsync(where);
         }
 
         //public async Task<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default)

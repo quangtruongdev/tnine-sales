@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using tnine.Application.Shared.ICustomerService.Dto;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 
 namespace tnine.Application.Shared.ICustomerService
 {

@@ -271,8 +271,8 @@
     <Content Include="app\admin\authorization\role\role.component.html" />
     <Content Include="app\admin\authorization\role\role.component.js" />
     <Content Include="app\admin\authorization\role\role.module.js" />
-    <Content Include="app\admin\authorization\user\create-or-edit-user-modal\create-or-edit-user-modal.html" />
-    <Content Include="app\admin\authorization\user\create-or-edit-user-modal\create-or-edit-user-modal.js" />
+    <Content Include="app\admin\authorization\user\create-or-edit-user-modal\create-or-edit-user-modal.component.html" />
+    <Content Include="app\admin\authorization\user\create-or-edit-user-modal\create-or-edit-user-modal.component.js" />
     <Content Include="app\admin\authorization\user\user.component.html" />
     <Content Include="app\admin\authorization\user\user.component.js" />
     <Content Include="app\admin\authorization\user\user.module.js" />
@@ -285,11 +285,11 @@
     <Content Include="app\app.module.js" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.html" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.js" />
-    <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-muiltiselect.component.html" />
-    <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-muiltiselect.component.js" />
+    <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-multiselect.component.html" />
+    <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-multiselect.component.js" />
     <Content Include="app\shared\common\table\table.component.css" />
     <Content Include="app\shared\common\table\table.component.html" />
-    <Content Include="app\shared\common\table\table.module.js" />
+    <Content Include="app\shared\common\table\table.component.js" />
     <Content Include="app\pages\home\home.component.html" />
     <Content Include="app\pages\home\home.component.js" />
     <Content Include="app\pages\home\home.module.js" />
@@ -307,6 +307,7 @@
     <Content Include="app\services\service-proxy.module.js" />
     <Content Include="app\services\toastrService.js" />
     <Content Include="app\shared\common\app-common.module.js" />
+    <Content Include="app\shared\constants\module-component-map.js" />
     <Content Include="app\shared\layout\sidebar\app-menu-item.js" />
     <Content Include="app\shared\layout\sidebar\app-menu.js" />
     <Content Include="app\shared\layout\layout.component.html" />
@@ -317,6 +318,7 @@
     <Content Include="app\shared\layout\topbar\topbar.component.css" />
     <Content Include="app\shared\layout\topbar\topbar.component.html" />
     <Content Include="app\shared\layout\topbar\topbar.component.js" />
+    <Content Include="app\shared\session\app-session.service.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -342,6 +344,14 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="wwwroot\lib\angular-loading-bar\build\loading-bar.css" />
+    <Content Include="wwwroot\lib\angular-loading-bar\build\loading-bar.js" />
+    <Content Include="wwwroot\lib\angular-loading-bar\build\loading-bar.min.css" />
+    <Content Include="wwwroot\lib\angular-loading-bar\build\loading-bar.min.js" />
+    <Content Include="wwwroot\lib\angular-loading-bar\Gruntfile.js" />
+    <Content Include="wwwroot\lib\angular-loading-bar\index.js" />
+    <Content Include="wwwroot\lib\angular-loading-bar\src\loading-bar.css" />
+    <Content Include="wwwroot\lib\angular-loading-bar\src\loading-bar.js" />
     <Content Include="wwwroot\lib\angular-ui-router\jest.config.js" />
     <Content Include="wwwroot\lib\angular-ui-router\karma.conf.js" />
     <Content Include="wwwroot\lib\angular-ui-router\release\angular-ui-router.js" />
@@ -1865,10 +1875,22 @@
     <Content Include="wwwroot\lib\oclazyload\LICENSE.md" />
     <Content Include="wwwroot\lib\oclazyload\README.md" />
     <Content Include="Views\Angular\Index.cshtml" />
+    <Content Include="wwwroot\lib\angular-loading-bar\.bower.json" />
+    <Content Include="wwwroot\lib\angular-loading-bar\bower.json" />
+    <Content Include="wwwroot\lib\angular-loading-bar\CHANGELOG.md" />
+    <Content Include="wwwroot\lib\angular-loading-bar\CONTRIBUTING.md" />
+    <Content Include="wwwroot\lib\angular-loading-bar\ISSUE_TEMPLATE.md" />
+    <Content Include="wwwroot\lib\angular-loading-bar\LICENSE" />
+    <Content Include="wwwroot\lib\angular-loading-bar\package.json" />
+    <Content Include="wwwroot\lib\angular-loading-bar\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="wwwroot\lib\angular-loading-bar\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\shared\common\pagination\" />
     <Folder Include="app\shared\common\tree-views\" />
     <Folder Include="app\shared\components\" />
+    <Folder Include="app\shared\layout\footer\" />
+    <Folder Include="app\shared\layout\scroll-top\" />
     <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
   <ItemGroup>

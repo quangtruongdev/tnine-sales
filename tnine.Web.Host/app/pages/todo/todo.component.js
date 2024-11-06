@@ -6,9 +6,9 @@
             controllerAs: 'vm',
         });
 
-    todoController.$inject = ['$scope', 'serviceProxies', '$state', '$element'];
+    todoController.$inject = ['serviceProxies'];
 
-    function todoController($scope, serviceProxies, $state, $element) {
+    function todoController(serviceProxies) {
         var vm = this;
         vm.todos = [];
         vm.selectedId = null;

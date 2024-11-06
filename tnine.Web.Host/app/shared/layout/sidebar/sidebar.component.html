@@ -1,21 +1,17 @@
-﻿<div ng-controller="sidebarController as vm">
-    <div class="sidebar bg-light border-end" style="width: 250px;">
+﻿<aside class="min-vh-100" ng-controller="sidebarController as vm">
+    <div class="bg-light border-end" style="width: 250px;">
         <img src="path/to/logo.png" alt="Logo" class="img-fluid mb-3 mx-auto d-block" />
 
         <nav class="nav nav-pills navbar-nav-scroll">
             <ul class="nav flex-column">
                 <li class="nav-item" ng-repeat="item in vm.sidebar.items track by $index">
-                    <a ng-if="!item.external" class="nav-link text-decoration-none"
-                       ui-sref="{{ item.route }}">
+                    <a ng-if="!item.external" class="nav-link text-decoration-none" ui-sref="{{ item.route }}">
                         <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
                     </a>
 
-                    <button ng-if="item.external" class="btn btn-light text-start"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapse{{ $index }}"
-                            aria-expanded="false"
-                            aria-controls="collapse{{ $index }}">
+                    <button ng-if="item.external" class="btn btn-light text-start" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}" aria-expanded="false"
+                        aria-controls="collapse{{ $index }}">
                         <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
                     </button>
 
@@ -32,4 +28,4 @@
             </ul>
         </nav>
     </div>
-</div>
+</aside>

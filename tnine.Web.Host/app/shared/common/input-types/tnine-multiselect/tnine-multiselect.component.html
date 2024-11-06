@@ -1,0 +1,12 @@
+﻿<div class="input-group mb-3">
+    <span class="input-group-text">{{vm.text}}</span>
+    <select class="form-control" 
+            multiple 
+            ng-model="vm.selectedItems"
+            ng-options="item[vm.key] as item[vm.inputLabel] for item in vm.items"
+            ng-change="vm.onSelectChange()"
+            ng-disabled="vm.isDisabled"
+            ng-required="vm.isRequired">
+        <option value="" disabled selected hidden ng-if="vm.placeholder">{{vm.placeholder}}</option>
+    </select>
+</div>

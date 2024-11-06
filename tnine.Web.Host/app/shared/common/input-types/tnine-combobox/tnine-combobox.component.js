@@ -1,57 +1,81 @@
 ﻿(function (app) {
-    app.component('tnineCombobox', {
-        templateUrl: '/app/shared/common/input-types/tnine-combobox/tnine-combobox.component.html',
-        controller: 'tnineComboboxController',
-        controllerAs: 'vm',
-        bindings: {
-            model: '=',
-            items: '<',
-            displayMember: '@',
-            valueMember: '@',
-            placeholder: '@',
-            required: '<',
-            disabled: '<',
-            onChange: '&'
-        }
-    });
+    app.directive('tnineCombobox', tnineCombobox);
 
-    app.controller('tnineComboboxController', tnineComboboxController);
+    function tnineCombobox() {
+        return {
+            restrict: 'E',
+            templateUrl: '/app/shared/common/input-types/tnine-combobox/tnine-combobox.component.html',
+            controller: tnineComboboxController,
+            controllerAs: 'vm',
+            scope: {
+                hasCheck: '<',
+                class: '<',
+                value: '=',
+                items: '=',
+                text: '@',
+                isRequired: '<',
+                isValidate: '<',
+                isDisabled: '<',
+                label: '@',
+                inputLabel: '@',
+                key: '@',
+                placeholder: '@',
+                hasFilter: '<',
+            },
+            bindToController: true
+        };
+    }
 
     tnineComboboxController.$inject = ['$scope'];
 
     function tnineComboboxController($scope) {
         var vm = this;
 
-        vm.$onInit = function () {
-            vm.displayMember = vm.displayMember || 'name';
-            vm.valueMember = vm.valueMember || 'id';
-            vm.placeholder = vm.placeholder || '';
-            vm.required = vm.required || false;
-            vm.disabled = vm.disabled || false;
+        vm.hasCheck = $scope.hasCheck || false;
+        vm.class = $scope.class || '';
+        vm.selectedItem = $scope.selectedItem;
+        vm.items = $scope.items;
+        vm.text = $scope.text;
+        vm.isRequired = $scope.isRequired || false;
+        vm.isValidate = $scope.isValidate || false;
+        vm.isDisabled = $scope.isDisabled || false;
+        vm.selectedItem = null;
+        vm.label = $scope.label || 'label';
+        vm.inputLabel = $scope.inputLabel || '';
+        vm.key = $scope.key || 'value';
+        vm.placeholder = $scope.placeholder || '';
+        vm.hasFilter = $scope.hasFilter || true;
 
-            // Khởi tạo biến tìm kiếm
-            vm.searchText = '';
-            vm.filteredItems = vm.items || [];
-        };
+        vm.errorMessage = 'This field is required';
 
-        vm.filterItems = function () {
-            var search = vm.searchText.toLowerCase();
-            vm.filteredItems = vm.items.filter(function (item) {
-                return item[vm.displayMember].toLowerCase().indexOf(search) > -1;
-            });
-        };
+        $scope.$watch('vm.items', function (newVal, oldVal) {
+            if (newVal) {
+                vm.items = newVal;
+            }
+        });
 
-        vm.selectItem = function (item) {
-            vm.model = item[vm.valueMember];
-            vm.searchText = item[vm.displayMember];
-            vm.filteredItems = [];
-            vm.onChangeInternal();
-        };
+        vm.onSelectChange = function () {
+            vm.value = vm.selectedItem;
 
-        vm.onChangeInternal = function () {
-            if (vm.onChange) {
-                vm.onChange();
+            if (vm.isRequired && !vm.value) {
+                vm.isValidate = true;
+            } else {
+                vm.isValidate = false;
             }
         };
+
+        vm.$onInit = function () {
+            if (vm.isRequired && !vm.value) {
+                vm.errorMessage = vm.label + ' is required';
+            }
+        };
+
+        $scope.$watch('vm.value', function (newVal, oldVal) {
+            if (newVal) {
+                vm.selectedItem = newVal;
+                vm.isValidate = false;
+            }
+        });
     }
-})(angular);
+
+})(angular.module('app.common'));

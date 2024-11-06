@@ -17,7 +17,8 @@
         //        new AppMenuItem('roles', 'Roles', 'role', 'fa-solid fa-users', [], false, 'Pages.Roles', true),
         //        new AppMenuItem('users', 'Users', 'user', 'fa-solid fa-user', [], false, 'Pages.Users', true),
         //    ], true, 'Pages.Authorization', true),
-        //    new AppMenuItem('todo', 'Todos', 'todo', 'fa-solid fa-pen', [], false, 'Pages.Todos', true)
+        //    new AppMenuItem('todo', 'Todos', 'todo', 'fa-solid fa-pen', [], false, 'Pages.Todos', true),
+        //    new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-users', [], false, 'Pages.Customers', true)
         //]);
 
         const menus = new AppMenu('main', 'Main Menu', [

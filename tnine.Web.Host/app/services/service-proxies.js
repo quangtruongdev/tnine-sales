@@ -4,57 +4,34 @@
     serviceProxies.$inject = ['$http', '$q', '$injector', 'baseService'];
 
     function serviceProxies($http, $q, $injector, baseService) {
-        //var serviceBase = 'http://localhost:44332/';
         var serviceProxies = {};
-
-        var tokenInfo = {
-            accessToken: sessionStorage.getItem('access_token')
-        };
-
-        this.setHeaders = function () {
-            delete $http.defaults.headers.common['X-Requested-With'];
-            if (tokenInfo) {
-                $http.defaults.headers.common['Authorization'] = 'Bearer ' + tokenInfo.accessToken;
-                $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-            }
-        }
 
         serviceProxies.accountService = {
             login: function (data) {
-                var deferred = $q.defer();
-                var requestData = "grant_type=password&username=" + encodeURIComponent(data.username) + "&password=" + encodeURIComponent(data.password);
-
-                $http.post('oauth/token', requestData, {
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-                })
-                    .then(function (response) {
-                        sessionStorage.setItem('access_token', response.data.access_token);
-                        tokenInfo.accessToken = response.data.access_token;
-                        return getUserInfo(response.data.access_token);
-                    })
-                    .then(function (userInfoResponse) {
-                        deferred.resolve(userInfoResponse);
-                    })
-                    .catch(function (err) {
-                        console.error(err);
-                        deferred.reject(err);
-                    });
-
-                return deferred.promise;
+                return baseService.post('api/account/login', data);
             },
             logout: function () {
-                sessionStorage.removeItem('access_token');
-                sessionStorage.removeItem('userInfo');
+                return baseService.post('api/account/logout');
             },
+            register: function (data) {
+                return baseService.post('api/account/register', data);
+            }
         };
 
-        function getUserInfo(token) {
-            return $http.get('api/user/GetUserInfo', {
-                headers: { 'Authorization': 'Bearer ' + token }
-            }).then(function (response) {
-                sessionStorage.setItem('userInfo', JSON.stringify(response.data));
-            });
-        }
+        serviceProxies.userService = {
+            getAll: function () {
+                return baseService.get('api/user');
+            },
+            getById: function (id) {
+                return baseService.get('api/user/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/user', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/user/' + id);
+            }
+        };
 
         serviceProxies.todoService = {
             getTodos: function () {
@@ -63,7 +40,7 @@
             getTodoById: function (id) {
                 return $http.get('api/todo/' + id);
             },
-            createOrUpdate: function (data) {
+            createOrEdit: function (data) {
                 return $http.post('api/todo', data);
             },
             deleteTodo: function (id) {
@@ -78,11 +55,11 @@
             getById: function (id) {
                 return baseService.get('api/role/' + id);
             },
-            createOrUpdate: function (data) {
+            createOrEdit: function (data) {
                 return baseService.post('api/role', data);
             },
             delete: function (id) {
-                return baseService.delete('api/role/' + id);
+                return baseService.remove('api/role/' + id);
             },
             hasRole: function (roleName) {
                 var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
@@ -97,26 +74,32 @@
             getById: function (id) {
                 return baseService.get('api/permission/' + id);
             },
-            createOrUpdate: function (data) {
+            createOrEdit: function (data) {
                 return baseService.post('api/permission', data);
             },
             delete: function (id) {
-                return baseService.delete('api/permission/' + id);
+                return baseService.remove('api/permission/' + id);
+            },
+            isGranted: function (permissionName) {
+                return baseService.get('api/permission/isGranted', { permissionName: permissionName });
             }
         };
 
         serviceProxies.userService = {
+            register: function (data) {
+                return baseService.post('api/account/register', data);
+            },
             getAll: function () {
-                return baseService.get('api/user');
+                return baseService.get('api/user/');
             },
             getById: function (id) {
                 return baseService.get('api/user/' + id);
             },
-            createOrUpdate: function (data) {
+            createOrEdit: function (data) {
                 return baseService.post('api/user', data);
             },
             delete: function (id) {
-                return baseService.delete('api/user/' + id);
+                return baseService.remove('api/user/' + id);
             }
         };
 

@@ -9,9 +9,9 @@
             },
         });
 
-    createOrEditTodoController.$inject = ['$scope', 'serviceProxies', '$stateParams', '$state'];
+    createOrEditTodoController.$inject = ['serviceProxies'];
 
-    function createOrEditTodoController($scope, serviceProxies, $stateParams, $state) {
+    function createOrEditTodoController(serviceProxies) {
         var vm = this;
         vm.todo = {};
         vm.saving = false;
@@ -31,7 +31,7 @@
 
         vm.save = function () {
             vm.saving = true;
-            serviceProxies.todoService.createOrUpdate(vm.todo).then(function () {
+            serviceProxies.todoService.createOrEdit(vm.todo).then(function () {
                 vm.onSaved();
                 vm.close();
             }).catch(function (error) {

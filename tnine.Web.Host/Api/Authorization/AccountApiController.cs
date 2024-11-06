@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Http;
 using tnine.Application.Shared.Authorization.IAccountService.Dto;
 using tnine.Application.Shared.IAccountService.Dto;
+using tnine.Application.Shared.IRoleService;
 using tnine.Core;
+using tnine.Core.Shared.Dtos;
 
 namespace tnine.Web.Host.Api
 {
@@ -14,15 +16,21 @@ namespace tnine.Web.Host.Api
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IRoleService _roleService;
 
         public AccountApiController()
         {
         }
 
-        public AccountApiController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountApiController(
+            ApplicationUserManager userManager,
+            ApplicationSignInManager signInManager,
+            IRoleService roleService
+            )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _roleService = roleService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -43,7 +51,6 @@ namespace tnine.Web.Host.Api
             }
         }
 
-
         // POST api/Account/Login
         [AllowAnonymous]
         [Route("Login")]
@@ -58,7 +65,7 @@ namespace tnine.Web.Host.Api
             switch (result)
             {
                 case SignInStatus.Success:
-                    return Ok();
+                    return Ok(new { success = true, message = "Login successful" });
                 case SignInStatus.LockedOut:
                     return BadRequest("Locked out");
                 case SignInStatus.RequiresVerification:
@@ -79,16 +86,56 @@ namespace tnine.Web.Host.Api
                 return BadRequest(ModelState);
             }
 
+            var existingUser = await UserManager.FindByEmailAsync(input.Email);
+            if (existingUser != null)
+            {
+                return BadRequest("User already exists");
+            }
+
             var user = new ApplicationUser { UserName = input.Email, Email = input.Email };
             var result = await UserManager.CreateAsync(user, input.Password);
             if (result.Succeeded)
             {
+                if (input.RoleIds != null)
+                {
+                    foreach (var roleId in input.RoleIds)
+                    {
+                        var role = await _roleService.GetById(new EntityDto<long> { Id = roleId });
+                        if (role == null) return BadRequest("Role not found");
+
+                        var roleResult = await UserManager.AddToRoleAsync(user.Id, role.Role.Name);
+                        if (!roleResult.Succeeded)
+                        {
+                            return BadRequest(string.Join(", ", roleResult.Errors));
+                        }
+                    }
+                }
                 return Ok();
             }
-
-            return BadRequest(string.Join(", ", result.Errors));
+            else
+            {
+                return BadRequest(string.Join(", ", result.Errors));
+            }
         }
 
+        [HttpGet]
+        [Route("GetAccountInfo")]
+        public async Task<IHttpActionResult> GetAccountInfo()
+        {
+            var userManager = UserManager;
+
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                IsAuthenticated = User.Identity.IsAuthenticated,
+                Username = User.Identity.Name,
+            });
+        }
 
         // POST api/Account/Logout
         [AllowAnonymous]

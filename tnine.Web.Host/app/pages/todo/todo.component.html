@@ -1,13 +1,11 @@
 ﻿<div ng-controller="todoController as vm">
     <h1>Tat ca todo</h1>
-    <tnine-table data="vm.todos"
-                 columns="vm.columns"
-                 options="{}"
-                 on-row-click="vm.handleRowClick(item)">
+    <tnine-table data="vm.todos" columns="vm.columns" options="{}" on-row-click="vm.handleRowClick(item)">
     </tnine-table>
     <div class="d-flex float-end">
         <div>
-            <button type="button" class="btn btn-outline-primary" ng-click="vm.add(); console.log('Button Clicked from HTML')">
+            <button type="button" class="btn btn-outline-primary"
+                ng-click="vm.add(); console.log('Button Clicked from HTML')">
                 <i class="fa-solid fa-plus me-1"></i>
                 Add
             </button>

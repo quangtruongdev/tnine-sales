@@ -6,9 +6,9 @@
             controllerAs: 'vm'
         });
 
-    customerController.$inject = ['serviceProxies', '$state', '$element'];
+    customerController.$inject = ['serviceProxies'];
 
-    function customerController(serviceProxies, $state, $element) {
+    function customerController(serviceProxies) {
         var vm = this;
         vm.customers = [];
         vm.selectedId = null;
@@ -29,7 +29,7 @@
             });
         };
 
-        vm.reload = function () {
+        vm.reloads = function () {
             vm.getCustomers();
         };
 

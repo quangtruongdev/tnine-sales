@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using System.Linq;
 using tnine.Application.Shared.Authorization.IPermissionService.Dto;
-using tnine.Application.Shared.IApplicationRoleService.Dto;
-using tnine.Application.Shared.IApplicationUserService.Dto;
+using tnine.Application.Shared.IRoleService.Dto;
+using tnine.Application.Shared.IUserService.Dto;
 using tnine.Application.Shared.ICustomerService.Dto;
 using tnine.Application.Shared.ISizeService.Dto;
 using tnine.Application.Shared.ITodoService.Dto;
@@ -16,7 +17,10 @@ namespace tnine.Web.Host.App_Start
         {
             CreateMap<ApplicationUser, GetApplicationUserForViewDto>().ReverseMap();
             CreateMap<ApplicationUser, CreateOrEditApplicationUserDto>().ReverseMap();
-            CreateMap<ApplicationRole, CreateOrEditRoleDto>().ReverseMap();
+            CreateMap<ApplicationRole, CreateOrEditRoleDto>()
+                .ForMember(dest => dest.PermissionIds, opt => opt.MapFrom(src => src.RolePermissions.Select(p => p.PermissionId)))
+                .ReverseMap()
+                .ForMember(dest => dest.RolePermissions, opt => opt.Ignore());
             CreateMap<Permission, CreateOrEditPermissionDto>().ReverseMap();
 
             CreateMap<Customer, CreateOrEditCustomerDto>().ReverseMap();

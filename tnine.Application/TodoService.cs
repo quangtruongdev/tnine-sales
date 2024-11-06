@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using tnine.Application.Shared.ITodo;
 using tnine.Application.Shared.ITodoService.Dto;
 using tnine.Core;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core.Shared.Repositories;
 

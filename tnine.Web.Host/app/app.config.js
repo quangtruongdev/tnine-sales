@@ -1,5 +1,6 @@
 ﻿(function (app) {
-    app.config(config).config(configAuth);
+    app.config(config)
+        .config(configAuth);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ROUTES'];
 
@@ -16,6 +17,7 @@
                         return $ocLazyLoad.load(route.files);
                     }],
                     auth: ['$q', '$location', 'authService', function ($q, $location, authService) {
+                        authService.initialize();
                         if (route.requiresAuth && !authService.isAuthenticated()) {
                             $location.path('/login');
                             return $q.reject('Not Authorized');
@@ -41,13 +43,7 @@
                         '/app/shared/layout/sidebar/sidebar.component.js',
                         '/app/shared/layout/sidebar/app-menu.js',
                         '/app/shared/layout/sidebar/app-menu-item.js',
-                        //'/app/shared/layout/topbar/topbar.component.js',
-                        //'/app/shared/layout/topbar/topbar.service.js',
-                        //'/app/shared/layout/topbar/topbar.controller.js',
-                        //'/app/shared/layout/topbar/topbar.directive.js',
-                        //'/app/shared/layout/topbar/topbar.css',
-                        //'/app/shared/layout/sidebar/sidebar.css',
-                        //'/app/shared/layout/layout.css'
+                        '/app/shared/layout/topbar/topbar.component.js',
                     ]);
                 }]
             }

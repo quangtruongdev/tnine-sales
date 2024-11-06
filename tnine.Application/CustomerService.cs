@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core;
 using tnine.Application.Shared.ICustomerService;

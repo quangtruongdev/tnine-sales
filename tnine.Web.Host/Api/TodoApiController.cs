@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using tnine.Application.Shared.ITodo;
 using tnine.Application.Shared.ITodoService.Dto;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 using tnine.Web.Host.Infrastructure.Core;
 
 namespace tnine.Web.Host.Api

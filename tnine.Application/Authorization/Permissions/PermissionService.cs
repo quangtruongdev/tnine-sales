@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using tnine.Application.Shared.Authorization.IPermissionService;
 using tnine.Application.Shared.Authorization.IPermissionService.Dto;
 using tnine.Core;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Repositories;
 
 namespace tnine.Application.Authorization.Permissions
@@ -13,14 +13,17 @@ namespace tnine.Application.Authorization.Permissions
     public class PermissionService : IPermissionService
     {
         private readonly IPermissionRepository _permissionRepository;
+        private readonly IRolePermissionRepository _rolePermissionRepo;
         private IMapper _mapper;
 
         public PermissionService(
             IPermissionRepository permissionRepository,
+            IRolePermissionRepository rolePermissionRepo,
             IMapper mapper
             )
         {
             _permissionRepository = permissionRepository;
+            _rolePermissionRepo = rolePermissionRepo;
             _mapper = mapper;
         }
 

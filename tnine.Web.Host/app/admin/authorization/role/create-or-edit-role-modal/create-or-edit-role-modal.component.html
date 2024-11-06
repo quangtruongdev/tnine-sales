@@ -1,20 +1,25 @@
-﻿<div class="modal fade" id="createOrEditRoleModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditRoleLabel" aria-hidden="true">
-    <div class="modal-dialog">
+﻿<div class="modal fade" id="createOrEditRoleModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditRoleLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     <span ng-if="!vm.role.Id">Create</span>
                     <span ng-if="vm.role.Id">Edit</span>
                 </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-disabled="vm.saving"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    ng-disabled="vm.saving"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="input-group mb-3">
                             <span class="input-group-text">Name</span>
                             <input type="text" class="form-control" ng-model="vm.role.Name" placeholder="Name">
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!--<tnine-multiselect></tnine-multiselect>-->
                     </div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using tnine.Application.Shared.IApplicationRoleService;
-using tnine.Application.Shared.IApplicationRoleService.Dto;
-using tnine.Core.Shared.Dto;
+using tnine.Application.Shared.IRoleService;
+using tnine.Application.Shared.IRoleService.Dto;
+using tnine.Core.Shared.Dtos;
 
 namespace tnine.Web.Host.Api
 {
@@ -10,18 +10,18 @@ namespace tnine.Web.Host.Api
     [Authorize]
     public class RoleApiController : ApiController
     {
-        private readonly IApplicationRoleService _applicationRoleService;
+        private readonly IRoleService _roleService;
 
-        public RoleApiController(IApplicationRoleService applicationRoleService)
+        public RoleApiController(IRoleService applicationRoleService)
         {
-            _applicationRoleService = applicationRoleService;
+            _roleService = applicationRoleService;
         }
 
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetAll()
         {
-            var roles = await _applicationRoleService.GetAll();
+            var roles = await _roleService.GetAll();
             return Ok(roles);
         }
 
@@ -30,7 +30,7 @@ namespace tnine.Web.Host.Api
         public async Task<IHttpActionResult> GetById(long id)
         {
             var input = new EntityDto<long> { Id = id };
-            var role = await _applicationRoleService.GetById(input);
+            var role = await _roleService.GetById(input);
             return Ok(role);
         }
 
@@ -38,14 +38,14 @@ namespace tnine.Web.Host.Api
         [Route("")]
         public async Task<IHttpActionResult> CreateOrEdit([FromBody] CreateOrEditRoleDto input)
         {
-            if (input == null)
+            if (ModelState.IsValid)
             {
                 return BadRequest("Invalid data.");
             }
 
             try
             {
-                await _applicationRoleService.CreateOrEdit(input);
+                await _roleService.CreateOrEdit(input);
                 return Ok("Role created or updated successfully.");
             }
             catch
@@ -59,7 +59,7 @@ namespace tnine.Web.Host.Api
         public async Task<IHttpActionResult> Delete(long id)
         {
             var input = new EntityDto<long> { Id = id };
-            await _applicationRoleService.Delete(input);
+            await _roleService.Delete(input);
             return Ok("Role deleted successfully.");
         }
     }

@@ -1,74 +1,61 @@
-﻿/// <reference path="../../wwwroot/lib/angular/angular.js" />
-
-(function (app) {
+﻿(function (app) {
     app.factory('baseService', baseService);
 
-    baseService.$inject = ['$http', '$q', '$window', 'toastrService'];
+    baseService.$inject = ['$http', '$q', 'toastrService'];
 
-    function baseService($http, $q, $window, toastrService) {
+    function baseService($http, $q, toastrService) {
+        function get(url, params) {
+            return $http.get(url, { params: params })
+                .then(function (response) {
+                    return response.data;
+                })
+                .catch(function (error) {
+                    toastrService.error(error.data.message, 'Error');
+                    return $q.reject(error);
+                });
+        }
+
+        function post(url, data) {
+            return $http.post(url, data)
+                .then(function (response) {
+                    toastrService.success(response.data.message);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    toastrService.error(error.data.message, 'Error');
+                    return $q.reject(error);
+                });
+        }
+
+        function put(url, data) {
+            return $http.put(url, data)
+                .then(function (response) {
+                    toastrService.success(response.data.message);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    toastrService.error(error.data.message, 'Error');
+                    return $q.reject(error);
+                });
+        }
+
+        function remove(url) {
+            return $http.delete(url)
+                .then(function (response) {
+                    toastrService.success(response.data.message);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    toastrService.error(error.data.message, 'Error');
+                    return $q.reject(error);
+                });
+        }
+
         return {
             get: get,
             post: post,
             put: put,
             remove: remove
         };
-
-        function setHeaders() {
-            delete $http.defaults.headers.common['X-Requested-With'];
-            if ($window.sessionStorage.getItem('access_token')) {
-                $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.sessionStorage.getItem('access_token');
-                $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-            }
-        }
-
-        function get(url, params) {
-            setHeaders();
-            return $http.get(url, params)
-                .then(function (response) {
-                    return response.data;
-                })
-                .catch(function (err) {
-                    toastrService.error(err.data.message);
-                    return $q.reject(err);
-                });
-        }
-
-        function post(url, data) {
-            setHeaders();
-            return $http.post(url, data)
-                .then(function (response) {
-                    return response.data;
-                })
-                .catch(function (err) {
-                    toastrService.error(err.data.message);
-                    return $q.reject(err);
-                });
-        }
-
-        function put(url, data) {
-            setHeaders();
-            return $http.put(url, data)
-                .then(function (response) {
-                    return response.data;
-                })
-                .catch(function (err) {
-                    toastrService.error(err.data.message);
-                    return $q.reject(err);
-                });
-        }
-
-        function remove(url) {
-            setHeaders();
-            return $http.delete(url)
-                .then(function (response) {
-                    return response.data;
-                })
-                .catch(function (err) {
-                    toastrService.error(err.data.message);
-                    return $q.reject(err);
-                });
-        }
-
     }
-
 })(angular.module('app.services'));

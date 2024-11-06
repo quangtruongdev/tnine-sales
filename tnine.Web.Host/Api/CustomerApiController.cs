@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Net.Http;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
-using tnine.Core.Shared.Dto;
-using tnine.Web.Host.Infrastructure.Core;
 using System.Web.Http;
 using tnine.Application.Shared.ICustomerService;
 using tnine.Application.Shared.ICustomerService.Dto;
+using tnine.Core.Shared.Dtos;
+using tnine.Web.Host.Infrastructure.Core;
 
 namespace tnine.Web.Host.Api
 {
@@ -39,7 +39,7 @@ namespace tnine.Web.Host.Api
 
         [HttpPost]
         [Route("")]
-        public async Task<HttpResponseMessage> CreateOrEdit([System.Web.Http.FromBody] CreateOrEditCustomerDto input)
+        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditCustomerDto input)
         {
             if (input == null)
             {

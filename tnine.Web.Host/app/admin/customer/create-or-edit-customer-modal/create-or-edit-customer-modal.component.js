@@ -11,7 +11,7 @@
 
     CreateOrEditCustomerModalController.$inject = ['serviceProxies'];
 
-    function CreateOrEditCustomerModalController(serviceProxies, $element) {
+    function CreateOrEditCustomerModalController(serviceProxies) {
         var vm = this;
         vm.customer = {};
         vm.saving = false;

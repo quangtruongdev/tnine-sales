@@ -6,9 +6,9 @@
             controllerAs: 'vm'
         });
 
-        roleController.$inject = ['serviceProxies', '$state', '$element'];
+        roleController.$inject = ['serviceProxies'];
 
-        function roleController(serviceProxies, $state, $element){
+        function roleController(serviceProxies){
             var vm = this;
             vm.roles = [];
             vm.selectedId = null;

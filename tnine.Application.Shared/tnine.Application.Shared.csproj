@@ -51,24 +51,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorization\IAccountService\Dto\CreateOrEditRoleForUserDto.cs" />
     <Compile Include="Authorization\IAccountService\Dto\LoginDto.cs" />
     <Compile Include="Authorization\IAccountService\Dto\RegisterInput.cs" />
     <Compile Include="Authorization\IAccountService\Dto\RegisterOutput.cs" />
-    <Compile Include="Authorization\IApplicationUserService\Dto\GetUserWithRoleForViewDto.cs" />
+    <Compile Include="Authorization\IAccountService\IAccountService.cs" />
+    <Compile Include="Authorization\IUserService\Dto\GetUserWithRoleForViewDto.cs" />
     <Compile Include="Authorization\IPermissionService\Dto\CreateOrEditPermissionDto.cs" />
     <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForEditOutputDto.cs" />
     <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForViewDto.cs" />
+    <Compile Include="Authorization\IPermissionService\Dto\GetPermissionWithRoleDto.cs" />
     <Compile Include="Authorization\IPermissionService\IPermissionService.cs" />
     <Compile Include="IApplicationGroupService\IApplicationGroupService.cs" />
     <Compile Include="IApplicationRolePermissionService\IApplicationRolePermissionService.cs" />
-    <Compile Include="Authorization\IApplicationRoleService\Dto\CreateOrEditRoleDto.cs" />
-    <Compile Include="Authorization\IApplicationRoleService\Dto\GetRoleForEditOutputDto.cs" />
-    <Compile Include="Authorization\IApplicationRoleService\Dto\GetRoleForInputDto.cs" />
-    <Compile Include="Authorization\IApplicationRoleService\Dto\GetRoleForViewDto.cs" />
-    <Compile Include="Authorization\IApplicationRoleService\IApplicationRoleService.cs" />
-    <Compile Include="Authorization\IApplicationUserService\Dto\CreateOrEditApplicationUserDto.cs" />
-    <Compile Include="Authorization\IApplicationUserService\Dto\GetApplicationUserForViewDto.cs" />
-    <Compile Include="Authorization\IApplicationUserService\IApplicationUserService.cs" />
+    <Compile Include="Authorization\IRoleService\Dto\CreateOrEditRoleDto.cs" />
+    <Compile Include="Authorization\IRoleService\Dto\GetRoleForEditOutputDto.cs" />
+    <Compile Include="Authorization\IRoleService\Dto\GetRoleForInputDto.cs" />
+    <Compile Include="Authorization\IRoleService\Dto\GetRoleForViewDto.cs" />
+    <Compile Include="Authorization\IRoleService\IRoleService.cs" />
+    <Compile Include="Authorization\IUserService\Dto\CreateOrEditApplicationUserDto.cs" />
+    <Compile Include="Authorization\IUserService\Dto\GetApplicationUserForViewDto.cs" />
+    <Compile Include="Authorization\IUserService\IUserService.cs" />
     <Compile Include="ICustomerService\Dto\CreateOrEditCustomerDto.cs" />
     <Compile Include="ICustomerService\Dto\GetCustomerForEditOutputDto.cs" />
     <Compile Include="ICustomerService\Dto\GetCustomerForViewDto.cs" />

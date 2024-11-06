@@ -1,11 +1,24 @@
-﻿<div ng-controller="loginController as vm">
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" class="form-control" id="username" ng-model="vm.loginData.username" required>
+﻿<div ng-controller="loginController as vm"
+    class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        <div class="col-md-7">
+            <div class="border shadow-sm p-4 rounded bg-white w-100">
+                <h2 class="mb-4 text-center">Login</h2>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" ng-model="vm.loginData.email" required
+                        placeholder="Enter your email">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" ng-model="vm.loginData.password" required
+                        placeholder="Enter your password">
+                </div>
+
+                <button type="button" class="btn btn-primary w-100" ng-click="vm.login()">Login</button>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" ng-model="vm.loginData.password" required>
-    </div>
-    <button type="button" class="btn btn-primary" ng-click="vm.login()">Login</button>
 </div>

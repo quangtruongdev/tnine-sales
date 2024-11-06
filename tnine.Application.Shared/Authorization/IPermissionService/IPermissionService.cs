@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using tnine.Application.Shared.Authorization.IPermissionService.Dto;
-using tnine.Core.Shared.Dto;
+using tnine.Core.Shared.Dtos;
 
 namespace tnine.Application.Shared.Authorization.IPermissionService
 {
@@ -11,5 +11,6 @@ namespace tnine.Application.Shared.Authorization.IPermissionService
         Task CreateOrEdit(CreateOrEditPermissionDto input);
         Task<GetPermissionForEditOutputDto> GetById(EntityDto<long> input);
         Task Delete(EntityDto<long> input);
+        //Task<bool> IsGraned(GetPermissionWithRoleDto input);
     }
 }

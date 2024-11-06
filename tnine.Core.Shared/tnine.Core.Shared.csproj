@@ -68,10 +68,10 @@
     <Compile Include="Domain\Repositories\IReadOnlyRepository.cs" />
     <Compile Include="Domain\Repositories\IRepository.cs" />
     <Compile Include="Domain\Repositories\RepositoryBase.cs" />
-    <Compile Include="Dto\EntityDto.cs" />
-    <Compile Include="Dto\IEntityDto.cs" />
-    <Compile Include="Dto\PagedAndSortedResultRequestDto.cs" />
-    <Compile Include="Dto\PagedResultDto.cs" />
+    <Compile Include="Dtos\EntityDto.cs" />
+    <Compile Include="Dtos\IEntityDto.cs" />
+    <Compile Include="Dtos\PagedAndSortedResultRequestDto.cs" />
+    <Compile Include="Dtos\PagedResultDto.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\IBasicRepository.cs" />
@@ -87,16 +87,16 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ApplicationGroupRepository.cs" />
-    <Compile Include="Repositories\ApplicationPermissionRepository.cs" />
-    <Compile Include="Repositories\ApplicationRoleRepository.cs" />
-    <Compile Include="Repositories\ApplicationUserRepository.cs" />
-    <Compile Include="Repositories\ApplicationUserRoleRepository.cs" />
+    <Compile Include="Repositories\GroupRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\UserRoleRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />
     <Compile Include="Repositories\ColorRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\SizeRepository.cs" />
+    <Compile Include="Repositories\RolePermissionRepository.cs" />
     <Compile Include="Repositories\TodoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
