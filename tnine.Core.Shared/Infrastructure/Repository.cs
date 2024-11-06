@@ -253,6 +253,21 @@ namespace tnine.Core.Shared.Infrastructure
         {
             return _dbSet.CountAsync(where);
         }
+        
+        public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string[] includes = null)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync(predicate);
+        }
 
         //public async Task<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default)
         //{

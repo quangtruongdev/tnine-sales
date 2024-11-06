@@ -81,7 +81,12 @@
     <Compile Include="IColorService\Dto\GetColorForEditOutputDto.cs" />
     <Compile Include="IColorService\Dto\GetColorForViewDto.cs" />
     <Compile Include="IColorService\IColorService.cs" />
+    <Compile Include="IImageService\Dto\GetImageForViewDto.cs" />
+    <Compile Include="IImageService\Dto\GetImageInputDto.cs" />
+    <Compile Include="IImageService\IIamgeService.cs" />
+    <Compile Include="IProductService\Dto\CreateOrEditProductAndImageDto.cs" />
     <Compile Include="IProductService\Dto\CreateOrEditProductDto.cs" />
+    <Compile Include="IProductService\Dto\GetProductForEditDto.cs" />
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />
     <Compile Include="IProductService\Dto\GetProductInputDto.cs" />
     <Compile Include="IProductService\IProductService.cs" />
@@ -89,6 +94,11 @@
     <Compile Include="ISizeService\Dto\GetSizeForEditOutputDto.cs" />
     <Compile Include="ISizeService\Dto\GetSizeForViewDto.cs" />
     <Compile Include="ISizeService\ISizeService.cs" />
+    <Compile Include="IProductVariationDto\Dto\CreateOrEditProductVariationDto.cs" />
+    <Compile Include="IProductVariationDto\Dto\GetProductVariationForEditDto.cs" />
+    <Compile Include="IProductVariationDto\Dto\GetProductVariationForViewDto.cs" />
+    <Compile Include="IProductVariationDto\Dto\GetProductVariationInputDto.cs" />
+    <Compile Include="IProductVariationDto\IProductVariationServiece.cs" />
     <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForEditOutputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />

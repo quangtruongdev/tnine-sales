@@ -7,9 +7,9 @@ namespace tnine.Core
     [Table("Colors")]
     public class Colors : FullAuditedEntity<long>
     {
-        [StringLength(50)]
-        public string Code { get; set; }
-        [StringLength(50)]
+        [MaxLength(10)]
         public string HexCode { get; set; }
+        [MaxLength(50)]
+        public string Code { get; set; }
     }
 }

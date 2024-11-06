@@ -29,7 +29,8 @@
                 new AppMenuItem('permissions', 'Permissions', 'permission', 'fa-solid fa-user-lock', [], false, 'admin', true),
             ], true, 'admin', true),
             new AppMenuItem('todo', 'Todos', 'todo', 'fa-solid fa-pen', [], false, 'admin', true),
-            new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-users', [], false, 'admin', true)
+            new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-users', [], false, 'admin', true),
+            new AppMenuItem('product', 'Products', 'product', 'fa-solid fa-users', [], false, 'admin', true)
         ]);
 
         vm.sidebar = new AppMenu('main', 'Main Menu', menus.items);

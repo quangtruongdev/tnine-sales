@@ -21,6 +21,9 @@ namespace tnine.Core.Shared
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Colors> Colors { get; set; }
         public DbSet<Sizes> Sizes { get; set; }
+        public DbSet<ProductVariations> ProductVariations { get; set; }
+        public DbSet<Images> Images { get; set; }
+        public DbSet<Categories> Categories { get; set; }
 
         public static DatabaseContext Create()
         {

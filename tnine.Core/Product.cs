@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using tnine.Core.Auditing;
 
 namespace tnine.Core
 {
+    [Table("Products")]
     public class Product : FullAuditedEntity<long>
     {
-        [StringLength(255)]
         public string Name { get; set; }
-        [StringLength(255)]
         public string Description { get; set; }
-        public int Price { get; set; }
+        public long CategoryId { get; set; }
+        public decimal Price { get; set; }
+
     }
 }

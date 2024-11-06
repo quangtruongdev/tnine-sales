@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using tnine.Application.Shared.ICatagoryService.Dto;
 using tnine.Application.Shared.IProductService.Dto;
+using tnine.Core.Shared.Dto;
 
 namespace tnine.Application.Shared.IProductService
 {
     public interface IProductService
     {
-        //IEnumerable<Product> GetAll();
-        //Task<List<PagedResultDto<GetProductForViewDto>>> GetAll(GetProductInputDto input);
-
-        //Task<PagedResultDto<GetProductForViewDto>> GetAll(GetProductInputDto input);
-        Task<List<GetProductForViewDto>> GetAll();
+        Task<PagedResultDto<GetProductForViewDto>> GetAll();
+        Task<GetProductForEditDto> GetProductForEdit(long Id);
+        Task Delete(long Id);
+        Task CreateOrEdit(CreateOrEditProductAndImageDto input);
+        Task<PagedResultDto<GetProductForViewDto>> GetProductByCategoryId(long CateGoryId);
+        Task<List<GetCategoryForViewDto>> GetListCategories();
     }
 }

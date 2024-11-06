@@ -13,6 +13,6 @@ namespace tnine.Core.Auditing
         public virtual TKey? LastModifierId { get; set; }
         public virtual DateTime? DeletionTime { get; set; }
         public virtual TKey? DeleterId { get; set; }
-        public virtual bool IsDeleted { get; set; }
+        public virtual bool? IsDeleted { get; set; }
     }
 }

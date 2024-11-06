@@ -86,7 +86,9 @@
     <Compile Include="Authorization\Users\UserService.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="ColorService.cs" />
+    <Compile Include="ImagerService.cs" />
     <Compile Include="ProductService.cs" />
+    <Compile Include="ProductVariationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeService.cs" />
     <Compile Include="tnineBaseService.cs" />

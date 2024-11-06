@@ -55,6 +55,8 @@ namespace tnine.Core.Shared.Infrastructure
         Task<TEntity> GetSingleByIdAsync(TKey id);
         // GetSigleByConditionAsync
         Task<TEntity> GetSingleByConditionAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string[] includes = null);
+
         #endregion
 
     }
