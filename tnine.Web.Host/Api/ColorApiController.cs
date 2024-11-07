@@ -18,7 +18,7 @@ namespace tnine.Web.Host.Api
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("")]
         public async Task<HttpResponseMessage> GetAll()
         {
             var colors = await _colorService.GetAll();
@@ -26,7 +26,7 @@ namespace tnine.Web.Host.Api
         }
 
         [HttpGet]
-        [Route("GetById{id}")]
+        [Route("{id}")]
         public async Task<HttpResponseMessage> GetById(long id)
         {
             var color = await _colorService.GetById(id);
@@ -34,7 +34,7 @@ namespace tnine.Web.Host.Api
         }
 
         [HttpPost]
-        [Route("CreateOrEdit")]
+        [Route("")]
         public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditColorDto input)
         {
             if (input == null)
@@ -45,7 +45,7 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _colorService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "Todo created or updated successfully.");
+                return Request.CreateResponse(HttpStatusCode.OK, "Color created or updated successfully.");
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace tnine.Web.Host.Api
 
 
         [HttpDelete]
-        [Route("Delete{id}")]
+        [Route("{id}")]
         public async Task<HttpResponseMessage> Delete(long id)
         {
             await _colorService.Delete(id);

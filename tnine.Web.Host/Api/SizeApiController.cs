@@ -17,21 +17,21 @@ namespace tnine.Web.Host.Api
             _sizeService = sizeService;
         }
         [HttpGet]
-        [Route("GetAll")]
+        [Route("")]
         public async Task<HttpResponseMessage> GetAll()
         {
             var sizes = await _sizeService.GetAll();
             return Request.CreateResponse(HttpStatusCode.OK, sizes);
         }
         [HttpGet]
-        [Route("GetById{id}")]
+        [Route("{id}")]
         public async Task<HttpResponseMessage> GetById(long id)
         {
             var size = await _sizeService.GetById(id);
             return Request.CreateResponse(HttpStatusCode.OK, size);
         }
         [HttpPost]
-        [Route("CreateOrEdit")]
+        [Route("")]
         public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditSizeDto input)
         {
             if (input == null)
@@ -41,7 +41,7 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _sizeService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "Todo created or updated successfully.");
+                return Request.CreateResponse(HttpStatusCode.OK, "Size created or updated successfully.");
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace tnine.Web.Host.Api
             }
         }
         [HttpDelete]
-        [Route("Delete{id}")]
+        [Route("{id}")]
         public async Task<HttpResponseMessage> Delete(long id)
         {
             await _sizeService.Delete(id);

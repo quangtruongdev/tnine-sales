@@ -169,6 +169,34 @@
             }
         };
 
+        serviceProxies.colorService = {
+            getAll: function () {
+                return baseService.get('api/color');
+            },
+            getById: function (id) {
+                return baseService.get('api/color/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/color/', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/color/' + id);
+            }
+        };
+        serviceProxies.sizeService = {
+            getAll: function () {
+                return baseService.get('api/size');
+            },
+            getById: function (id) {
+                return baseService.get('api/size/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/size/', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/size/' + id);
+            }
+        };
         return serviceProxies;
     }
 

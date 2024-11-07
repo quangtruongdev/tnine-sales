@@ -51,6 +51,7 @@ namespace tnine.Application
         {
             var color = await _colorRepository.GetSingleByIdAsync(input.Id.Value);
             _mapper.Map(input, color);
+            await _colorRepository.UpdateAsync(color);
         }
         public async Task<GetColorForEditOutputDto> GetById(long id)
         {
