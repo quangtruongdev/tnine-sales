@@ -34,10 +34,10 @@ namespace tnine.Web.Host.Api
         [Route("")]
         public async Task<IHttpActionResult> CreateOrEdit([FromBody] CreateOrEditPermissionDto input)
         {
-            if (input == null)
-            {
-                return BadRequest("Invalid data.");
-            }
+            //if (input == null)
+            //{
+            //    return BadRequest("Invalid data.");
+            //}
 
             try
             {

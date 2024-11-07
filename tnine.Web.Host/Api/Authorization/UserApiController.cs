@@ -45,6 +45,38 @@ namespace tnine.Web.Host.Api
             }
         }
 
+        // GET api/User
+        [HttpGet]
+        [Route("")]
+        public async Task<IHttpActionResult> GetAll()
+        {
+            var users = await Task.Run(() => UserManager.Users.ToList());
+            return Ok(new
+            {
+                Success = true,
+                Data = users
+            });
+        }
+
+        // GET api/User/{id}
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> GetById(long id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+            var roles = await UserManager.GetRolesAsync(id);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            return Ok(new
+            {
+                Success = true,
+                Data = user
+            });
+        }
+
         // POST api/User/CreateOrEditRoleForUser
         [Route("CreateOrEditRoleForUser")]
         public async Task<IHttpActionResult> CreateOrEditRoleForUser(CreateOrEditRoleForUserDto input)

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using tnine.Application.Shared.IPaymentSatusService;
 using tnine.Application.Shared.IPaymentSatusService.Dto;
-using tnine.Application.Shared.ITodoService.Dto;
 using tnine.Core.Shared.Dtos;
 
 namespace tnine.Web.Host.Api

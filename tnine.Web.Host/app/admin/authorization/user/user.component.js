@@ -14,8 +14,13 @@
         vm.selectedId = null;
 
         vm.columns = [
-            { headerName: "UserName", field: "UserName" },
+            { headerName: "UserId", field: "Id" },
+            { headerName: "Username", field: "UserName" },
+            { headerName: "Location", field: "Location" },
             { headerName: "Email", field: "Email" },
+            { headerName: "Phone Number", field: "PhoneNumber" },
+            { headerName: "Join Date", field: "JoinDate" },
+            { headerName: "Status", field: "Status" },
         ];
 
         vm.getUsers = function () {

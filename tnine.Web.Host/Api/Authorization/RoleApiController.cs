@@ -38,15 +38,22 @@ namespace tnine.Web.Host.Api
         [Route("")]
         public async Task<IHttpActionResult> CreateOrEdit([FromBody] CreateOrEditRoleDto input)
         {
-            if (ModelState.IsValid)
-            {
-                return BadRequest("Invalid data.");
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    return BadRequest("Invalid data.");
+            //}
 
             try
             {
                 await _roleService.CreateOrEdit(input);
-                return Ok("Role created or updated successfully.");
+                if (input.Id.HasValue)
+                {
+                    return Ok("Role updated successfully.");
+                }
+                else
+                {
+                    return Ok("Role created successfully.");
+                }
             }
             catch
             {

@@ -1,9 +1,10 @@
-﻿(function (app) {
+(function (app) {
     app.controller('loginController', loginController)
         .component('login', {
             templateUrl: '/app/account/login/login.component.html',
             controller: loginController,
             controllerAs: 'vm',
+            bindToController: true
         });
 
     loginController.$inject = ['serviceProxies', '$state'];
@@ -13,13 +14,23 @@
 
         vm.loginData = {
             email: '',
-            password: ''
+            password: '',
+            remmeberMe: false
+        };
+
+        vm.$onInit = function () {
+            serviceProxies.accountService.getAccountInfo()
+                .then(function (result) {
+                    if (result.IsAuthenticated = true) {
+                        $state.go('home');
+                    }
+                });
         };
 
         vm.login = function () {
             var res = serviceProxies.accountService.login(vm.loginData);
             res.then(function (result) {
-                if (result.success) {
+                if (result.Success = true) {
                     $state.go('home');
                 }
             });

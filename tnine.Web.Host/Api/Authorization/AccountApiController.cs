@@ -65,7 +65,7 @@ namespace tnine.Web.Host.Api
             switch (result)
             {
                 case SignInStatus.Success:
-                    return Ok(new { success = true, message = "Login successful" });
+                    return Ok(new { Success = true, Message = "Login successful" });
                 case SignInStatus.LockedOut:
                     return BadRequest("Locked out");
                 case SignInStatus.RequiresVerification:
@@ -119,9 +119,18 @@ namespace tnine.Web.Host.Api
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("GetAccountInfo")]
         public async Task<IHttpActionResult> GetAccountInfo()
         {
+            if(string.IsNullOrEmpty(User.Identity.Name))
+                return Ok(new
+                {
+                    IsAuthenticated = false,
+                    Username = "",
+                }
+                );
+
             var userManager = UserManager;
 
             var user = await userManager.FindByNameAsync(User.Identity.Name);

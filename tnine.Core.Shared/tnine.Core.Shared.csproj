@@ -70,6 +70,7 @@
     <Compile Include="Domain\Repositories\RepositoryBase.cs" />
     <Compile Include="Dtos\EntityDto.cs" />
     <Compile Include="Dtos\IEntityDto.cs" />
+    <Compile Include="Dtos\NameValueDto.cs" />
     <Compile Include="Dtos\PagedAndSortedResultRequestDto.cs" />
     <Compile Include="Dtos\PagedResultDto.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />

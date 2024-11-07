@@ -10,7 +10,7 @@
                     return response.data;
                 })
                 .catch(function (error) {
-                    toastrService.error(error.data.message, 'Error');
+                    toastrService.error(error.data.Message);
                     return $q.reject(error);
                 });
         }
@@ -18,11 +18,11 @@
         function post(url, data) {
             return $http.post(url, data)
                 .then(function (response) {
-                    toastrService.success(response.data.message);
+                    toastrService.success(response.data.Message);
                     return response.data;
                 })
                 .catch(function (error) {
-                    toastrService.error(error.data.message, 'Error');
+                    toastrService.error(error.data.Message);
                     return $q.reject(error);
                 });
         }
@@ -30,11 +30,11 @@
         function put(url, data) {
             return $http.put(url, data)
                 .then(function (response) {
-                    toastrService.success(response.data.message);
+                    toastrService.success(response.data.Message);
                     return response.data;
                 })
                 .catch(function (error) {
-                    toastrService.error(error.data.message, 'Error');
+                    toastrService.error(error.data.Message);
                     return $q.reject(error);
                 });
         }
@@ -42,11 +42,11 @@
         function remove(url) {
             return $http.delete(url)
                 .then(function (response) {
-                    toastrService.success(response.data.message);
+                    toastrService.success(response.data.Message);
                     return response.data;
                 })
                 .catch(function (error) {
-                    toastrService.error(error.data.message, 'Error');
+                    toastrService.error(error.data.Message);
                     return $q.reject(error);
                 });
         }

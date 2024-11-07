@@ -299,6 +299,8 @@
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.js" />
     <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-multiselect.component.html" />
     <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-multiselect.component.js" />
+    <Content Include="app\shared\common\pagination\pagination.component.html" />
+    <Content Include="app\shared\common\pagination\pagination.component.js" />
     <Content Include="app\shared\common\table\table.component.css" />
     <Content Include="app\shared\common\table\table.component.html" />
     <Content Include="app\shared\common\table\table.component.js" />
@@ -349,7 +351,6 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -1898,7 +1899,6 @@
     <Content Include="wwwroot\lib\angular-loading-bar\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\shared\common\pagination\" />
     <Folder Include="app\shared\common\tree-views\" />
     <Folder Include="app\shared\components\" />
     <Folder Include="app\shared\layout\footer\" />

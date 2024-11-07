@@ -1,0 +1,20 @@
+﻿<div class="d-flex align-items-center justify-content-between">
+    <p>Showing {{vm.pageSize}} of {{vm.totalCount}} Results</p>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" ng-class="{'vm.disable: currentPage === 1'}">
+                <a class="page-link" aria-label="Previous" ng-click="vm.changePage(vm.currentPage - 1)">
+                    <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                </a>
+            </li>
+            <li class="page-item" ng-repeat="page in vm.pages track by $index" ng-class="{'active': vm.currentPage === page}">
+                <a class="page-link" ng-click="vm.changePage(page)">{{page}}</a>
+                </li>
+            <li class="page-item" ng-class="{'vm.disable: currentPage === vm.totalPages'}">
+                    <a class="page-link" aria-label="Next" ng-click="vm.changePage(vm.currentPage + 1)">
+                        <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </li>
+        </ul>
+    </nav>
+</div>

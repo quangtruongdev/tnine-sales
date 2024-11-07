@@ -17,7 +17,6 @@
                         return $ocLazyLoad.load(route.files);
                     }],
                     auth: ['$q', '$location', 'authService', function ($q, $location, authService) {
-                        authService.initialize();
                         if (route.requiresAuth && !authService.isAuthenticated()) {
                             $location.path('/login');
                             return $q.reject('Not Authorized');

@@ -1,6 +1,6 @@
 ﻿<div class="modal fade" id="createOrEditPermissionModal" tabindex="-1" role="dialog"
     aria-labelledby="createOrEditPermissionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
@@ -12,17 +12,17 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="input-group mb-3">
                             <span class="input-group-text">Name</span>
                             <input type="text" class="form-control" ng-model="vm.permission.Name" placeholder="Name">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <tine-combobox placeholder="Display Name" items="vm.permissions" display-member="DisplayName"
-                            ng-model="vm.permission.Name" ng-disabled="vm.saving" required="true">
-                        </tine-combobox>
-                    </div>
+                    <!--<div class="col-md-6">
+                        <tnine-combobox items="vm.roles" value="vm.permission.ParentId" key="Id" text="Parental Permissions" is-required="true"
+                                        is-validate="true" is-disabled="false" input-label="Name" placeholder="Select Parental Permissions">
+                        </tnine-combobox>
+                    </div>-->
                     <div class="col-md-12">
                         <div class="input-group">
                             <span class="input-group-text">Description</span>

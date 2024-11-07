@@ -15,6 +15,9 @@
             },
             register: function (data) {
                 return baseService.post('api/account/register', data);
+            },
+            getAccountInfo: function () {
+                return baseService.get('api/account/getAccountInfo');
             }
         };
 
