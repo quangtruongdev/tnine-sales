@@ -51,6 +51,7 @@ namespace tnine.Application
         {
             var size = await _sizeRepository.GetSingleByIdAsync(input.Id.Value);
             _mapper.Map(input, size);
+            await _sizeRepository.UpdateAsync(size);
         }
         public async Task<GetSizeForEditOutputDto> GetById(long id)
         {

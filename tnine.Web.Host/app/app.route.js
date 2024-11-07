@@ -111,6 +111,17 @@
                 '/app/pages/paymentStatus/payment-status.module.js',
                 '/app/pages/paymentStatus/payment-status.component.js',
                 '/app/pages/paymentStatus/create-or-edit-payment-status-modal/create-or-edit-payment-status-modal.component.js'
+            ]
+        },
+        {
+            name: 'color',
+            url: '/color',
+            templateUrl: '/app/admin/color/color.component.html',
+            controller: 'colorController',
+            files: [
+                '/app/admin/color/color.module.js',
+                '/app/admin/color/color.component.js',
+                '/app/admin/color/create-or-edit-color-modal/create-or-edit-color-modal.component.js'
             ],
             requiresAuth: true,
             roles: ['admin']
@@ -124,6 +135,17 @@
                 '/app/admin/invoice/invoice.module.js',
                 '/app/admin/invoice/invoice.component.js',
                 '/app/admin/invoice/create-or-edit-invoice-modal/create-or-edit-invoice-modal.component.js'
+            ]
+        },
+        {
+            name: 'size',
+            url: '/size',
+            templateUrl: '/app/admin/size/size.component.html',
+            controller: 'sizeController',
+            files: [
+                '/app/admin/size/size.module.js',
+                '/app/admin/size/size.component.js',
+                '/app/admin/size/create-or-edit-size-modal/create-or-edit-size-modal.component.js'
             ],
             requiresAuth: true,
             roles: ['admin']
