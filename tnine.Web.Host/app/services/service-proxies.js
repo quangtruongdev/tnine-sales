@@ -153,7 +153,21 @@
                 return baseService.remove('api/PaymentStatus/' + id);
             }
         };
-        
+
+        serviceProxies.invoiceService = {
+            getAll: function () {
+                return baseService.get('api/invoice');
+            },
+            getInvoiceForEdit: function (id) {
+                return baseService.get('api/invoice/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/invoice', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/invoice/' + id);
+            }
+        };
 
         return serviceProxies;
     }

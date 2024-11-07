@@ -90,6 +90,11 @@
     <Compile Include="IPaymentStatusService\Dto\GetPaymentStatusInputDto.cs" />
     <Compile Include="IPaymentStatusService\IPaymentStatusService.cs" />
     <Compile Include="IProductService\Dto\CreateOrEditProductAndImageDto.cs" />
+    <Compile Include="IInvoiceService\Dto\CreateOrEditInvoiceDto.cs" />
+    <Compile Include="IInvoiceService\Dto\GetInvoiceForViewDto.cs" />
+    <Compile Include="IInvoiceService\Dto\GetInvoiceForEditOutputDto.cs" />
+    <Compile Include="IInvoiceService\Dto\GetInvoiceInputDto.cs" />
+    <Compile Include="IInvoiceService\IInvoiceService.cs" />
     <Compile Include="IProductService\Dto\CreateOrEditProductDto.cs" />
     <Compile Include="IProductService\Dto\GetProductForEditDto.cs" />
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />

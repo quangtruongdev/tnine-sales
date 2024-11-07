@@ -70,6 +70,8 @@
     <Compile Include="Authorization\Permission.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="PaymentStatus.cs" />
+    <Compile Include="Invoice.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Colors.cs" />
     <Compile Include="Product.cs" />

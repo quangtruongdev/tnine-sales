@@ -225,6 +225,7 @@
     <Compile Include="Api\CustomerApiController.cs" />
     <Compile Include="Api\ColorApiController.cs" />
     <Compile Include="Api\PaymentStatusApiController.cs" />
+    <Compile Include="Api\InvoiceApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\Authorization\RoleApiController.cs" />
     <Compile Include="Api\SizeApiController.cs" />

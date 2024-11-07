@@ -31,7 +31,8 @@
             new AppMenuItem('todo', 'Todos', 'todo', 'fa-solid fa-pen', [], false, 'admin', true),
             new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('product', 'Products', 'product', 'fa-solid fa-users', [], false, 'admin', true),
-            new AppMenuItem('paymentStatus', 'PaymentStatus', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true)
+            new AppMenuItem('paymentStatus', 'PaymentStatus', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true),
+            new AppMenuItem('invoice', 'Invoices', 'invoice', 'fa-light fa-file-invoice', [], false, 'admin', true)
         ]);
 
         vm.sidebar = new AppMenu('main', 'Main Menu', menus.items);

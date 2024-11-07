@@ -114,7 +114,20 @@
             ],
             requiresAuth: true,
             roles: ['admin']
-        }
+        },
+        {
+            name: 'invoice',
+            url: '/invoice',
+            templateUrl: '/app/admin/invoice/invoice.component.html',
+            controller: 'invoiceController',
+            files: [
+                '/app/admin/invoice/invoice.module.js',
+                '/app/admin/invoice/invoice.component.js',
+                '/app/admin/invoice/create-or-edit-invoice-modal/create-or-edit-invoice-modal.component.js'
+            ],
+            requiresAuth: true,
+            roles: ['admin']
+        },
 
     ]);
 })(angular.module('root'));
