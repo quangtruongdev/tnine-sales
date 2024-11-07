@@ -10,6 +10,7 @@ using tnine.Application.Shared.IProductVariationDto.Dto;
 using tnine.Application.Shared.ITodoService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.IColorService.Dto;
+using tnine.Application.Shared.IPaymentSatusService.Dto;
 
 namespace tnine.Web.Host.App_Start
 {
@@ -31,6 +32,7 @@ namespace tnine.Web.Host.App_Start
             CreateMap<Sizes, CreateOrEditSizeDto>().ReverseMap();
             CreateMap<Product, CreateOrEditProductDto>().ReverseMap();
             CreateMap<ProductVariations, CreateOrEditProductVariayionDto>().ReverseMap();
+            CreateMap<PaymentStatus, CreateOrEditPaymentStatusDto>().ReverseMap();
         }
     }
 

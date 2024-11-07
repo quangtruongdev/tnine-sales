@@ -224,6 +224,7 @@
     <Compile Include="Api\Authorization\PermissionApiController.cs" />
     <Compile Include="Api\CustomerApiController.cs" />
     <Compile Include="Api\ColorApiController.cs" />
+    <Compile Include="Api\PaymentStatusApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\Authorization\RoleApiController.cs" />
     <Compile Include="Api\SizeApiController.cs" />
@@ -283,6 +284,11 @@
     <Content Include="app\admin\customer\customer.module.js" />
     <Content Include="app\app.config.js" />
     <Content Include="app\app.module.js" />
+    <Content Include="app\pages\paymentStatus\create-or-edit-payment-status-modal\create-or-edit-payment-status-modal.component.html" />
+    <Content Include="app\pages\paymentStatus\create-or-edit-payment-status-modal\create-or-edit-payment-status-modal.component.js" />
+    <Content Include="app\pages\paymentStatus\payment-status.component.html" />
+    <Content Include="app\pages\paymentStatus\payment-status.component.js" />
+    <Content Include="app\pages\paymentStatus\payment-status.module.js" />
     <Content Include="app\pages\product\create-or-edit-product-modal\create-or-edit-product-modal.component.html" />
     <Content Include="app\pages\product\create-or-edit-product-modal\create-or-edit-product-modal.component.js" />
     <Content Include="app\pages\product\product.component.js" />

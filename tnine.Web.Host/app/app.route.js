@@ -102,6 +102,19 @@
             requiresAuth: true,
             roles: ['admin']
         },
+        {
+            name: 'paymentStatus',
+            url: '/paymentStatus',
+            templateUrl: '/app/pages/paymentStatus/payment-status.component.html',
+            controller: 'paymentStatusController',
+            files: [
+                '/app/pages/paymentStatus/payment-status.module.js',
+                '/app/pages/paymentStatus/payment-status.component.js',
+                '/app/pages/paymentStatus/create-or-edit-payment-status-modal/create-or-edit-payment-status-modal.component.js'
+            ],
+            requiresAuth: true,
+            roles: ['admin']
+        }
 
     ]);
 })(angular.module('root'));

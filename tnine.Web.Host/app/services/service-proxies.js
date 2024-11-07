@@ -138,6 +138,21 @@
                 return baseService.get('api/product/category');
             },
         };
+
+        serviceProxies.paymentStatusService = {
+            getAll: function () {
+                return baseService.get('api/PaymentStatus');
+            },
+            getById: function (id) {
+                return baseService.get('api/PaymentStatus/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/PaymentStatus', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/PaymentStatus/' + id);
+            }
+        };
         
 
         return serviceProxies;
