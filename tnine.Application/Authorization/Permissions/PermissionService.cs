@@ -78,5 +78,10 @@ namespace tnine.Application.Authorization.Permissions
         {
             await _permissionRepository.DeleteAsync(input.Id.Value);
         }
+
+        public async Task<bool> CheckPermission(GetPermissionWithRoleDto input)
+        {
+            return true;
+        }
     }
 }

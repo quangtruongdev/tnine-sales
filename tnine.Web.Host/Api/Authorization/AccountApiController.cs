@@ -123,13 +123,12 @@ namespace tnine.Web.Host.Api
         [Route("GetAccountInfo")]
         public async Task<IHttpActionResult> GetAccountInfo()
         {
-            if(string.IsNullOrEmpty(User.Identity.Name))
+            if (string.IsNullOrEmpty(User.Identity.Name))
                 return Ok(new
                 {
                     IsAuthenticated = false,
                     Username = "",
-                }
-                );
+                });
 
             var userManager = UserManager;
 

@@ -90,12 +90,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />
     <Compile Include="Repositories\PaymentStatusRepository.cs" />
-    <Compile Include="Repositories\RoleRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\UserRoleRepository.cs" />
+    <Compile Include="Repositories\Authorization\RoleRepository.cs" />
+    <Compile Include="Repositories\Authorization\UserRepository.cs" />
+    <Compile Include="Repositories\Authorization\UserRoleRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
-    <Compile Include="Repositories\PermissionRepository.cs" />
+    <Compile Include="Repositories\Authorization\PermissionRepository.cs" />
     <Compile Include="Repositories\ColorRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CategoriesRepository.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\ProductVariationsRepository.cs" />
     <Compile Include="Repositories\SizeRepository.cs" />
-    <Compile Include="Repositories\RolePermissionRepository.cs" />
+    <Compile Include="Repositories\Authorization\RolePermissionRepository.cs" />
     <Compile Include="Repositories\TodoRepository.cs" />
   </ItemGroup>
   <ItemGroup>

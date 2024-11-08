@@ -21,7 +21,8 @@
         vm.$onInit = function () {
             serviceProxies.accountService.getAccountInfo()
                 .then(function (result) {
-                    if (result.IsAuthenticated = true) {
+                    sessionStorage.setItem('accountInfo', JSON.stringify(result));
+                    if (result.IsAuthenticated) {
                         $state.go('home');
                     }
                 });

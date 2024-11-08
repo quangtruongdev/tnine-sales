@@ -11,6 +11,6 @@ namespace tnine.Application.Shared.Authorization.IPermissionService
         Task CreateOrEdit(CreateOrEditPermissionDto input);
         Task<GetPermissionForEditOutputDto> GetById(EntityDto<long> input);
         Task Delete(EntityDto<long> input);
-        //Task<bool> IsGraned(GetPermissionWithRoleDto input);
+        Task<bool> CheckPermission(GetPermissionWithRoleDto input);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using tnine.Application.Shared.Authorization.IPermissionService;
 using tnine.Application.Shared.Authorization.IPermissionService.Dto;
@@ -68,29 +69,14 @@ namespace tnine.Web.Host.Api
             return Ok("Permission deleted successfully.");
         }
 
-        //[HttpPost]
-        //[Route("IsGranted")]
-        //public async Task<IHttpActionResult> IsGranted([FromBody] string permissionName)
-        //{
-        //    var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    var user = await userManager.FindByNameAsync(User.Identity.Name);
-
-        //    if (user == null)
-        //    {
-        //        return BadRequest("User not found");
-        //    }
-
-        //    var roles = await userManager.GetRolesAsync(user.Id);
-        //    var roleIds = await _permissionService.GetRoleIdsByNames(roles.ToArray());
-
-        //    var input = new GetPermissionWithRoleDto
-        //    {
-        //        PermissionName = permissionName,
-        //        Roles = roles.ToList()
-        //    };
-
-        //    var isGranted = await _permissionService.IsGraned(input);
-        //    return Ok(isGranted);
-        //}
+        [HttpPost]
+        [Route("IsGranted")]
+        public async Task<IHttpActionResult> IsGranted([FromBody] string permissionName)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var roleIds = user.Roles.Select(x => x.RoleId).ToList();
+            //await _permissionService.CheckPermission(new GetPermissionWithRoleDto { PermissionName = permissionName, RoleIds = roleIds });
+            return Ok();
+        }
     }
 }
