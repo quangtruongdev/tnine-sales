@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using tnine.Application.Shared.IPaymentSatusService;
 using tnine.Application.Shared.IPaymentSatusService.Dto;
 using tnine.Application.Shared.IProductService.Dto;
-using tnine.Application.Shared.ITodoService.Dto;
+using tnine.Application.Shared.IShopService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core.Shared.Repositories;

@@ -127,6 +127,7 @@
             roles: ['admin']
         },
         {
+
             name: 'invoice',
             url: '/invoice',
             templateUrl: '/app/admin/invoice/invoice.component.html',
@@ -146,6 +147,19 @@
                 '/app/admin/size/size.module.js',
                 '/app/admin/size/size.component.js',
                 '/app/admin/size/create-or-edit-size-modal/create-or-edit-size-modal.component.js'
+            ],
+            requiresAuth: true,
+            roles: ['admin']
+        },
+        {
+            name: 'shop',
+            url: '/shop',
+            templateUrl: '/app/pages/shop/shop.component.html',
+            controller: 'shopController',
+            files: [
+                '/app/pages/shop/shop.module.js',
+                '/app/pages/shop/shop.component.js',
+                '/app/pages/shop/create-or-edit-shop-modal/create-or-edit-shop-modal.component.js'
             ],
             requiresAuth: true,
             roles: ['admin']

@@ -157,6 +157,23 @@
             }
         };
 
+        serviceProxies.shopService = {
+            getAll: function () {
+                return baseService.get('api/shop');
+            },
+            getShopForEdit: function (id) {
+                return baseService.get('api/shop/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/shop', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/shop/' + id);
+            }
+        };
+
+        
+
         serviceProxies.invoiceService = {
             getAll: function () {
                 return baseService.get('api/invoice');

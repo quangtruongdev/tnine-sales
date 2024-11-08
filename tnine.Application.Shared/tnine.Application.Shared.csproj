@@ -100,6 +100,11 @@
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />
     <Compile Include="IProductService\Dto\GetProductInputDto.cs" />
     <Compile Include="IProductService\IProductService.cs" />
+    <Compile Include="IShopService\Dto\CreateOrEditShopDto.cs" />
+    <Compile Include="IShopService\Dto\GetShopForEditOutputDto.cs" />
+    <Compile Include="IShopService\Dto\GetShopForInputDto.cs" />
+    <Compile Include="IShopService\Dto\GetShopForViewDto.cs" />
+    <Compile Include="IShopService\IShopService.cs" />
     <Compile Include="ISizeService\Dto\CreateOrEditSizeDto.cs" />
     <Compile Include="ISizeService\Dto\GetSizeForEditOutputDto.cs" />
     <Compile Include="ISizeService\Dto\GetSizeForViewDto.cs" />

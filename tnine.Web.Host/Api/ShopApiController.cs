@@ -3,29 +3,29 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using tnine.Application.Shared.IPaymentSatusService;
-using tnine.Application.Shared.IPaymentSatusService.Dto;
+using tnine.Application.Shared.IShop;
 using tnine.Application.Shared.IShopService.Dto;
 using tnine.Core.Shared.Dtos;
+using tnine.Web.Host.Infrastructure.Core;
 
 namespace tnine.Web.Host.Api
 {
-    [RoutePrefix("api/PaymentStatus")]
-    public class PaymentStatusApiController : ApiController
+    [RoutePrefix("api/shop")]
+    public class ShopApiController : ApiControllerBase
     {
-        private readonly IPaymentStatusService _paymentStatusService;
+        private IShopService _shopService;
 
-        public PaymentStatusApiController(IPaymentStatusService paymentStatusService)
+        public ShopApiController(IShopService shopService)
         {
-            _paymentStatusService = paymentStatusService;
+            _shopService = shopService;
         }
 
         [HttpGet]
         [Route("")]
         public async Task<HttpResponseMessage> GetAll()
         {
-            var paymentStatus = await _paymentStatusService.GetAll();
-            return Request.CreateResponse(HttpStatusCode.OK, paymentStatus);
+            var shops = await _shopService.GetAll();
+            return Request.CreateResponse(HttpStatusCode.OK, shops);
         }
 
         [HttpGet]
@@ -33,13 +33,13 @@ namespace tnine.Web.Host.Api
         public async Task<HttpResponseMessage> GetById(long id)
         {
             var input = new EntityDto<long> { Id = id };
-            var paymentStatus = await _paymentStatusService.GetById(input);
-            return Request.CreateResponse(HttpStatusCode.OK, paymentStatus);
+            var shop = await _shopService.GetById(input);
+            return Request.CreateResponse(HttpStatusCode.OK, shop);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditPaymentStatusDto input)
+        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditShopDto input)
         {
             if (input == null)
             {
@@ -48,8 +48,8 @@ namespace tnine.Web.Host.Api
 
             try
             {
-                await _paymentStatusService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "PaymentStatus created or updated successfully.");
+                await _shopService.CreateOrEdit(input);
+                return Request.CreateResponse(HttpStatusCode.OK, "Shop created or updated successfully.");
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace tnine.Web.Host.Api
         public async Task<HttpResponseMessage> Delete(long id)
         {
             var input = new EntityDto<long> { Id = id };
-            await _paymentStatusService.Delete(input);
+            await _shopService.Delete(input);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

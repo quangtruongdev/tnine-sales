@@ -228,6 +228,7 @@
     <Compile Include="Api\InvoiceApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\Authorization\RoleApiController.cs" />
+    <Compile Include="Api\ShopApiController.cs" />
     <Compile Include="Api\SizeApiController.cs" />
     <Compile Include="Api\TodoApiController.cs" />
     <Compile Include="Api\Authorization\UserApiController.cs" />
@@ -305,6 +306,11 @@
     <Content Include="app\pages\product\product.component.js" />
     <Content Include="app\pages\product\product.component.html" />
     <Content Include="app\pages\product\product.module.js" />
+    <Content Include="app\pages\shop\create-or-edit-shop-modal\create-or-edit-shop-modal.component.html" />
+    <Content Include="app\pages\shop\create-or-edit-shop-modal\create-or-edit-shop-modal.component.js" />
+    <Content Include="app\pages\shop\shop.component.html" />
+    <Content Include="app\pages\shop\shop.component.js" />
+    <Content Include="app\pages\shop\shop.module.js" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.html" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.js" />
     <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-multiselect.component.html" />
@@ -1913,6 +1919,7 @@
     <Folder Include="app\shared\components\" />
     <Folder Include="app\shared\layout\footer\" />
     <Folder Include="app\shared\layout\scroll-top\" />
+    <Folder Include="Views\ShopApi\" />
     <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
   <ItemGroup>

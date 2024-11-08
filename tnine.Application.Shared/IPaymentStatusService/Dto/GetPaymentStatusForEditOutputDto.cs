@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tnine.Application.Shared.ITodoService.Dto;
+using tnine.Application.Shared.IShopService.Dto;
 
 namespace tnine.Application.Shared.IPaymentSatusService.Dto
 {
