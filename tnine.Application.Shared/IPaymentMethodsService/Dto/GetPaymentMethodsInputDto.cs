@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using tnine.Core.Shared.Dtos;
 
-namespace tnine.Application.Shared.IPaymentStatusService.Dto
+namespace tnine.Application.Shared.IPaymentMethodsService.Dto
 {
-    public class GetPaymentStatusInputDto : PagedAndSortedResultRequestDto
+    public class GetPaymentMethodsInputDto : PagedAndSortedResultRequestDto
     {
         public string FilterText { get; set; }
     }

@@ -152,6 +152,7 @@
             roles: ['admin']
         },
         {
+
             name: 'shop',
             url: '/shop',
             templateUrl: '/app/pages/shop/shop.component.html',
@@ -164,6 +165,16 @@
             requiresAuth: true,
             roles: ['admin']
         },
-
+        {
+            name: 'paymentMethods',
+            url: '/paymentMethods',
+            templateUrl: '/app/pages/paymentMethods/payment-methods.component.html',
+            controller: 'paymentMethodsController',
+            files: [
+                '/app/pages/paymentMethods/payment-methods.module.js',
+                '/app/pages/paymentMethods/payment-methods.component.js',
+                '/app/pages/paymentMethods/create-or-edit-payment-methods-modal/create-or-edit-payment-methods-modal.component.js'
+            ]
+        },
     ]);
 })(angular.module('root'));

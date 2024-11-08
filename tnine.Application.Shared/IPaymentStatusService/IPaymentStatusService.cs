@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using tnine.Application.Shared.IPaymentSatusService.Dto;
+using tnine.Application.Shared.IPaymentStatusService.Dto;
 using tnine.Core.Shared.Dtos;
 
-namespace tnine.Application.Shared.IPaymentSatusService
+namespace tnine.Application.Shared.IPaymentStatusService
 {
     public interface IPaymentStatusService
     {

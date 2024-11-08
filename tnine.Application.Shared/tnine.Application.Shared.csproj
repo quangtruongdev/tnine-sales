@@ -84,6 +84,11 @@
     <Compile Include="IImageService\Dto\GetImageForViewDto.cs" />
     <Compile Include="IImageService\Dto\GetImageInputDto.cs" />
     <Compile Include="IImageService\IIamgeService.cs" />
+    <Compile Include="IPaymentMethodsService\Dto\CreateOrEditPaymentMethodsDto.cs" />
+    <Compile Include="IPaymentMethodsService\Dto\GetPaymentMethodsForEditOutputDto.cs" />
+    <Compile Include="IPaymentMethodsService\Dto\GetPaymentMethodsForViewDto.cs" />
+    <Compile Include="IPaymentMethodsService\Dto\GetPaymentMethodsInputDto.cs" />
+    <Compile Include="IPaymentMethodsService\IPaymentMethodsService.cs" />
     <Compile Include="IPaymentStatusService\Dto\CreateOrEditPaymentStatusDto.cs" />
     <Compile Include="IPaymentStatusService\Dto\GetPaymentStatusForEditOutputDto.cs" />
     <Compile Include="IPaymentStatusService\Dto\GetPaymentStatusForViewDto.cs" />

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tnine.Core.Shared.Dtos;
+using tnine.Core.Auditing;
 
-namespace tnine.Application.Shared.IPaymentStatusService.Dto
+namespace tnine.Core
 {
-    public class CreateOrEditPaymentStatusDto : EntityDto<long>
+    public class PaymentMethods : FullAuditedEntity<long>
     {
         public String Name { get; set; }
     }

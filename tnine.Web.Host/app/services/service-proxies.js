@@ -189,6 +189,7 @@
             }
         };
 
+
         serviceProxies.colorService = {
             getAll: function () {
                 return baseService.get('api/color');
@@ -217,6 +218,21 @@
                 return baseService.remove('api/size/' + id);
             }
         };
+        serviceProxies.paymentMethodsService = {
+            getAll: function () {
+                return baseService.get('api/PaymentMethods');
+            },
+            getById: function (id) {
+                return baseService.get('api/PaymentMethods/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/PaymentMethods', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/PaymentMethods/' + id);
+            }
+        };
+
         return serviceProxies;
     }
 

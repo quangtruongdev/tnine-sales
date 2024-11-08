@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tnine.Application.Shared.IPaymentSatusService;
-using tnine.Application.Shared.IPaymentSatusService.Dto;
+using tnine.Application.Shared.IPaymentStatusService;
+using tnine.Application.Shared.IPaymentStatusService.Dto;
 using tnine.Application.Shared.IProductService.Dto;
 using tnine.Application.Shared.IShopService.Dto;
 using tnine.Core;
@@ -15,7 +15,7 @@ using tnine.Core.Shared.Dtos;
 
 namespace tnine.Application
 {
-    public class PaymentStatusService:IPaymentStatusService
+    public class PaymentStatusService : IPaymentStatusService
     {
         private readonly IPaymentStatusRepository _paymentStatusRepo;
         private readonly IUnitOfWork _unitOfWork;

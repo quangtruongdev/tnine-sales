@@ -224,6 +224,7 @@
     <Compile Include="Api\Authorization\PermissionApiController.cs" />
     <Compile Include="Api\CustomerApiController.cs" />
     <Compile Include="Api\ColorApiController.cs" />
+    <Compile Include="Api\PaymentMethodsApiController.cs" />
     <Compile Include="Api\PaymentStatusApiController.cs" />
     <Compile Include="Api\InvoiceApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
@@ -1920,6 +1921,7 @@
     <Folder Include="app\shared\layout\footer\" />
     <Folder Include="app\shared\layout\scroll-top\" />
     <Folder Include="Views\ShopApi\" />
+    <Folder Include="Views\PaymentMethodsApi\" />
     <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
   <ItemGroup>

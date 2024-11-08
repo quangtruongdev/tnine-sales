@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using tnine.Core.Shared.Dtos;
 
-namespace tnine.Application.Shared.IPaymentStatusService.Dto
+namespace tnine.Application.Shared.IPaymentMethodsService.Dto
 {
-    public class CreateOrEditPaymentStatusDto : EntityDto<long>
+    public class CreateOrEditPaymentMethodsDto : EntityDto<long>
     {
         public String Name { get; set; }
     }
