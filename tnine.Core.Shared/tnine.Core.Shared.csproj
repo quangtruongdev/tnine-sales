@@ -99,7 +99,6 @@
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\Authorization\PermissionRepository.cs" />
     <Compile Include="Repositories\ColorRepository.cs" />
-    <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\CategoriesRepository.cs" />
     <Compile Include="Repositories\ImageRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />

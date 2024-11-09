@@ -15,18 +15,24 @@ namespace tnine.Application
     {
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly ICustomerRepository _customerRepository;
+        private readonly IPaymentMethodsRepository _paymentMethodsRepository;
+        private readonly IPaymentStatusRepository _paymentStatusRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public InvoiceService(
             IInvoiceRepository invoiceRepository,
             ICustomerRepository customerRepository,
+            IPaymentMethodsRepository paymentMethodsRepository,
+            IPaymentStatusRepository paymentStatusRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper
             )
         {
             _invoiceRepository = invoiceRepository;
             _customerRepository = customerRepository;
+            _paymentMethodsRepository = paymentMethodsRepository;
+            _paymentStatusRepository = paymentStatusRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -35,15 +41,21 @@ namespace tnine.Application
         {
             var invoices = await _invoiceRepository.GetAllAsync();
             var customers = await _customerRepository.GetAllAsync();
+            var paymentMethods = await _paymentMethodsRepository.GetAllAsync();
+            var paymentStatus = await _paymentStatusRepository.GetAllAsync();
 
             return (from invoice in invoices
                     join customer in customers on invoice.CustomerId equals customer.Id
+                    join paymentMethod in paymentMethods on invoice.PaymentMethodId equals paymentMethod.Id
+                    join paymentStatu in paymentStatus on invoice.PaymentStatusId equals paymentStatu.Id
                     select new GetInvoiceForViewDto
                     {
                         Id = invoice.Id,
                         CreationTime = (DateTime)invoice.CreationTime,
                         CustomerName = customer.FullName,
                         CustomerTelephone = customer.PhoneNumber,
+                        PaymentStatusName = paymentStatu.Name,
+                        PaymentMethodName = paymentMethod.Name,
                         Total = invoice.Total
                     }).ToList();
         }

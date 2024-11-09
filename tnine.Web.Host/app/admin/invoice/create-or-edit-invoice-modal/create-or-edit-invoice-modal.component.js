@@ -15,6 +15,8 @@
         var vm = this;
         vm.invoice = {};
         vm.saving = false;
+        vm.listPaymentStatus;
+        vm.listPaymentMethods;
 
         vm.show = function (id) {
             if (!id) {
@@ -26,6 +28,19 @@
                     console.error('Error fetching invoice:', error);
                 });
             }
+
+            serviceProxies.paymentStatusService.getAll().then(function (response) {
+                vm.listPaymentStatus = response;
+            }).catch(function (error) {
+                console.error('Error fetching payment status:', error);
+            });
+
+            serviceProxies.paymentMethodsService.getAll().then(function (response) {
+                vm.listPaymentMethods = response;
+            }).catch(function (error) {
+                console.error('Error fetching payment status:', error);
+            });
+
             $('#createOrEditInvoiceModal').modal('show');
         };
 
