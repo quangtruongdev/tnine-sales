@@ -2,13 +2,15 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th ng-repeat="column in vm.columns" ng-click="vm.sort(column)">
+                <th ng-repeat="column in vm.columns" ng-click="vm.sortTableColumn(column.headerName)">
                     {{ column.headerName }}
+                    <i ng-if="vm.sortColumn === column.headerName && !vm.reverse" class="fa fa-sort-up"></i>
+                    <i ng-if="vm.sortColumn === column.headerName && vm.reverse" class="fa fa-sort-down"></i>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in vm.data track by $index" ng-click="vm.onRowClick({item: item})">
+            <tr ng-repeat="item in vm.data | orderBy:vm.sortColumn:vm.reverse track by $index" ng-click="vm.onRowClick({item: item})">
                 <td style="cursor:pointer;" ng-repeat="column in vm.columns" ng-bind-html="vm.formatData(item, column)">
                 </td>
             </tr>

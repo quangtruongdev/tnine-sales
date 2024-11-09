@@ -38,6 +38,17 @@
         vm.totalPages = $scope.totalPages;
         vm.pageIndex = $scope.pageIndex;
         vm.pageSize = $scope.pageSize;
+        vm.sortColumn = null;
+        vm.reverse = false;
+
+        vm.sortTableColumn = function (column) {
+            if (vm.sortColumn === column) {
+                vm.reverse = !vm.reverse;
+            } else {
+                vm.sortColumn = column;
+                vm.reverse = false;
+            }
+        }
 
         $scope.$watch('data', function (newVal, oldVal) {
             vm.data = newVal;
