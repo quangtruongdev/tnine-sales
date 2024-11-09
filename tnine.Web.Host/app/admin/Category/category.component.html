@@ -1,5 +1,5 @@
-﻿<div ng-controller="productController as vm">
-    <tnine-table data="vm.products"
+﻿<div ng-controller="categoryController as vm">
+    <tnine-table data="vm.categories"
                  columns="vm.columns"
                  options="{}"
                  on-row-click="vm.handleRowClick(item)">
@@ -20,6 +20,6 @@
             </button>
         </div>
     </div>
-    <create-or-edit-product-modal on-saved="vm.reloads()">
-    </create-or-edit-product-modal>
+    <create-or-edit-category-modal on-saved="vm.reloads()">
+    </create-or-edit-category-modal>
 </div>

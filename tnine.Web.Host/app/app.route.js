@@ -176,5 +176,16 @@
                 '/app/pages/paymentMethods/create-or-edit-payment-methods-modal/create-or-edit-payment-methods-modal.component.js'
             ]
         },
+        {
+            name: 'category',
+            url: '/category',
+            templateUrl: '/app/admin/Category/category.component.html',
+            controller: 'categoryController',
+            files: [
+                '/app/admin/Category/category.module.js',
+                '/app/admin/Category/category.component.js',
+                '/app/admin/Category/create-or-edit-category-modal/create-or-edit-category-modal.component.js'
+            ]
+        },
     ]);
 })(angular.module('root'));

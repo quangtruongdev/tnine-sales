@@ -135,10 +135,10 @@
                 return baseService.remove('api/product/' + id);
             },
             getListColors: function () {
-                return baseService.get('api/color/GetAll');
+                return baseService.get('api/color');
             },
             getListSizes: function () {
-                return baseService.get('api/color/GetAll');
+                return baseService.get('api/color');
             },
             getListImages: function (id) {
                 return baseService.get('api/image/' + id);
@@ -178,7 +178,17 @@
         serviceProxies.categoryService = {
             getAll: function () {
                 return baseService.get('api/category');
+            },
+            getCategoryForEdit: function (id) {
+                return baseService.get('api/category/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/category', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/category/' + id);
             }
+
         };
 
         serviceProxies.invoiceService = {

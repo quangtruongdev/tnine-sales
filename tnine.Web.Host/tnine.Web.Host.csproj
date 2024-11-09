@@ -282,6 +282,11 @@
     <Content Include="app\admin\authorization\user\user.component.html" />
     <Content Include="app\admin\authorization\user\user.component.js" />
     <Content Include="app\admin\authorization\user\user.module.js" />
+    <Content Include="app\admin\Category\category.component.html" />
+    <Content Include="app\admin\Category\category.component.js" />
+    <Content Include="app\admin\Category\category.module.js" />
+    <Content Include="app\admin\Category\create-or-edit-category-modal\create-or-edit-category-modal.component.html" />
+    <Content Include="app\admin\Category\create-or-edit-category-modal\create-or-edit-category-modal.component.js" />
     <Content Include="app\admin\color\color.component.html" />
     <Content Include="app\admin\color\color.component.js" />
     <Content Include="app\admin\color\color.module.js" />
@@ -1936,8 +1941,8 @@
     <Folder Include="app\shared\components\" />
     <Folder Include="app\shared\layout\footer\" />
     <Folder Include="app\shared\layout\scroll-top\" />
-    <Folder Include="Views\ShopApi\" />
     <Folder Include="Views\PaymentMethodsApi\" />
+    <Folder Include="Views\ShopApi\" />
     <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
   <ItemGroup>

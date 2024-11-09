@@ -2,10 +2,10 @@
 
 namespace tnine.Application.Shared.ICategoryService.Dto
 {
-    public class GetCategoryForViewDto : EntityDto<long>
+    public class CreateOrEditCategoryDto : EntityDto<long>
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string CategoryParentName { get; set; }
+        public long? CategoryId { get; set; }
     }
 }

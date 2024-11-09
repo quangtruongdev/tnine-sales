@@ -38,6 +38,7 @@
             new AppMenuItem('shop', 'Shops', 'shop', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('paymentMethods', 'PaymentMethods', 'paymentMethods', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('paymentStatus', 'PaymentStatus', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true),
+            new AppMenuItem('category', 'Category', 'category', 'fa-solid fa-users', [], false, 'admin', true),
         ]);
 
         vm.sidebar = new AppMenu('main', 'Main Menu', menus.items);

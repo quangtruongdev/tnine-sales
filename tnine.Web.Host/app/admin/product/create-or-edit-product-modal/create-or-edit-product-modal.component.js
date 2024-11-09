@@ -36,6 +36,10 @@
         vm.getListColors = function () {
             serviceProxies.productService.getListColors().then(function (response) {
                 vm.listColors = response;
+                // Initialize selectedColors for each color (defaults to false)
+                vm.listColors.forEach(function (color) {
+                    vm.selectedColors[color.Id] = false;
+                });
             }).catch(function (error) {
                 console.error('Error fetching colors:', error);
             });
@@ -58,7 +62,6 @@
                     if (!Array.isArray(vm.product.ImgUrl)) {
                         vm.product.ImgUrl = [];
                     }
-
                     vm.product.ImgUrl.push({
                         ImgUrl: event.target.result
                     });
@@ -75,6 +78,8 @@
         };
 
         vm.show = function (id) {
+            vm.getListColors();
+            vm.getListSizes();
             vm.getListCategories();
             if (!id) {
                 vm.product = {
@@ -97,6 +102,34 @@
                 });
             }
             $('#createOrEditProductModal').modal('show');
+        };
+
+        vm.toggleColorSelection = function (color) {
+            if (!vm.product.ColorIds) {
+                vm.product.ColorIds = [];  // Ensure ColorIds is initialized
+            }
+
+            // Check if the color is selected
+            var index = vm.product.ColorIds.indexOf(color.Id);
+            if (vm.selectedColors[color.Id]) {
+                // If selected, add to ColorIds
+                if (index === -1) {
+                    vm.product.ColorIds.push(color.Id);
+                }
+            } else {
+                // If not selected, remove from ColorIds
+                if (index > -1) {
+                    vm.product.ColorIds.splice(index, 1);
+                }
+            }
+        };
+
+        vm.isColorSelected = function (color) {
+            if (!Array.isArray(vm.product.ColorIds)) {
+                vm.product.ColorIds = []; // Default to empty array if undefined
+            }
+
+            return vm.product.ColorIds.includes(color.Id);
         };
 
         vm.save = function () {

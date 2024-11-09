@@ -72,6 +72,8 @@
     <Compile Include="Authorization\IUserService\Dto\CreateOrEditApplicationUserDto.cs" />
     <Compile Include="Authorization\IUserService\Dto\GetApplicationUserForViewDto.cs" />
     <Compile Include="Authorization\IUserService\IUserService.cs" />
+    <Compile Include="ICategoryService\Dto\CreateOrEditCategoryDto.cs" />
+    <Compile Include="ICategoryService\Dto\GetCategoryForEditDto.cs" />
     <Compile Include="ICategoryService\Dto\GetCategoryForViewDto.cs" />
     <Compile Include="ICategoryService\ICategoryService.cs" />
     <Compile Include="ICustomerService\Dto\CreateOrEditCustomerDto.cs" />

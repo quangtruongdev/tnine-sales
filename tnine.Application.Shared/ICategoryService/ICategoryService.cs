@@ -7,5 +7,8 @@ namespace tnine.Application.Shared.ICategoryService
     public interface ICategoryService
     {
         Task<List<GetCategoryForViewDto>> GetAll();
+        Task<GetCategoryForEditDto> GetById(long id);
+        Task CreateOrEdit(CreateOrEditCategoryDto input);
+        Task Delete(long id);
     }
 }
