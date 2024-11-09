@@ -26,9 +26,9 @@
         };
     }
 
-    tableController.$inject = ['$scope'];
+    tableController.$inject = ['$scope', '$sce'];
 
-    function tableController($scope) {
+    function tableController($scope, $sce) {
         var vm = this;
         vm.data = [];
         vm.columns = $scope.columns;
@@ -42,6 +42,18 @@
         $scope.$watch('data', function (newVal, oldVal) {
             vm.data = newVal;
         });
+
+        vm.formatData = function (item, column) {
+            if (column.field === 'HexCode') {
+                return $sce.trustAsHtml(`<div class="d-flex align-items-center justify-content-between" style="width: 150px"><span>${item[column.field]}</span> 
+                    <span style="display:inline-block; width:20px; height:20px; background-color:${item[column.field]};"></span></div>`);
+            }
+
+            if (column.field === 'ImgUrl') {
+                return $sce.trustAsHtml(`<img src="${item[column.field]}" style="width: 40px; height: 40px;" />`);
+            }
+            return item[column.field] ? $sce.trustAsHtml(`<span>${item[column.field]}</span>`) : '';
+        };
 
         vm.rowClicked = function (row) {
             if (vm.onRowClick) {
