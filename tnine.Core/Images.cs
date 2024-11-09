@@ -8,5 +8,6 @@ namespace tnine.Core
     {
         public string ImgUrl { get; set; }
         public long ProductId { get; set; }
+        public bool? IsMain { get; set; }
     }
 }

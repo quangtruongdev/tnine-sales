@@ -133,13 +133,16 @@
             },
             delete: function (id) {
                 return baseService.remove('api/product/' + id);
-            }
-        };
-
-        serviceProxies.categoryService = {
-            getList: function () {
-                return baseService.get('api/product/category');
             },
+            getListColors: function () {
+                return baseService.get('api/color/GetAll');
+            },
+            getListSizes: function () {
+                return baseService.get('api/color/GetAll');
+            },
+            getListImages: function (id) {
+                return baseService.get('api/image/' + id);
+            }
         };
 
         serviceProxies.paymentStatusService = {
@@ -172,7 +175,11 @@
             }
         };
 
-        
+        serviceProxies.categoryService = {
+            getAll: function () {
+                return baseService.get('api/category');
+            }
+        };
 
         serviceProxies.invoiceService = {
             getAll: function () {

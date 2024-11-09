@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('productController', productController)
         .component('product', {
-            templateUrl: '/app/pages/product/product.component.html',
+            templateUrl: '/app/admin/product/product.component.html',
             controller: 'productController',
             controllerAs: 'vm'
         });
@@ -15,10 +15,15 @@
 
         vm.columns = [
             { headerName: "Id", field: "Id" },
+            {
+                headerName: "Image",
+                field: 'ImgUrl',
+            },
             { headerName: "Name", field: "Name" },
             { headerName: "Price", field: "Price" },
             { headerName: "Category", field: "CategoryName"},
-            { headerName: "Description", field: "Description" }
+            { headerName: "Description", field: "Description" },
+
         ];
 
         vm.getProducts = function () {
@@ -58,4 +63,4 @@
         vm.getProducts();
     }
 
-})(angular.module('app.pages.product'));
+})(angular.module('app.admin.product'));

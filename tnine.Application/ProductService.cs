@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-//using tnine.Application.Shared.ICatagoryService.Dto;
+using tnine.Application.Shared.IImageService.Dto;
 using tnine.Application.Shared.IProductService;
 using tnine.Application.Shared.IProductService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core.Shared.Repositories;
+
 
 namespace tnine.Application
 {
@@ -67,6 +69,21 @@ namespace tnine.Application
                     await CreateImage(item, productId);
                 }
             }
+
+            foreach (var color in input.ColorIds)
+            {
+                foreach (var size in input.SizeIds)
+                {
+                    var productVariations = new ProductVariations
+                    {
+                        ProductId = productId,
+                        ColorId = color,
+                        SizeId = size,
+                        Quantity = 0
+                    };
+                    await _productVariationsRepo.InsertAsync(productVariations);
+                }
+            }
         }
 
         public async Task Edit(CreateOrEditProductAndImageDto input)
@@ -83,21 +100,88 @@ namespace tnine.Application
             }
         }
 
-
-        public async Task CreateImage(string url, long productId)
+        public async Task CreateImage(CreateOrEditImageDto input, long productId)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Image");
-            if (!Directory.Exists(path))
+            string wwwRootPath = GetWwwRootPath();
+
+            // Kiểm tra nếu ImgUrl là chuỗi Base64
+            if (input.ImgUrl.StartsWith("data:image/"))
             {
-                Directory.CreateDirectory(path);
+                var imagePath = Path.Combine(wwwRootPath, "Image", Guid.NewGuid().ToString() + ".jpg");
+
+                if (!Directory.Exists(Path.GetDirectoryName(imagePath)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(imagePath));
+                }
+
+                // Tách phần dữ liệu Base64
+                var base64Data = input.ImgUrl.Split(',')[1];  // Tách chuỗi từ phần 'data:image/jpg;base64,...'
+                var imageBytes = Convert.FromBase64String(base64Data);
+
+                // Lưu ảnh vào tệp
+                using (var fileStream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await fileStream.WriteAsync(imageBytes, 0, imageBytes.Length);
+                }
+
+                // Thêm hoặc cập nhật ảnh vào cơ sở dữ liệu
+                if (input.Id == null)
+                {
+                    var image = new Images
+                    {
+                        ImgUrl = imagePath,
+                        ProductId = productId
+                    };
+                    await _imageRepo.InsertAsync(image);
+                }
+                else
+                {
+                    var image = await _imageRepo.FirstOrDefaultAsync(e => e.Id == input.Id);
+                    if (image != null)
+                    {
+                        image.ImgUrl = imagePath;
+                        await _imageRepo.UpdateAsync(image);
+                    }
+                }
             }
-            var ImgUrl = Path.Combine(path, url);
-            var image = new Images
+            else
             {
-                ImgUrl = ImgUrl,
-                ProductId = productId
-            };
-            await _imageRepo.InsertAsync(image);
+                // Trường hợp khác nếu ImgUrl không phải là Base64 (ví dụ đường dẫn URL đến hình ảnh)
+                var imagePath = Path.Combine(wwwRootPath, "Image", input.ImgUrl);
+
+                if (!Directory.Exists(Path.GetDirectoryName(imagePath)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(imagePath));
+                }
+
+                // Thêm hoặc cập nhật ảnh vào cơ sở dữ liệu
+                if (input.Id == null)
+                {
+                    var image = new Images
+                    {
+                        ImgUrl = imagePath,
+                        ProductId = productId
+                    };
+                    await _imageRepo.InsertAsync(image);
+                }
+                else
+                {
+                    var image = await _imageRepo.FirstOrDefaultAsync(e => e.Id == input.Id);
+                    if (image != null)
+                    {
+                        image.ImgUrl = imagePath;
+                        await _imageRepo.UpdateAsync(image);
+                    }
+                }
+            }
+
+        }
+
+        private bool IsBase64String(string input)
+        {
+            if (string.IsNullOrEmpty(input) || input.Length % 4 != 0)
+                return false;
+            return input.All(c => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".Contains(c));
         }
 
         public async Task Delete(long Id)
@@ -109,16 +193,20 @@ namespace tnine.Application
         {
             var product = await _productRepo.GetAllAsync();
             var category = await _categoreisRepo.GetAllAsync();
+            var image = await _imageRepo.GetAllAsync();
 
             var query = from p in product
                         join c in category on p.CategoryId equals c.Id
+                        join i in image on p.Id equals i.ProductId
+                        where i.IsMain == true
                         select new GetProductForViewDto
                         {
                             Id = p.Id,
                             Name = p.Name,
                             Description = p.Description,
                             Price = p.Price,
-                            CategoryName = c.Name
+                            CategoryName = c.Name,
+                            ImgUrl = i == null ? "" : i.ImgUrl,
                         };
 
             var totalCount = query.Count();
@@ -157,15 +245,13 @@ namespace tnine.Application
             return new PagedResultDto<GetProductForViewDto>(totalCount, items);
         }
 
-        //public async Task<List<GetCategoryForViewDto>> GetListCategories()
-        //{
-        //    var categories = await _categoreisRepo.GetAllAsync();
-        //    return categories.Select(o => new GetCategoryForViewDto
-        //    {
-        //        Id = o.Id,
-        //        Name = o.Name
-        //    }).ToList();
+        public string GetWwwRootPath()
+        {
 
-        //}
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string wwwRootPath = Path.Combine(baseDirectory, "wwwroot");
+
+            return wwwRootPath;
+        }
     }
 }

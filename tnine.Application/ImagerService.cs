@@ -21,19 +21,19 @@ namespace tnine.Application
             await _imageRepository.DeleteAsync(image);
         }
 
-        public async Task<PagedResultDto<GetImageForViewDto>> GetImageByProductId(GetImageInputDto input)
+        public async Task<PagedResultDto<GetImageForViewDto>> GetImageByProductId(long productId)
         {
             var images = await _imageRepository.GetAllAsync();
             var query = from image in images
-                        where image.ProductId == input.ProductId
+                        where image.ProductId == productId
                         select new GetImageForViewDto
                         {
                             Id = image.Id,
                             ImgUrl = image.ImgUrl,
                         };
             var totalCount = query.Count();
-            var result = query.Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
-            return new PagedResultDto<GetImageForViewDto>(totalCount, result);
+            //var result = query.Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
+            return new PagedResultDto<GetImageForViewDto>(totalCount, query.ToList());
         }
     }
 }

@@ -72,6 +72,8 @@
     <Compile Include="Authorization\IUserService\Dto\CreateOrEditApplicationUserDto.cs" />
     <Compile Include="Authorization\IUserService\Dto\GetApplicationUserForViewDto.cs" />
     <Compile Include="Authorization\IUserService\IUserService.cs" />
+    <Compile Include="ICategoryService\Dto\GetCategoryForViewDto.cs" />
+    <Compile Include="ICategoryService\ICategoryService.cs" />
     <Compile Include="ICustomerService\Dto\CreateOrEditCustomerDto.cs" />
     <Compile Include="ICustomerService\Dto\GetCustomerForEditOutputDto.cs" />
     <Compile Include="ICustomerService\Dto\GetCustomerForViewDto.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="IColorService\Dto\GetColorForEditOutputDto.cs" />
     <Compile Include="IColorService\Dto\GetColorForViewDto.cs" />
     <Compile Include="IColorService\IColorService.cs" />
+    <Compile Include="IImageService\Dto\CreateOrEditImageDto.cs" />
     <Compile Include="IImageService\Dto\GetImageForViewDto.cs" />
     <Compile Include="IImageService\Dto\GetImageInputDto.cs" />
     <Compile Include="IImageService\IIamgeService.cs" />

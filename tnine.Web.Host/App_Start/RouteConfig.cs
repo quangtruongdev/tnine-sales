@@ -7,6 +7,7 @@ namespace tnine.Web.Host
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.IgnoreRoute("wwwroot/{*pathInfo}");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(

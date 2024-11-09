@@ -92,12 +92,12 @@
         {
             name: 'product',
             url: '/product',
-            templateUrl: '/app/pages/product/product.component.html',
+            templateUrl: '/app/admin/product/product.component.html',
             controller: 'productController',
             files: [
-                '/app/pages/product/product.module.js',
-                '/app/pages/product/product.component.js',
-                '/app/pages/product/create-or-edit-product-modal/create-or-edit-product-modal.component.js'
+                '/app/admin/product/product.module.js',
+                '/app/admin/product/product.component.js',
+                '/app/admin/product/create-or-edit-product-modal/create-or-edit-product-modal.component.js'
             ],
             requiresAuth: true,
             roles: ['admin']

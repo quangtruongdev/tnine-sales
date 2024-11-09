@@ -1,7 +1,7 @@
 ﻿(function () {
 	'use strict';
 
-	angular.module('app.pages.product', [
+	angular.module('app.admin.product', [
 		'app.services',
 		'app.common'
 	]);

@@ -29,7 +29,7 @@ namespace tnine.Web.Host
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/wwwroot/lib/angular/angular.js",
                 "~/wwwroot/lib/angular-ui-router/release/angular-ui-router.js",
-                "~/wwwroot/lib/oclazyload/dist/ocLazyLoad.js"
+                "~/wwwroot/lib/oclazyload/dist/ocLazyLoad.js",
                 ));
 
             // App

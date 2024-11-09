@@ -84,6 +84,7 @@
     <Compile Include="Authorization\Permissions\PermissionService.cs" />
     <Compile Include="Authorization\Roles\RoleService.cs" />
     <Compile Include="Authorization\Users\UserService.cs" />
+    <Compile Include="CategoryService.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="ColorService.cs" />
     <Compile Include="ImagerService.cs" />

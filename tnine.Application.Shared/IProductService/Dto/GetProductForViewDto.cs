@@ -9,5 +9,6 @@ namespace tnine.Application.Shared.IProductService.Dto
         public decimal Price { get; set; }
         public string CategoryName { get; set; }
         public long CategoryId { get; set; }
+        public string ImgUrl { get; set; }
     }
 }

@@ -222,11 +222,13 @@
   <ItemGroup>
     <Compile Include="Api\Authorization\AccountApiController.cs" />
     <Compile Include="Api\Authorization\PermissionApiController.cs" />
+    <Compile Include="Api\CategoryApiController.cs" />
     <Compile Include="Api\CustomerApiController.cs" />
     <Compile Include="Api\ColorApiController.cs" />
     <Compile Include="Api\PaymentMethodsApiController.cs" />
     <Compile Include="Api\PaymentStatusApiController.cs" />
     <Compile Include="Api\InvoiceApiController.cs" />
+    <Compile Include="Api\ImageApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\Authorization\RoleApiController.cs" />
     <Compile Include="Api\ShopApiController.cs" />
@@ -290,6 +292,11 @@
     <Content Include="app\admin\customer\customer.component.html" />
     <Content Include="app\admin\customer\customer.component.js" />
     <Content Include="app\admin\customer\customer.module.js" />
+    <Content Include="app\admin\invoice\create-or-edit-invoice-modal\create-or-edit-invoice-modal.component.html" />
+    <Content Include="app\admin\invoice\create-or-edit-invoice-modal\create-or-edit-invoice-modal.component.js" />
+    <Content Include="app\admin\invoice\invoice.component.html" />
+    <Content Include="app\admin\invoice\invoice.component.js" />
+    <Content Include="app\admin\invoice\invoice.module.js" />
     <Content Include="app\admin\size\create-or-edit-size-modal\create-or-edit-size-modal.component.html" />
     <Content Include="app\admin\size\create-or-edit-size-modal\create-or-edit-size-modal.component.js" />
     <Content Include="app\admin\size\size.component.html" />
@@ -302,16 +309,21 @@
     <Content Include="app\pages\paymentStatus\payment-status.component.html" />
     <Content Include="app\pages\paymentStatus\payment-status.component.js" />
     <Content Include="app\pages\paymentStatus\payment-status.module.js" />
-    <Content Include="app\pages\product\create-or-edit-product-modal\create-or-edit-product-modal.component.html" />
+    <!-- <Content Include="app\pages\product\create-or-edit-product-modal\create-or-edit-product-modal.component.html" />
     <Content Include="app\pages\product\create-or-edit-product-modal\create-or-edit-product-modal.component.js" />
     <Content Include="app\pages\product\product.component.js" />
     <Content Include="app\pages\product\product.component.html" />
-    <Content Include="app\pages\product\product.module.js" />
+    <Content Include="app\pages\product\product.module.js" /> -->
     <Content Include="app\pages\shop\create-or-edit-shop-modal\create-or-edit-shop-modal.component.html" />
     <Content Include="app\pages\shop\create-or-edit-shop-modal\create-or-edit-shop-modal.component.js" />
     <Content Include="app\pages\shop\shop.component.html" />
     <Content Include="app\pages\shop\shop.component.js" />
     <Content Include="app\pages\shop\shop.module.js" />
+    <Content Include="app\admin\product\create-or-edit-product-modal\create-or-edit-product-modal.component.html" />
+    <Content Include="app\admin\product\create-or-edit-product-modal\create-or-edit-product-modal.component.js" />
+    <Content Include="app\admin\product\product.component.js" />
+    <Content Include="app\admin\product\product.component.html" />
+    <Content Include="app\admin\product\product.module.js" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.html" />
     <Content Include="app\shared\common\input-types\tnine-combobox\tnine-combobox.component.js" />
     <Content Include="app\shared\common\input-types\tnine-multiselect\tnine-multiselect.component.html" />
@@ -366,6 +378,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Image\anh1.jpg" />
+    <Content Include="Content\Image\bf10e1c4-477a-4c69-9adf-30069b7177ae.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -374,6 +388,8 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="wwwroot\Image\anh1.jpg" />
+    <Content Include="wwwroot\Image\bf10e1c4-477a-4c69-9adf-30069b7177ae.jpg" />
     <Content Include="wwwroot\lib\angular-loading-bar\build\loading-bar.css" />
     <Content Include="wwwroot\lib\angular-loading-bar\build\loading-bar.js" />
     <Content Include="wwwroot\lib\angular-loading-bar\build\loading-bar.min.css" />
