@@ -11,6 +11,5 @@ namespace tnine.Core
         public string Name { get; set; }
         [MaxLength(255)]
         public string Description { get; set; }
-        public long? CategoryId { get; set; }
     }
 }

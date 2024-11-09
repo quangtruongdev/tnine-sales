@@ -6,6 +6,5 @@ namespace tnine.Application.Shared.ICategoryService.Dto
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string CategoryParentName { get; set; }
     }
 }

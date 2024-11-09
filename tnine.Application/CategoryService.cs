@@ -57,17 +57,13 @@ namespace tnine.Application
         public async Task<List<GetCategoryForViewDto>> GetAll()
         {
             var categories = await _categoreisRepo.GetAllAsync();
-            var categoryParent = await _categoreisRepo.GetAllAsync();
 
             var query = from category in categories
-                        join parent in categoryParent on category.CategoryId equals parent.Id into parentGroup
-                        from parent in parentGroup.DefaultIfEmpty()
                         select new
                         {
                             category.Id,
                             category.Name,
                             category.Description,
-                            CategoryParentName = parent == null ? "" : parent.Name
                         };
 
             return query.Select(x => new GetCategoryForViewDto
