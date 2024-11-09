@@ -1,126 +1,97 @@
-﻿<div class="modal fade" id="createOrEditProductModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditProductLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <span ng-if="!vm.product.Id">Create</span>
-                    <span ng-if="vm.product.Id">Edit</span>
-                </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-disabled="vm.saving"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Name</span>
-                            <input type="text" class="form-control" ng-model="vm.product.Product.Name" placeholder="">
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Description</span>
-                            <input type="text" class="form-control" ng-model="vm.product.Product.Description" placeholder="">
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Price</span>
-                            <input type="text" class="form-control" ng-model="vm.product.Product.Price" placeholder="">
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Category</span>
-                            <select class="form-select" ng-model="vm.product.Product.CategoryId"
-                                    ng-options="category.Id as category.Name for category in vm.listCategory">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!--<div class="d-flex">
-        <div ng-repeat="color in vm.listColors" class="color-swatch me-2"
-             ng-style="{'background-color' : color.HexCode}"
-             ng-click="vm.toggleColorSelection(color)">
-            <div ng-if="vm.isColorSelected(color)" class="color-selected-overlay"></div>
-        </div>
-    </div>-->
-
-                    <div class="col-md-12">
-                        <label>Select Colors:</label>
-                        <div class="d-flex flex-wrap">
-                            <div ng-repeat="color in vm.listColors" class="form-check me-2">
-                                <!-- Bind to the selection state -->
-                                <input type="checkbox"
-                                       class="form-check-input"
-                                       ng-model="vm.selectedColors[color.Id]"
-                                       ng-change="vm.toggleColorSelection(color)"
-                                       id="color-{{color.Id}}">
-                                <label class="form-check-label color-swatch" for="color-{{color.Id}}" ng-style="{'background-color': color.HexCode}">
-                                    &nbsp; <!-- Empty space for visual effect, can be replaced with text or icon -->
-                                </label>
+﻿    <div class="modal fade" id="createOrEditProductModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditProductLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span ng-if="!vm.product.Id">Create</span>
+                        <span ng-if="vm.product.Id">Edit</span>
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-disabled="vm.saving"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Name</span>
+                                <input type="text" class="form-control" ng-model="vm.product.Product.Name" placeholder="">
                             </div>
                         </div>
-                    </div>
 
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Description</span>
+                                <input type="text" class="form-control" ng-model="vm.product.Product.Description" placeholder="">
+                            </div>
+                        </div>
 
-                    <div class="col-md-12">
-                        <div class="mb-3">
-                            <label>Uploaded Images:</label>
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Price</span>
+                                <input type="text" class="form-control" ng-model="vm.product.Product.Price" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Category</span>
+                                <select class="form-select" ng-model="vm.product.Product.CategoryId"
+                                        ng-options="category.Id as category.Name for category in vm.listCategory">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div ng-repeat="variation in vm.product.ProductVariations">
                             <div class="row">
-                                <div class="col-md-4" ng-repeat="image in vm.product.ImgUrl">
-                                    <div class="img-thumbnail">
-                                        <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeImage($index)">
-                                            X
-                                        </button>
-                                        <img ng-src="{{image.ImgUrl}}" alt="Uploaded Image" class="img-fluid" />
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Color</span>
+                                        <select class="form-select" ng-model="variation.ColorId"
+                                                ng-options="color.Id as color.Code for color in vm.listColors">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Size</span>
+                                        <select class="form-select" ng-model="variation.SizeId"
+                                                ng-options="size.Id as size.Name for size in vm.listSizes">
+                                            <option value=""></option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <input type="file" class="form-control" multiple accept="image/*" onchange="angular.element(this).scope().vm.uploadImages(event)">
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Quantity</span>
+                                    <input type="text" class="form-control" ng-model="variation.Quantity" placeholder="">
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
+                        <button type="button" class="btn btn-outline-primary" ng-click="vm.addProductVariation()"><i class="fa-solid fa-plus me-1"><span>Quick add</span></i></button>
+
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" multiple accept="image/*" onchange="angular.element(this).scope().vm.uploadImages(event)">
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving">
-                    <i class="fa-regular fa-floppy-disk me-1"></i>
-                    <span>Save</span>
-                </button>
-                <button type="button" class="btn btn-outline-danger" ng-click="vm.close()" ng-disabled="vm.saving">
-                    <i class="fa-solid fa-xmark me-1"></i>
-                    <span>Cancel</span>
-                </button>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving">
+                        <i class="fa-regular fa-floppy-disk me-1"></i>
+                        <span>Save</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" ng-click="vm.close()" ng-disabled="vm.saving">
+                        <i class="fa-solid fa-xmark me-1"></i>
+                        <span>Cancel</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<style>
-    .color-swatch {
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        border: 2px solid transparent;
-        border-radius: 4px;
-        margin-right: 5px; /* Adjust spacing between swatches */
-    }
-    .color-selected-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 4px;
-    }
-
-</style>

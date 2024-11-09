@@ -14,17 +14,22 @@
     function CreateOrEditProductModalController(serviceProxies, $element) {
         var vm = this;
         vm.saving = false;
-        vm.product =
-        {
+        vm.product = {
             Product: {},
-            ImgUrl : []
+            ImgUrl: [],
+            ProductVariayion: []
         };
 
-        vm.listColors = {};
-        vm.listSizes = {};
+        listProductvariation : number = 0;
 
-        vm.saving = false;
-        vm.listCategory = {};
+        vm.listColors = [];
+        vm.listSizes = [];
+        vm.listCategory = [];
+
+        // Ensure selected colors and sizes are initialized as objects
+        vm.selectedColors = {};
+        vm.selectedSizes = {};
+
         vm.getListCategories = function () {
             serviceProxies.categoryService.getAll().then(function (response) {
                 vm.listCategory = response;
@@ -36,10 +41,6 @@
         vm.getListColors = function () {
             serviceProxies.productService.getListColors().then(function (response) {
                 vm.listColors = response;
-                // Initialize selectedColors for each color (defaults to false)
-                vm.listColors.forEach(function (color) {
-                    vm.selectedColors[color.Id] = false;
-                });
             }).catch(function (error) {
                 console.error('Error fetching colors:', error);
             });
@@ -65,28 +66,21 @@
                     vm.product.ImgUrl.push({
                         ImgUrl: event.target.result
                     });
-                    console.log(vm.product.ImgUrl);
                 };
                 reader.readAsDataURL(file);
             }
-        };
-
-
-
-        vm.removeImage = function (index) {
-            vm.product.ImgUrl.splice(index, 1);
         };
 
         vm.show = function (id) {
             vm.getListColors();
             vm.getListSizes();
             vm.getListCategories();
+
             if (!id) {
                 vm.product = {
                     Product: {},
-                    ImgUrl: {},
-                    ColorIds: [],
-                    SizeIds: []
+                    ImgUrl: [],
+                    ProductVariations: []
                 };
             } else {
                 serviceProxies.productService.getProductForEdit(id).then(function (response) {
@@ -104,33 +98,6 @@
             $('#createOrEditProductModal').modal('show');
         };
 
-        vm.toggleColorSelection = function (color) {
-            if (!vm.product.ColorIds) {
-                vm.product.ColorIds = [];  // Ensure ColorIds is initialized
-            }
-
-            // Check if the color is selected
-            var index = vm.product.ColorIds.indexOf(color.Id);
-            if (vm.selectedColors[color.Id]) {
-                // If selected, add to ColorIds
-                if (index === -1) {
-                    vm.product.ColorIds.push(color.Id);
-                }
-            } else {
-                // If not selected, remove from ColorIds
-                if (index > -1) {
-                    vm.product.ColorIds.splice(index, 1);
-                }
-            }
-        };
-
-        vm.isColorSelected = function (color) {
-            if (!Array.isArray(vm.product.ColorIds)) {
-                vm.product.ColorIds = []; // Default to empty array if undefined
-            }
-
-            return vm.product.ColorIds.includes(color.Id);
-        };
 
         vm.save = function () {
             vm.saving = true;
@@ -146,6 +113,18 @@
 
         vm.close = function () {
             $('#createOrEditProductModal').modal('hide');
+        };
+
+        vm.addProductVariation = function () {
+            if (!Array.isArray(vm.product.ProductVariations)) {
+                vm.product.ProductVariations = []; 
+            }
+
+            vm.product.ProductVariations.push({
+                ColorId: null,
+                SizeId: null,
+                Quantity: null
+            });
         };
     }
 

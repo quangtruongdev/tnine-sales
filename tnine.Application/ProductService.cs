@@ -70,20 +70,15 @@ namespace tnine.Application
                 }
             }
 
-            foreach (var color in input.ColorIds)
-            {
-                foreach (var size in input.SizeIds)
-                {
-                    var productVariations = new ProductVariations
-                    {
-                        ProductId = productId,
-                        ColorId = color,
-                        SizeId = size,
-                        Quantity = 0
-                    };
-                    await _productVariationsRepo.InsertAsync(productVariations);
-                }
-            }
+            //if (input.ProductVariayion != null)
+            //{
+            //    foreach (var item in input.ProductVariayion)
+            //    {
+            //        var productVariation = _mapper.Map<ProductVariations>(item);
+            //        productVariation.ProductId = productId;
+            //        await _productVariationsRepo.InsertAsync(productVariation);
+            //    }
+            //}
         }
 
         public async Task Edit(CreateOrEditProductAndImageDto input)
@@ -107,7 +102,10 @@ namespace tnine.Application
             // Kiểm tra nếu ImgUrl là chuỗi Base64
             if (input.ImgUrl.StartsWith("data:image/"))
             {
-                var imagePath = Path.Combine(wwwRootPath, "Image", Guid.NewGuid().ToString() + ".jpg");
+
+                var url = Path.Combine(Guid.NewGuid().ToString() + ".jpg");
+
+                var imagePath = Path.Combine(wwwRootPath, url);
 
                 if (!Directory.Exists(Path.GetDirectoryName(imagePath)))
                 {
@@ -129,7 +127,7 @@ namespace tnine.Application
                 {
                     var image = new Images
                     {
-                        ImgUrl = imagePath,
+                        ImgUrl = url,
                         ProductId = productId
                     };
                     await _imageRepo.InsertAsync(image);
@@ -139,7 +137,7 @@ namespace tnine.Application
                     var image = await _imageRepo.FirstOrDefaultAsync(e => e.Id == input.Id);
                     if (image != null)
                     {
-                        image.ImgUrl = imagePath;
+                        image.ImgUrl = url;
                         await _imageRepo.UpdateAsync(image);
                     }
                 }

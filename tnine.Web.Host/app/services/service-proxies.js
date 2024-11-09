@@ -138,7 +138,7 @@
                 return baseService.get('api/color');
             },
             getListSizes: function () {
-                return baseService.get('api/color');
+                return baseService.get('api/size');
             },
             getListImages: function (id) {
                 return baseService.get('api/image/' + id);

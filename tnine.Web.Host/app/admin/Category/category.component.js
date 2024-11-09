@@ -17,7 +17,6 @@
             { headerName: "Id", field: "Id" },
             { headerName: "Name", field: "Name" },
             { headerName: "Description", field: "Description" },
-            { headerName: "CategoryParentName", field: "CategoryParentName" },
         ];
 
         vm.getCategories = function () {

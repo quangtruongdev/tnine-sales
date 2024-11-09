@@ -7,7 +7,6 @@ namespace tnine.Application.Shared.IProductService.Dto
     {
         public CreateOrEditProductDto Product { get; set; }
         public List<CreateOrEditImageDto> ImgUrl { get; set; }
-        public List<long> ColorIds { get; set; }
-        public List<long> SizeIds { get; set; }
+        //public List<CreateOrEditProductVariayionDto> ProductVariayion { get; set; }
     }
 }

@@ -61,7 +61,7 @@
             }
 
             if (column.field === 'ImgUrl') {
-                return $sce.trustAsHtml(`<img src="${item[column.field]}" style="width: 40px; height: 40px;" />`);
+                return $sce.trustAsHtml(`<img src="wwwroot\\${item[column.field]}" style="width: 40px; height: 40px;" />`);
             }
             return item[column.field] ? $sce.trustAsHtml(`<span>${item[column.field]}</span>`) : '';
         };
