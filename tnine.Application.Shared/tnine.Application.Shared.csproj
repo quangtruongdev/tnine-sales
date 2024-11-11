@@ -56,7 +56,8 @@
     <Compile Include="Authorization\IAccountService\Dto\RegisterInput.cs" />
     <Compile Include="Authorization\IAccountService\Dto\RegisterOutput.cs" />
     <Compile Include="Authorization\IAccountService\IAccountService.cs" />
-    <Compile Include="Authorization\IUserService\Dto\GetUserWithRoleForViewDto.cs" />
+    <Compile Include="Authorization\IUserService\Dto\GetUserForInputDto.cs" />
+    <Compile Include="Authorization\IUserService\Dto\GetUserForViewDto.cs" />
     <Compile Include="Authorization\IPermissionService\Dto\CreateOrEditPermissionDto.cs" />
     <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForEditOutputDto.cs" />
     <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForViewDto.cs" />
@@ -69,8 +70,7 @@
     <Compile Include="Authorization\IRoleService\Dto\GetRoleForInputDto.cs" />
     <Compile Include="Authorization\IRoleService\Dto\GetRoleForViewDto.cs" />
     <Compile Include="Authorization\IRoleService\IRoleService.cs" />
-    <Compile Include="Authorization\IUserService\Dto\CreateOrEditApplicationUserDto.cs" />
-    <Compile Include="Authorization\IUserService\Dto\GetApplicationUserForViewDto.cs" />
+    <Compile Include="Authorization\IUserService\Dto\CreateOrEditUserDto.cs" />
     <Compile Include="Authorization\IUserService\IUserService.cs" />
     <Compile Include="ICategoryService\Dto\CreateOrEditCategoryDto.cs" />
     <Compile Include="ICategoryService\Dto\GetCategoryForEditDto.cs" />

@@ -19,6 +19,10 @@
         };
 
         vm.$onInit = function () {
+            vm.getAccountInfo();
+        };
+
+        vm.getAccountInfo = function () {
             serviceProxies.accountService.getAccountInfo()
                 .then(function (result) {
                     sessionStorage.setItem('accountInfo', JSON.stringify(result));
@@ -26,13 +30,13 @@
                         $state.go('home');
                     }
                 });
-        };
+        }
 
         vm.login = function () {
-            var res = serviceProxies.accountService.login(vm.loginData);
-            res.then(function (result) {
+            serviceProxies.accountService.login(vm.loginData)
+            .then(function (result) {
                 if (result.Success = true) {
-                    $state.go('home');
+                    vm.getAccountInfo();
                 }
             });
         }

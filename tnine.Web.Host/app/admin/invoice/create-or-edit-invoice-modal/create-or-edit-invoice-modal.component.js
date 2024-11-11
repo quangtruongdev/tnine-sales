@@ -1,3 +1,4 @@
+
 (function (app) {
     app.controller('CreateOrEditInvoiceModalController', CreateOrEditInvoiceModalController)
         .component('createOrEditInvoiceModal', {

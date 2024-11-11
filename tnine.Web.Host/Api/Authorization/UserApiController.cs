@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using tnine.Application.Shared.Authorization.IAccountService.Dto;
+using tnine.Application.Shared.Authorization.IUserService;
+using tnine.Application.Shared.Authorization.IUserService.Dto;
 
 namespace tnine.Web.Host.Api
 {
@@ -13,6 +15,7 @@ namespace tnine.Web.Host.Api
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserService _userService;
 
         public UserApiController()
         {
@@ -20,11 +23,13 @@ namespace tnine.Web.Host.Api
 
         public UserApiController(
             ApplicationSignInManager signInManager,
-            ApplicationUserManager userManager
+            ApplicationUserManager userManager,
+            IUserService userService
             )
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _userService = userService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -46,15 +51,38 @@ namespace tnine.Web.Host.Api
         }
 
         // GET api/User
+        //[HttpGet]
+        //[Route("")]
+        //public async Task<IHttpActionResult> GetAll(int pageNumber = 1, int pageSize = 10)
+        //{
+        //    var totalCount = UserManager.Users.Count();
+        //    var users = await Task.Run(() => UserManager.Users
+        //    .OrderBy(u => u.Id)
+        //        .Skip((pageNumber - 1) * pageSize)
+        //        .Take(pageSize)
+        //        .ToList()
+        //    );
+        //    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+        //    return Ok(new
+        //    {
+        //        Success = true,
+        //        Data = users,
+        //        TotalCount = totalCount,
+        //        PageNumber = pageNumber,
+        //        PageSize = pageSize,
+        //        TotalPages = totalPages
+        //    });
+        //}
+
+
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> GetAll()
+        public async Task<IHttpActionResult> GetAll([FromUri] GetUserForInputDto input)
         {
-            var users = await Task.Run(() => UserManager.Users.ToList());
             return Ok(new
             {
                 Success = true,
-                Data = users
+                Data = await _userService.GetAll(input)
             });
         }
 

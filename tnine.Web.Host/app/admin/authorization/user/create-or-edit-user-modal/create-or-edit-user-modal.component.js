@@ -19,11 +19,6 @@
         vm.saving = false;
         vm.roles = [];
 
-        vm.columns = [
-            { headerName: "UserName", field: "UserName" },
-            { headerName: "Email", field: "Email" },
-        ];
-
         vm.show = function (id) {
             serviceProxies.roleService.getAll().then(function (response) {
                 vm.roles = response;
