@@ -2,6 +2,9 @@
 {
     public class GetProductVariationForEditDto
     {
-        public CreateOrEditProductVariayionDto productVariation { get; set; }
+        public long ProductId { get; set; }
+        public long ColorId { get; set; }
+        public long SizeId { get; set; }
+        public int Quantity { get; set; }
     }
 }

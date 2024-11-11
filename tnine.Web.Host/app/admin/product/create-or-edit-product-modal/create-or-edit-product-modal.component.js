@@ -17,7 +17,7 @@
         vm.product = {
             Product: {},
             ImgUrl: [],
-            ProductVariayion: []
+            ProductVariation: []
         };
 
         listProductvariation : number = 0;
@@ -26,7 +26,6 @@
         vm.listSizes = [];
         vm.listCategory = [];
 
-        // Ensure selected colors and sizes are initialized as objects
         vm.selectedColors = {};
         vm.selectedSizes = {};
 
@@ -80,7 +79,7 @@
                 vm.product = {
                     Product: {},
                     ImgUrl: [],
-                    ProductVariations: []
+                    ProductVariation: []
                 };
             } else {
                 serviceProxies.productService.getProductForEdit(id).then(function (response) {
@@ -90,14 +89,18 @@
                 });
 
                 serviceProxies.productService.getListImages(id).then(function (response) {
-                    vm.product.ImgUrl = response;
+                    vm.product.ImgUrl = response.Results;
                 }).catch(function (error) {
                     console.error('Error fetching product images:', error);
+                });
+                serviceProxies.productVariationService.getForEdit(id).then(function (response) {
+                    vm.product.ProductVariation = response;
+                }).catch(function (error) {
+                    console.error('Error fetching product variations:', error);
                 });
             }
             $('#createOrEditProductModal').modal('show');
         };
-
 
         vm.save = function () {
             vm.saving = true;
@@ -116,15 +119,30 @@
         };
 
         vm.addProductVariation = function () {
-            if (!Array.isArray(vm.product.ProductVariations)) {
-                vm.product.ProductVariations = []; 
+            if (!Array.isArray(vm.product.ProductVariation)) {
+                vm.product.ProductVariation = []; 
             }
 
-            vm.product.ProductVariations.push({
+            vm.product.ProductVariation.push({
                 ColorId: null,
                 SizeId: null,
                 Quantity: null
             });
+        };
+
+        vm.removeImage = function (index) {
+            if (!Array.isArray(vm.product.ImgUrl)) {
+                vm.product.ImgUrl = [];
+            }
+
+            vm.product.ImgUrl.splice(index, 1);
+        };
+
+        vm.resetFileInput = function () {
+            vm.activeInput = true;
+            $timeout(function () {
+                vm.activeInput = false;
+            }, 0);
         };
     }
 

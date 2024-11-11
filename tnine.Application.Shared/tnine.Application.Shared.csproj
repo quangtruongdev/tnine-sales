@@ -123,7 +123,7 @@
     <Compile Include="IProductVariationDto\Dto\GetProductVariationForEditDto.cs" />
     <Compile Include="IProductVariationDto\Dto\GetProductVariationForViewDto.cs" />
     <Compile Include="IProductVariationDto\Dto\GetProductVariationInputDto.cs" />
-    <Compile Include="IProductVariationDto\IProductVariationServiece.cs" />
+    <Compile Include="IProductVariationDto\IProductVariationService.cs" />
     <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForEditOutputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />

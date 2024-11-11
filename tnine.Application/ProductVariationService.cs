@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IProductVariationDto;
@@ -9,7 +10,7 @@ using tnine.Core.Shared.Repositories;
 
 namespace tnine.Application
 {
-    public class ProductVariationService : IProductVariationServiece
+    public class ProductVariationService : IProductVariationService
     {
 
         private readonly IProductVariationsRepository _productVariationRepository;
@@ -26,7 +27,7 @@ namespace tnine.Application
         }
 
 
-        public async Task CreateOrEdit(CreateOrEditProductVariayionDto input)
+        public async Task CreateOrEdit(CreateOrEditProductVariaionDto input)
         {
             var productVariation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == input.ProductId && x.ColorId == input.ColorId && x.SizeId == input.SizeId);
 
@@ -70,16 +71,31 @@ namespace tnine.Application
             return new PagedResultDto<GetProductVariationForViewDto>(totalCount, result.ToList());
         }
 
-        public async Task Create(CreateOrEditProductVariayionDto input)
+        public async Task Create(CreateOrEditProductVariaionDto input)
         {
             var productVariation = _mapper.Map<ProductVariations>(input);
             await _productVariationRepository.InsertAsync(productVariation);
         }
 
-        public async Task Edit(CreateOrEditProductVariayionDto input)
+        public async Task Edit(CreateOrEditProductVariaionDto input)
         {
             var productVariation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == input.ProductId && x.ColorId == input.ColorId && x.SizeId == input.SizeId);
             _mapper.Map(input, productVariation);
+        }
+
+        public async Task<List<GetProductVariationForEditDto>> GetProductVariationById(long productId)
+        {
+            var productVariation = await _productVariationRepository.GetAllAsync();
+            var result = productVariation.Where(o => o.ProductId == productId).
+                    Select(o => new GetProductVariationForEditDto
+                    {
+                        ProductId = o.ProductId,
+                        ColorId = o.ColorId,
+                        SizeId = o.SizeId,
+                        Quantity = o.Quantity
+                    });
+
+            return new List<GetProductVariationForEditDto>(result);
         }
     }
 }

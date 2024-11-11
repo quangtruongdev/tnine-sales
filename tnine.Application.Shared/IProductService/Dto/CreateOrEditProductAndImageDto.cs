@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using tnine.Application.Shared.IImageService.Dto;
+using tnine.Application.Shared.IProductVariationDto.Dto;
 
 namespace tnine.Application.Shared.IProductService.Dto
 {
@@ -7,6 +8,6 @@ namespace tnine.Application.Shared.IProductService.Dto
     {
         public CreateOrEditProductDto Product { get; set; }
         public List<CreateOrEditImageDto> ImgUrl { get; set; }
-        //public List<CreateOrEditProductVariayionDto> ProductVariayion { get; set; }
+        public List<CreateOrEditProductVariaionDto> ProductVariation { get; set; }
     }
 }

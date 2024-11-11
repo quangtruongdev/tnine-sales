@@ -250,6 +250,15 @@
             }
         };
 
+        serviceProxies.productVariationService = {
+            getForEdit: function (id) {
+                return baseService.get('api/productVariation/' + id);
+            },
+            delete: function (data) {
+                return baseService.remove('api/productVariation/', data);
+            }
+        }
+
         return serviceProxies;
     }
 

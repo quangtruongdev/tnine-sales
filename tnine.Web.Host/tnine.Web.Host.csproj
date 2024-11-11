@@ -231,6 +231,7 @@
     <Compile Include="Api\ImageApiController.cs" />
     <Compile Include="Api\ProductApiController.cs" />
     <Compile Include="Api\Authorization\RoleApiController.cs" />
+    <Compile Include="Api\ProductVariationApiController.cs" />
     <Compile Include="Api\ShopApiController.cs" />
     <Compile Include="Api\SizeApiController.cs" />
     <Compile Include="Api\TodoApiController.cs" />

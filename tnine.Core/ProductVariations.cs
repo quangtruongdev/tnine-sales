@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using tnine.Core.Auditing;
 
 namespace tnine.Core
 {
     [Table("ProductVariations")]
-    public class ProductVariations : FullAuditedEntity<long>
+    public class ProductVariations
     {
         public long ProductId { get; set; }
         public long ColorId { get; set; }

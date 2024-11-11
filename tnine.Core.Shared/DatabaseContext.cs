@@ -58,6 +58,10 @@ namespace tnine.Core.Shared
 
             modelBuilder.Entity<ApplicationUserRole>()
                 .HasKey(i => new { i.UserId, i.RoleId });
+
+            modelBuilder.Entity<ProductVariations>()
+            .HasKey(pv => new { pv.ProductId, pv.ColorId, pv.SizeId });
+
         }
     }
 }

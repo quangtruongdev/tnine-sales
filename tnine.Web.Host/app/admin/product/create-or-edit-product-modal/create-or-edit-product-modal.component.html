@@ -10,76 +10,101 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Name</span>
-                                <input type="text" class="form-control" ng-model="vm.product.Product.Name" placeholder="">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Description</span>
-                                <input type="text" class="form-control" ng-model="vm.product.Product.Description" placeholder="">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Price</span>
-                                <input type="text" class="form-control" ng-model="vm.product.Product.Price" placeholder="">
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Category</span>
-                                <select class="form-select" ng-model="vm.product.Product.CategoryId"
-                                        ng-options="category.Id as category.Name for category in vm.listCategory">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div ng-repeat="variation in vm.product.ProductVariations">
+                        <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text">Color</span>
-                                        <select class="form-select" ng-model="variation.ColorId"
-                                                ng-options="color.Id as color.Code for color in vm.listColors">
+                                        <span class="input-group-text">Name</span>
+                                        <input type="text" class="form-control" ng-model="vm.product.Product.Name" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Description</span>
+                                        <input type="text" class="form-control" ng-model="vm.product.Product.Description" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Price</span>
+                                        <input type="text" class="form-control" ng-model="vm.product.Product.Price" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Category</span>
+                                        <select class="form-select" ng-model="vm.product.Product.CategoryId"
+                                                ng-options="category.Id as category.Name for category in vm.listCategory">
                                             <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">Size</span>
-                                        <select class="form-select" ng-model="variation.SizeId"
-                                                ng-options="size.Id as size.Name for size in vm.listSizes">
-                                            <option value=""></option>
-                                        </select>
+                                <div ng-repeat="variation in vm.product.ProductVariation">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Color</span>
+                                                <select class="form-select" ng-model="variation.ColorId"
+                                                        ng-options="color.Id as color.Code for color in vm.listColors">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Size</span>
+                                                <select class="form-select" ng-model="variation.SizeId"
+                                                        ng-options="size.Id as size.Name for size in vm.listSizes">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Quantity</span>
+                                                <input type="text" class="form-control" ng-model="variation.Quantity" placeholder="">
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-outline-primary" ng-click="vm.addProductVariation()" style="font-size: 15px;">
+                                        <i class="fa-solid fa-plus me-1"></i><span>Quick add variation</span>
+                                    </button>
+                                </div>
+
                             </div>
+                        </div>
 
-                            <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">Quantity</span>
-                                    <input type="text" class="form-control" ng-model="variation.Quantity" placeholder="">
+                                    <input type="file" class="form-control" ng-show="!``vm.activeInput" multiple accept="image/*" onchange="angular.element(this).scope().vm.uploadImages(event)">
                                 </div>
                             </div>
-                        </div>
 
-                        <button type="button" class="btn btn-outline-primary" ng-click="vm.addProductVariation()"><i class="fa-solid fa-plus me-1"><span>Quick add</span></i></button>
-
-                        <div class="col-md-12">
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" multiple accept="image/*" onchange="angular.element(this).scope().vm.uploadImages(event)">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3" ng-repeat="img in vm.product.ImgUrl">
+                                        <div class="card">
+                                            <img src="wwwroot\{{img.ImgUrl}}" class="card-img-top" alt="Uploaded image preview" style="height: 100px; object-fit: cover; width: 80px">
+                                            <button type="button" class="btn btn-xs btn-danger" ng-click="vm.removeImage($index)" style="position: absolute; top: 5px; right: 5px; font-size: 10px; padding: 2px 5px;">
+                                                <i class="fa fa-trash" style="font-size: 10px;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

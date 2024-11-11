@@ -1,6 +1,6 @@
 ﻿namespace tnine.Application.Shared.IProductVariationDto.Dto
 {
-    public class CreateOrEditProductVariayionDto
+    public class CreateOrEditProductVariaionDto
     {
         public long ProductId { get; set; }
         public long ColorId { get; set; }
