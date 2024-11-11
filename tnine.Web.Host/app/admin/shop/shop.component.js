@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('shopController', shopController)
         .component('shop', {
-            templateUrl: '/app/pages/shop/shop.component.html',
+            templateUrl: '/app/admin/shop/shop.component.html',
             controller: 'shopController',
             controllerAs: 'vm'
         });

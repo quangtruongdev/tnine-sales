@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('paymentMethodsController', paymentMethodsController)
         .component('paymentMethods', {
-            templateUrl: '/app/pages/paymentMethods/payment-methods.component.html',
+            templateUrl: '/app/admin/payment-methods/payment-methods.component.html',
             controller: 'paymentMethodsController',
             controllerAs: 'vm'
         });

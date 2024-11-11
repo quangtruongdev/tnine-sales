@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('categoryController', categoryController)
         .component('category', {
-            templateUrl: '/app/admin/Category/category.component.html',
+            templateUrl: '/app/admin/category/category.component.html',
             controller: 'categoryController',
             controllerAs: 'vm'
         });

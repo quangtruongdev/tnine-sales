@@ -32,6 +32,7 @@
         vm.save = function () {
             vm.saving = true;
             serviceProxies.roleService.createOrEdit(vm.role).then(function () {
+                vm.onSaved();
                 vm.close();
             }).catch(function (error) {
                 console.error('Error saving role:', error);

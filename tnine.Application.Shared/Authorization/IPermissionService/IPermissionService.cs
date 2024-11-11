@@ -12,5 +12,6 @@ namespace tnine.Application.Shared.Authorization.IPermissionService
         Task<GetPermissionForEditOutputDto> GetById(EntityDto<long> input);
         Task Delete(EntityDto<long> input);
         Task<bool> CheckPermission(GetPermissionWithRoleDto input);
+        Task<List<NameValueDto>> GetPermissionParent();
     }
 }

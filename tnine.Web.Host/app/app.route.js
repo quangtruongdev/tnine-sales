@@ -103,17 +103,6 @@
             roles: ['admin']
         },
         {
-            name: 'paymentStatus',
-            url: '/paymentStatus',
-            templateUrl: '/app/pages/paymentStatus/payment-status.component.html',
-            controller: 'paymentStatusController',
-            files: [
-                '/app/pages/paymentStatus/payment-status.module.js',
-                '/app/pages/paymentStatus/payment-status.component.js',
-                '/app/pages/paymentStatus/create-or-edit-payment-status-modal/create-or-edit-payment-status-modal.component.js'
-            ]
-        },
-        {
             name: 'color',
             url: '/color',
             templateUrl: '/app/admin/color/color.component.html',
@@ -158,9 +147,9 @@
             templateUrl: '/app/pages/shop/shop.component.html',
             controller: 'shopController',
             files: [
-                '/app/pages/shop/shop.module.js',
-                '/app/pages/shop/shop.component.js',
-                '/app/pages/shop/create-or-edit-shop-modal/create-or-edit-shop-modal.component.js'
+                '/app/admin/shop/shop.module.js',
+                '/app/admin/shop/shop.component.js',
+                '/app/admin/shop/create-or-edit-shop-modal/create-or-edit-shop-modal.component.js'
             ],
             requiresAuth: true,
             roles: ['admin']
@@ -168,23 +157,34 @@
         {
             name: 'paymentMethods',
             url: '/paymentMethods',
-            templateUrl: '/app/pages/paymentMethods/payment-methods.component.html',
+            templateUrl: '/app/admin/payment-methods/payment-methods.component.html',
             controller: 'paymentMethodsController',
             files: [
-                '/app/pages/paymentMethods/payment-methods.module.js',
-                '/app/pages/paymentMethods/payment-methods.component.js',
-                '/app/pages/paymentMethods/create-or-edit-payment-methods-modal/create-or-edit-payment-methods-modal.component.js'
+                '/app/admin/payment-methods/payment-methods.module.js',
+                '/app/admin/payment-methods/payment-methods.component.js',
+                '/app/admin/payment-methods/create-or-edit-payment-methods-modal/create-or-edit-payment-methods-modal.component.js'
+            ]
+        },
+        {
+            name: 'paymentStatus',
+            url: '/paymentStatus',
+            templateUrl: '/app/admin/payment-status/payment-status.component.html',
+            controller: 'paymentStatusController',
+            files: [
+                '/app/admin/payment-status/payment-status.module.js',
+                '/app/admin/payment-status/payment-status.component.js',
+                '/app/admin/payment-status/create-or-edit-payment-status-modal/create-or-edit-payment-status-modal.component.js'
             ]
         },
         {
             name: 'category',
             url: '/category',
-            templateUrl: '/app/admin/Category/category.component.html',
+            templateUrl: '/app/admin/category/category.component.html',
             controller: 'categoryController',
             files: [
-                '/app/admin/Category/category.module.js',
-                '/app/admin/Category/category.component.js',
-                '/app/admin/Category/create-or-edit-category-modal/create-or-edit-category-modal.component.js'
+                '/app/admin/category/category.module.js',
+                '/app/admin/category/category.component.js',
+                '/app/admin/category/create-or-edit-category-modal/create-or-edit-category-modal.component.js'
             ]
         },
     ]);

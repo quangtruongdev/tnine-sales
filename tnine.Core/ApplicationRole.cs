@@ -9,7 +9,6 @@ namespace tnine.Core
         public long RoleId => Id;
         public string RoleName => Name;
         [StringLength(256)]
-        public string Description { get; set; }
         public virtual ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

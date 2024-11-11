@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('CreateOrEditPaymentMethodsModalController', CreateOrEditPaymentMethodsModalController)
         .component('createOrEditPaymentMethodsModal', {
-            templateUrl: '/app/pages/paymentMethods/create-or-edit-payment-methods-modal/create-or-edit-payment-methods-modal.component.html',
+            templateUrl: '/app/admin/payment-methods/create-or-edit-payment-methods-modal/create-or-edit-payment-methods-modal.component.html',
             controller: 'CreateOrEditPaymentMethodsModalController',
             controllerAs: 'vm',
             bindings: {
@@ -32,6 +32,7 @@
         vm.save = function () {
             vm.saving = true;
             serviceProxies.paymentMethodsService.createOrEdit(vm.paymentMethods).then(function () {
+                vm.onSaved();
                 vm.close();
             }).catch(function (error) {
                 console.error('Error saving payment methods:', error);

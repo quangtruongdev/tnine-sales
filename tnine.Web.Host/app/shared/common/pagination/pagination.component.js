@@ -29,8 +29,8 @@
 
                     $scope.currentPage = page;
                     $scope.onPageChanged({ page: page });
-                }
+                };
             }
-        }
+        };
     });
 })(angular.module('app.common'));

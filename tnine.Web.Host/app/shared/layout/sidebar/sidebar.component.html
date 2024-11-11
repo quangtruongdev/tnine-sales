@@ -1,31 +1,53 @@
-﻿<aside class="min-vh-100" ng-controller="sidebarController as vm">
-    <div class="bg-light border-end" style="width: 250px;">
-        <img src="path/to/logo.png" alt="Logo" class="img-fluid mb-3 mx-auto d-block" />
-
-        <nav class="nav nav-pills navbar-nav-scroll">
-            <ul class="nav flex-column">
-                <li class="nav-item" ng-repeat="item in vm.sidebar.items track by $index">
-                    <a ng-if="!item.external" class="nav-link text-decoration-none" ui-sref="{{ item.route }}">
-                        <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
-                    </a>
-
-                    <button ng-if="item.external" class="btn btn-light text-start" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}" aria-expanded="false"
-                        aria-controls="collapse{{ $index }}">
-                        <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
-                    </button>
-
-                    <div class="collapse" id="collapse{{$index}}">
-                        <ul class="nav flex-column ms-3">
-                            <li class="nav-item" ng-repeat="subItem in item.items track by $index">
-                                <a class="nav-link text-decoration-none" ui-sref="{{ subItem.route }}">
-                                    <i class="fas {{ subItem.icon }} me-2"></i> {{ subItem.displayName }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+﻿<div class="sidebar overflow-auto" ng-controller="sidebarController as vm">
+    <!-- Logo & Toggle Button -->
+    <div class="d-flex align-items-center justify-content-between p-3">
+        <img src="path/to/logo.png"
+             alt="Logo"
+             class="img-fluid mb-3 mx-auto d-block" />
+        <button type="button" class="btn btn-primary">
+            <i class="fa-solid fa-list"></i>
+        </button>
     </div>
-</aside>
+
+    <!-- Sidebar Navigation -->
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item" ng-repeat="item in vm.sidebar.items track by $index">
+                <!-- Normal link items -->
+                <a ng-if="!item.external"
+                   class="nav-link text-decoration-none"
+                   ng-class="{ active: vm.isActive(item) }"
+                   ui-sref="{{ item.route }}">
+                    <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
+                </a>
+
+                <!-- Collapsible external items -->
+                <button ng-if="item.external"
+                        class="btn btn-light text-start w-100"
+                        ng-class="{ active: vm.isActive(item) }"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{ $index }}"
+                        aria-expanded="false"
+                        aria-controls="collapse{{ $index }}">
+                    <i class="fas {{ item.icon }} me-2"></i> {{ item.displayName }}
+                </button>
+
+                <!-- Collapsible Submenu -->
+                <div class="collapse" id="collapse{{ $index }}">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item"
+                            ng-repeat="subItem in item.items track by $index">
+                            <a class="nav-link text-decoration-none"
+                               ng-class="{ active: vm.isActive(subItem) }"
+                               ui-sref="{{ subItem.route }}">
+                                <i class="fas {{ subItem.icon }} me-2"></i>
+                                {{ subItem.displayName }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</div>

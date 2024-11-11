@@ -32,8 +32,8 @@
         vm.save = function () {
             vm.saving = true;
             serviceProxies.sizeService.createOrEdit(vm.size).then(function () {
-                vm.close();
                 vm.onSaved();
+                vm.close();
             }).catch(function (error) {
                 console.error('Error saving color:', error);
             }).finally(function () {

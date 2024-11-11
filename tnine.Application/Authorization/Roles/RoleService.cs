@@ -37,7 +37,6 @@ namespace tnine.Application
             {
                 Id = r.RoleId,
                 Name = r.RoleName,
-                Description = r.Description
             }).ToList();
         }
 
@@ -61,17 +60,20 @@ namespace tnine.Application
 
             role.RolePermissions = new List<RolePermission>();
 
-            foreach (var permissionId in input.PermissionIds)
+            if (input.PermissionIds != null)
             {
-                var permission = await _permissionRepo.GetSingleByIdAsync(permissionId);
-
-                if (permission != null)
+                foreach (var permissionId in input.PermissionIds)
                 {
-                    await _rolePermissionRepo.InsertAsync(new RolePermission
+                    var permission = await _permissionRepo.GetSingleByIdAsync(permissionId);
+
+                    if (permission != null)
                     {
-                        RoleId = roleId,
-                        PermissionId = permission.Id
-                    });
+                        await _rolePermissionRepo.InsertAsync(new RolePermission
+                        {
+                            RoleId = roleId,
+                            PermissionId = permission.Id
+                        });
+                    }
                 }
             }
         }

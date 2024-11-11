@@ -83,5 +83,16 @@ namespace tnine.Application.Authorization.Permissions
         {
             return true;
         }
+
+        public async Task<List<NameValueDto>> GetPermissionParent()
+        {
+            var permissions = await _permissionRepository.GetAllAsync();
+            var items = permissions.Select(x => new NameValueDto
+            {
+                Name = x.Name,
+                Id = x.Id
+            }).ToList();
+            return items;
+        }
     }
 }

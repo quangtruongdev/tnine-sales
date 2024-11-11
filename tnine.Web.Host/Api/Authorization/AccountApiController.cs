@@ -151,7 +151,10 @@ namespace tnine.Web.Host.Api
         public IHttpActionResult Logout()
         {
             HttpContext.Current.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return Ok();
+            return Ok(new
+            {
+                Message = "Logout successful"
+            });
         }
     }
 }

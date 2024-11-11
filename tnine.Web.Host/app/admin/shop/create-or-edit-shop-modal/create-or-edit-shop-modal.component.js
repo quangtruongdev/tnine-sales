@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('CreateOrEditShopModalController', CreateOrEditShopModalController)
         .component('createOrEditShopModal', {
-            templateUrl: '/app/pages/shop/create-or-edit-shop-modal/create-or-edit-shop-modal.component.html',
+            templateUrl: '/app/admin/shop/create-or-edit-shop-modal/create-or-edit-shop-modal.component.html',
             controller: 'CreateOrEditShopModalController',
             controllerAs: 'vm',
             bindings: {
@@ -32,8 +32,8 @@
         vm.save = function () {
             vm.saving = true;
             serviceProxies.shopService.createOrEdit(vm.shop).then(function () {
+                vm.onSaved();
                 vm.close();
-                location.reload();
             }).catch(function (error) {
                 console.error('Error saving shop:', error);
             }).finally(function () {

@@ -43,7 +43,14 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _permissionService.CreateOrEdit(input);
-                return Ok("Permission created or updated successfully.");
+                if (input.Id == null)
+                {
+                    return Ok("Permission created successfully.");
+                }
+                else
+                {
+                    return Ok("Permission updated successfully.");
+                }
             }
             catch (System.Exception ex)
             {
@@ -77,6 +84,14 @@ namespace tnine.Web.Host.Api
             var roleIds = user.Roles.Select(x => x.RoleId).ToList();
             //await _permissionService.CheckPermission(new GetPermissionWithRoleDto { PermissionName = permissionName, RoleIds = roleIds });
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetPermissionParent")]
+        public async Task<IHttpActionResult> GetPermissionParent()
+        {
+            var permissions = await _permissionService.GetPermissionParent();
+            return Ok(permissions);
         }
     }
 }

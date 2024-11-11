@@ -16,12 +16,14 @@
                             <input type="text" class="form-control" ng-model="vm.invoice.CreationTime" placeholder="CreationTime">
                         </div>
                     </div>
-                    <tnine-comboBox 
+                    <tnine-combobox 
                         items="vm.listPaymentStatus" 
+                        value="vm.invoice.PaymentStatusId"
                         input-label="Name" key="Id"
-                        placeholder="Please select PaymentStatus"
-                        has-filter="true" selected-item="vm.invoice.PaymentStatusId"
-                        ></tnine-comboBox>
+                        text="Payment Status"
+                        placeholder="Please select payment status"
+                        has-filter="true"
+                        ></tnine-combobox>
                 </div>
             </div>
             <div class="modal-footer">

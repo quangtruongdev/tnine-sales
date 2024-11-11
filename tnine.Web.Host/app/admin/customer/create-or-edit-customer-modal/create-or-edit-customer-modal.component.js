@@ -32,8 +32,8 @@
         vm.save = function () {
             vm.saving = true;
             serviceProxies.customerService.createOrEdit(vm.customer).then(function () {
+                vm.onSaved();
                 vm.close();
-                location.reload();
             }).catch(function (error) {
                 console.error('Error saving customer:', error);
             }).finally(function () {

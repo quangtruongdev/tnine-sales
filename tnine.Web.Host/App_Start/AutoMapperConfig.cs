@@ -1,19 +1,17 @@
 ﻿using AutoMapper;
 using System.Linq;
 using tnine.Application.Shared.Authorization.IPermissionService.Dto;
-using tnine.Application.Shared.ICategoryService.Dto;
 using tnine.Application.Shared.Authorization.IUserService.Dto;
+using tnine.Application.Shared.ICategoryService.Dto;
 using tnine.Application.Shared.ICustomerService.Dto;
 using tnine.Application.Shared.IInvoiceService.Dto;
 using tnine.Application.Shared.IPaymentMethodsService.Dto;
 using tnine.Application.Shared.IPaymentStatusService.Dto;
 using tnine.Application.Shared.IProductService.Dto;
-using tnine.Application.Shared.IProductVariationDto.Dto;
 using tnine.Application.Shared.IRoleService.Dto;
 using tnine.Application.Shared.IShopService.Dto;
 using tnine.Application.Shared.ISizeService.Dto;
 using tnine.Application.Shared.ITodoService.Dto;
-using tnine.Application.Shared.IUserService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.IColorService.Dto;
 

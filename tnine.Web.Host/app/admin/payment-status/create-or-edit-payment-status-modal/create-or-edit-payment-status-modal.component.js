@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('CreateOrEditPaymentStatusModalController', CreateOrEditPaymentStatusModalController)
         .component('createOrEditPaymentStatusModal', {
-            templateUrl: '/app/pages/paymentStatus/create-or-edit-payment-status-modal/create-or-edit-payment-status-modal.component.html',
+            templateUrl: '/app/admin/payment-status/create-or-edit-payment-status-modal/create-or-edit-payment-status-modal.component.html',
             controller: 'CreateOrEditPaymentStatusModalController',
             controllerAs: 'vm',
             bindings: {
@@ -32,6 +32,7 @@
         vm.save = function () {
             vm.saving = true;
             serviceProxies.paymentStatusService.createOrEdit(vm.paymentStatus).then(function () {
+                vm.onSaved();
                 vm.close();
             }).catch(function (error) {
                 console.error('Error saving payment status:', error);

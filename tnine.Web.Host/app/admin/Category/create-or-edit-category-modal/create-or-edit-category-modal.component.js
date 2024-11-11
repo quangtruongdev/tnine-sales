@@ -1,7 +1,7 @@
 ﻿(function (app) {
     app.controller('CreateOrEditCategoryModalController', CreateOrEditCategoryModalController)
         .component('createOrEditCategoryModal', {
-            templateUrl: '/app/admin/Category/create-or-edit-category-modal/create-or-edit-category-modal.component.html',
+            templateUrl: '/app/admin/category/create-or-edit-category-modal/create-or-edit-category-modal.component.html',
             controller: 'CreateOrEditCategoryModalController',
             controllerAs: 'vm',
             bindings: {

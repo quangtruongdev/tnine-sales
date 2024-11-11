@@ -3,24 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Tnine Sales</title>
+    <title>@ViewBag.Title</title>
     @*<base href="/" />*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="~/wwwroot/lib/toastr/toastr.min.css" rel="stylesheet" />
     <link href="~/wwwroot/lib/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" />
 </head>
 <body>
     @RenderBody()
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @*<script src="~/wwwroot/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"></script>*@
+        <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"></script>*@
     <script src="~/wwwroot/lib/toastr/toastr.min.js"></script>
     <script src="~/wwwroot/lib/angular-loading-bar/build/loading-bar.min.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

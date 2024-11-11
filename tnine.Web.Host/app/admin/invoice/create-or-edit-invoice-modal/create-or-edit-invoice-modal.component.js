@@ -47,14 +47,16 @@
 
         vm.save = function () {
             vm.saving = true;
-            serviceProxies.invoiceService.createOrEdit(vm.invoice).then(function () {
-                vm.close();
-                location.reload();
-            }).catch(function (error) {
-                console.error('Error saving invoice:', error);
-            }).finally(function () {
-                vm.saving = false;
-            });
+            console.log(vm.invoice);
+
+            //serviceProxies.invoiceService.createOrEdit(vm.invoice).then(function () {
+            //    vm.close();
+            //    location.reload();
+            //}).catch(function (error) {
+            //    console.error('Error saving invoice:', error);
+            //}).finally(function () {
+            //    vm.saving = false;
+            //});
         };
 
         vm.close = function () {
