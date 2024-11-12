@@ -261,5 +261,19 @@
 
         return serviceProxies;
     }
+    serviceProxies.orderService = {
+        getAll: function () {
+            return baseService.get('api/order');
+        },
+        getOrderForEdit: function (id) {
+            return baseService.get('api/order/' + id);
+        },
+        createOrEdit: function (data) {
+            return baseService.post('api/order', data);
+        },
+        delete: function (id) {
+            return baseService.remove('api/order/' + id);
+        }
+    };
 
 })(angular.module('app.services'));

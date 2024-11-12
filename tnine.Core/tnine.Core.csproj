@@ -69,6 +69,7 @@
     <Compile Include="Auditing\FullAuditedEntity.cs" />
     <Compile Include="Authorization\Permission.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Orders.cs" />
     <Compile Include="PaymentMethods.cs" />
     <Compile Include="PaymentStatus.cs" />
     <Compile Include="Invoice.cs" />

@@ -3,41 +3,41 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using tnine.Application.Shared.IInvoiceService;
-using tnine.Application.Shared.IInvoiceService.Dto;
+using tnine.Application.Shared.IOrderService;
+using tnine.Application.Shared.IOrderService.Dto;
 using tnine.Web.Host.Infrastructure.Core;
 
 namespace tnine.Web.Host.Api
 {
-    [RoutePrefix("api/invoice")]
-    public class InvoiceApiController : ApiControllerBase
+    [RoutePrefix("api/order")]
+    public class OrderApiController : ApiControllerBase
     {
-        private IOrderService _invoiceService;
+        private IOrderService _orderService;
 
-        public InvoiceApiController(IOrderService invoiceService)
+        public OrderApiController(IOrderService orderService)
         {
-            _invoiceService = invoiceService;
+            _orderService = orderService;
         }
 
         [HttpGet]
         [Route("")]
         public async Task<HttpResponseMessage> GetAll()
         {
-            var invoices = await _invoiceService.GetAll();
-            return Request.CreateResponse(HttpStatusCode.OK, invoices);
+            var orders = await _orderService.GetAll();
+            return Request.CreateResponse(HttpStatusCode.OK, orders);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<HttpResponseMessage> GetInvoiceForEdit(long id)
+        public async Task<HttpResponseMessage> GetOrderForEdit(long id)
         {
-            var invoice = await _invoiceService.GetById(id);
-            return Request.CreateResponse(HttpStatusCode.OK, invoice);
+            var oder = await _orderService.GetById(id);
+            return Request.CreateResponse(HttpStatusCode.OK, oder);
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditInvoiceDto input)
+        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditOrderDto input)
         {
             if (input == null)
             {
@@ -46,7 +46,7 @@ namespace tnine.Web.Host.Api
 
             try
             {
-                await _invoiceService.CreateOrEdit(input);
+                await _orderService.CreateOrEdit(input);
                 return Request.CreateResponse(HttpStatusCode.OK, "Invoice created or updated successfully.");
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@ namespace tnine.Web.Host.Api
         [Route("{id}")]
         public async Task<HttpResponseMessage> Delete(long id)
         {
-            await _invoiceService.Delete(id);
+            await _orderService.Delete(id);
             return Request.CreateResponse(HttpStatusCode.OK, "Invoice deleted successfully.");
         }
     }

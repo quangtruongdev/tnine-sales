@@ -128,6 +128,18 @@
             ]
         },
         {
+
+            name: 'order',
+            url: '/order',
+            templateUrl: '/app/admin/order/order.component.html',
+            controller: 'orderController',
+            files: [
+                '/app/admin/order/order.module.js',
+                '/app/admin/order/order.component.js',
+                '/app/admin/order/create-or-edit-order-modal/create-or-edit-order-modal.component.js'
+            ]
+        },
+        {
             name: 'size',
             url: '/size',
             templateUrl: '/app/admin/size/size.component.html',

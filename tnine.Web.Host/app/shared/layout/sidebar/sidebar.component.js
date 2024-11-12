@@ -41,6 +41,7 @@
             new AppMenuItem('product', 'Products', 'product', 'fa-regular fa-shirt', [], false, 'admin', true),
             new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('invoice', 'Invoices', 'invoice', 'fa-light fa-file-invoice', [], false, 'admin', true),
+            new AppMenuItem('order', 'Orders', 'order', 'fa-light fa-file-invoice', [], false, 'admin', true),
             new AppMenuItem('color', 'Colors', 'color', 'fa-solid fa-palette', [], false, 'admin', true),
             new AppMenuItem('size', 'Sizes', 'size', 'fa-solid fa-signal', [], false, 'admin', true),
             new AppMenuItem('shop', 'Shops', 'shop', 'fa-solid fa-shop', [], false, 'admin', true),

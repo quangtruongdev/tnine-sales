@@ -88,6 +88,7 @@
     <Compile Include="CustomerService.cs" />
     <Compile Include="ColorService.cs" />
     <Compile Include="ImagerService.cs" />
+    <Compile Include="OrderService.cs" />
     <Compile Include="PaymentMethodsService.cs" />
     <Compile Include="PaymentStatusService.cs" />
     <Compile Include="InvoiceService.cs" />
