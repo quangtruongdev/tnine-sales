@@ -134,16 +134,36 @@
             if (!Array.isArray(vm.product.ImgUrl)) {
                 vm.product.ImgUrl = [];
             }
-
-            vm.product.ImgUrl.splice(index, 1);
+            if (confirm("Bạn có chắc chắn muốn xóa không"))
+            {
+                vm.product.ImgUrl.splice(index, 1);
+                if (vm.product.ImgUrl.Id != null) {
+                    vm.deleteImage(vm.product.ImgUrl.Id);
+                }
+            }
         };
 
-        vm.resetFileInput = function () {
-            vm.activeInput = true;
-            $timeout(function () {
-                vm.activeInput = false;
-            }, 0);
+        vm.removeProductVariation = function (variation) {
+            if (confirm("Bạn có chắc chắn muốn xóa không")) {
+                if (variation.ColorId != null) {
+                    vm.deleteProductVariation(variation);
+                }
+
+                var index = vm.product.ProductVariation.indexOf(variation);
+                if (index > -1) {
+                    vm.product.ProductVariation.splice(index, 1);
+                }
+            }
         };
+
+        vm.deleteProductVariation = function (data) {
+            serviceProxies.productVariationService.delete(data).then(function () {
+                console.log('Deleted product variation');
+            }).catch(function (error) {
+                console.error('Error deleting product variation:', error);
+            });
+        };
+
     }
 
 })(angular.module('app.admin.product'));

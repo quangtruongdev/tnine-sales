@@ -59,11 +59,12 @@ namespace tnine.Application
             }
         }
 
-        public async Task Create(CreateOrEditProductAndImageDto input)
+        protected async Task Create(CreateOrEditProductAndImageDto input)
         {
             var product = _mapper.Map<Product>(input.Product);
             product.IsDeleted = false;
             var productId = await _productRepo.InsertAndGetIdAsync(product);
+
             if (input.ImgUrl != null)
             {
                 foreach (var item in input.ImgUrl)
@@ -81,7 +82,7 @@ namespace tnine.Application
             }
         }
 
-        public async Task Edit(CreateOrEditProductAndImageDto input)
+        protected async Task Edit(CreateOrEditProductAndImageDto input)
         {
             var product = await _productRepo.FirstOrDefaultAsync(e => e.Id == input.Product.Id);
             _mapper.Map(input.Product, product);
@@ -123,7 +124,7 @@ namespace tnine.Application
 
         }
 
-        public async Task CreateImage(CreateOrEditImageDto input, long productId)
+        protected async Task CreateImage(CreateOrEditImageDto input, long productId)
         {
             if (input.Id == null)
             {
@@ -146,6 +147,7 @@ namespace tnine.Application
                     await fileStream.WriteAsync(imageBytes, 0, imageBytes.Length);
                 }
                 var isMain = _imageRepo.FirstOrDefaultAsync(e => e.ProductId == productId && e.IsMain == true);
+
                 if (isMain != null)
                 {
                     var image = new Images

@@ -45,6 +45,13 @@
 
                                 <div ng-repeat="variation in vm.product.ProductVariation">
                                     <div class="row">
+                                        <div class="col-md-12 text-end">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="vm.deteleProductVariation(variation)" style="font-size: 12px; padding: 2px 6px;">
+                                                X
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Color</span>
@@ -66,14 +73,14 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <div class="input-group mb-3">
+                                            <div class="input-group mb-4">
                                                 <span class="input-group-text">Quantity</span>
                                                 <input type="text" class="form-control" ng-model="variation.Quantity" placeholder="">
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-outline-primary" ng-click="vm.addProductVariation()" style="font-size: 15px;">
@@ -87,7 +94,7 @@
                         <div class="col-md-4">
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <input type="file" class="form-control" ng-show="!``vm.activeInput" multiple accept="image/*" onchange="angular.element(this).scope().vm.uploadImages(event)">
+                                    <input type="file" class="form-control"  multiple accept="image/*" onchange="angular.element(this).scope().vm.uploadImages(event)">
                                 </div>
                             </div>
 
