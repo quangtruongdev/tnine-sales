@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using tnine.Application.Shared.IImageService.Dto;
 using tnine.Core.Shared.Dtos;
 
 namespace tnine.Application.Shared.IImageService
@@ -7,5 +9,6 @@ namespace tnine.Application.Shared.IImageService
     {
         Task<PagedResultDto<GetImageForViewDto>> GetImageByProductId(long productId);
         Task Delete(long Id);
+        Task CreateOrEdit(List<CreateOrEditImageDto> input);
     }
 }

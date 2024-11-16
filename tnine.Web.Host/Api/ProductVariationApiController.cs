@@ -1,9 +1,11 @@
 ﻿
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using tnine.Application.Shared.IProductVariationDto;
+using tnine.Application.Shared.IProductVariationDto.Dto;
 
 namespace tnine.Web.Host.Api
 {
@@ -27,13 +29,23 @@ namespace tnine.Web.Host.Api
 
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("")]
-        public async Task<HttpResponseMessage> Delete([FromBody] long productId, long colorId, long sizeId)
+        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] List<CreateOrEditProductVariaionDto> input)
         {
-            await _productVariationsAppService.Delete(productId, colorId, sizeId);
+            await _productVariationsAppService.CreateOrEdit(input);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        [HttpDelete]
+        [Route("")]
+        public async Task<HttpResponseMessage> Delete([FromBody] CreateOrEditProductVariaionDto input)
+        {
+            await _productVariationsAppService.Delete(input);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
     }
 }

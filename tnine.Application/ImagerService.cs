@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IImageService;
 using tnine.Application.Shared.IImageService.Dto;
+using tnine.Core;
 using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Repositories;
 
@@ -34,6 +36,36 @@ namespace tnine.Application
             var totalCount = query.Count();
             //var result = query.Skip(input.SkipCount).Take(input.MaxResultCount).ToList();
             return new PagedResultDto<GetImageForViewDto>(totalCount, query.ToList());
+        }
+
+        public async Task CreateOrEdit(List<CreateOrEditImageDto> input)
+        {
+            foreach (var item in input)
+            {
+                var isMain = await _imageRepository.FirstOrDefaultAsync(e => e.ProductId == item.ProductId && e.IsMain == true);
+                if (isMain != null)
+                {
+                    var image = new Images
+                    {
+                        ImgUrl = item.ImgUrl,
+                        ProductId = item.ProductId,
+                        IsDeleted = false
+                    };
+                    await _imageRepository.InsertAsync(image);
+                }
+                else
+                {
+                    var image = new Images
+                    {
+                        ImgUrl = item.ImgUrl,
+                        ProductId = item.ProductId,
+                        IsMain = true,
+                        IsDeleted = false
+                    };
+                    await _imageRepository.InsertAsync(image);
+                }
+            }
+
         }
     }
 }

@@ -15,38 +15,38 @@
                                 <div class="col-md-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Name</span>
-                                        <input type="text" class="form-control" ng-model="vm.product.Product.Name" placeholder="">
+                                        <input type="text" class="form-control" ng-model="vm.product.Name" placeholder="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Description</span>
-                                        <input type="text" class="form-control" ng-model="vm.product.Product.Description" placeholder="">
+                                        <input type="text" class="form-control" ng-model="vm.product.Description" placeholder="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Price</span>
-                                        <input type="text" class="form-control" ng-model="vm.product.Product.Price" placeholder="">
+                                        <input type="text" class="form-control" ng-model="vm.product.Price" placeholder="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Category</span>
-                                        <select class="form-select" ng-model="vm.product.Product.CategoryId"
+                                        <select class="form-select" ng-model="vm.product.CategoryId"
                                                 ng-options="category.Id as category.Name for category in vm.listCategory">
                                             <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div ng-repeat="variation in vm.product.ProductVariation">
+                                <div ng-repeat="variation in vm.ProductVariation">
                                     <div class="row">
                                         <div class="col-md-12 text-end">
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="vm.deteleProductVariation(variation)" style="font-size: 12px; padding: 2px 6px;">
+                                            <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeProductVariation(variation)" style="font-size: 12px; padding: 2px 6px;">
                                                 X
                                             </button>
                                         </div>
@@ -100,7 +100,7 @@
 
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-4 mb-3" ng-repeat="img in vm.product.ImgUrl">
+                                    <div class="col-md-4 mb-3" ng-repeat="img in vm.ImgUrl">
                                         <div class="card">
                                             <img src="wwwroot\{{img.ImgUrl}}" class="card-img-top" alt="Uploaded image preview" style="height: 100px; object-fit: cover; width: 80px">
                                             <button type="button" class="btn btn-xs btn-danger" ng-click="vm.removeImage($index)" style="position: absolute; top: 5px; right: 5px; font-size: 10px; padding: 2px 5px;">

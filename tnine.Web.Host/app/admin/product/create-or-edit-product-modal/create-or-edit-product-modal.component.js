@@ -9,25 +9,20 @@
             },
         });
 
-    CreateOrEditProductModalController.$inject = ['serviceProxies'];
+    CreateOrEditProductModalController.$inject = ['serviceProxies', '$http', '$element'];
 
-    function CreateOrEditProductModalController(serviceProxies, $element) {
+    function CreateOrEditProductModalController(serviceProxies, $http, $element) {
         var vm = this;
         vm.saving = false;
-        vm.product = {
-            Product: {},
-            ImgUrl: [],
-            ProductVariation: []
-        };
+        vm.product = {};
+        vm.ProductVariation = [];
+        vm.ImgUrl = [];
 
         listProductvariation : number = 0;
 
         vm.listColors = [];
         vm.listSizes = [];
         vm.listCategory = [];
-
-        vm.selectedColors = {};
-        vm.selectedSizes = {};
 
         vm.getListCategories = function () {
             serviceProxies.categoryService.getAll().then(function (response) {
@@ -55,20 +50,27 @@
 
         vm.uploadImages = function (event) {
             var files = event.target.files;
+            var formData = new FormData();
+
             for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var reader = new FileReader();
-                reader.onload = function (event) {
-                    if (!Array.isArray(vm.product.ImgUrl)) {
-                        vm.product.ImgUrl = [];
-                    }
-                    vm.product.ImgUrl.push({
-                        ImgUrl: event.target.result
-                    });
-                };
-                reader.readAsDataURL(file);
+                formData.append('file' + i, files[i]);
             }
+
+            $http.post('api/image/upload', formData, {
+                headers: { 'Content-Type': undefined },
+                transformRequest: angular.identity
+            }).then(function (response) {
+                if (!Array.isArray(vm.ImgUrl)) {
+                    vm.ImgUrl = [];
+                }
+                vm.ImgUrl.push({
+                    ImgUrl: response.data.imageUrl
+                });
+            }).catch(function (error) {
+                console.error('Error uploading image:', error);
+            });
         };
+
 
         vm.show = function (id) {
             vm.getListColors();
@@ -76,25 +78,23 @@
             vm.getListCategories();
 
             if (!id) {
-                vm.product = {
-                    Product: {},
-                    ImgUrl: [],
-                    ProductVariation: []
-                };
+                vm.product = {};
+                vm.ProductVariation = [];
+                vm.ImgUrl = [];
             } else {
                 serviceProxies.productService.getProductForEdit(id).then(function (response) {
-                    vm.product.Product = response.Product;
+                    vm.product = response.Product;
                 }).catch(function (error) {
                     console.error('Error fetching product:', error);
                 });
 
                 serviceProxies.productService.getListImages(id).then(function (response) {
-                    vm.product.ImgUrl = response.Results;
+                    vm.ImgUrl = response.Results;
                 }).catch(function (error) {
                     console.error('Error fetching product images:', error);
                 });
                 serviceProxies.productVariationService.getForEdit(id).then(function (response) {
-                    vm.product.ProductVariation = response;
+                    vm.ProductVariation = response;
                 }).catch(function (error) {
                     console.error('Error fetching product variations:', error);
                 });
@@ -104,7 +104,30 @@
 
         vm.save = function () {
             vm.saving = true;
-            serviceProxies.productService.createOrEdit(vm.product).then(function () {
+            vm.productId = 0;
+
+            serviceProxies.productService.createOrEdit(vm.product).then(function (response) {
+                vm.productId = response;
+
+                vm.ProductVariation.forEach(function (variation) {
+                    variation.ProductId = vm.productId;
+                });
+
+                vm.ImgUrl.forEach(function (image) {
+                    image.ProductId = vm.productId;
+                });
+                
+                serviceProxies.productVariationService.createOrEdit(vm.ProductVariation).then(function () {
+
+                }).catch(function (error) {
+                    console.error('Error saving product:', error);
+                });
+
+                serviceProxies.imageService.createOrEdit(vm.ImgUrl).then(function () {
+
+                }).catch(function (error) {
+                    console.error('Error saving product:', error);
+                })
                 vm.close();
                 vm.onSaved();
             }).catch(function (error) {
@@ -119,11 +142,11 @@
         };
 
         vm.addProductVariation = function () {
-            if (!Array.isArray(vm.product.ProductVariation)) {
-                vm.product.ProductVariation = []; 
+            if (!Array.isArray(vm.ProductVariation)) {
+                vm.ProductVariation = []; 
             }
 
-            vm.product.ProductVariation.push({
+            vm.ProductVariation.push({
                 ColorId: null,
                 SizeId: null,
                 Quantity: null
@@ -145,7 +168,7 @@
 
         vm.removeProductVariation = function (variation) {
             if (confirm("Bạn có chắc chắn muốn xóa không")) {
-                if (variation.ColorId != null) {
+                if (variation.ProductId != null) {
                     vm.deleteProductVariation(variation);
                 }
 

@@ -256,8 +256,20 @@
             },
             delete: function (data) {
                 return baseService.remove('api/productVariation/', data);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/productVariation/', data);
             }
         }
+
+        serviceProxies.imageService = {
+            upLoad: function (data) {
+                return baseService.post('api/image/upload', data);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/image', data);
+            }
+        };
 
         return serviceProxies;
     }
@@ -275,5 +287,7 @@
             return baseService.remove('api/order/' + id);
         }
     };
+
+    
 
 })(angular.module('app.services'));
