@@ -1,1 +1,109 @@
 ﻿
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 307.325px;
+    background-color: #6b8fc340;
+    color: black;
+    padding-top: 20px;
+    z-index: 99;
+    transition: all 0.3s ease;
+}
+
+    .sidebar .d-flex {
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sidebar img {
+        width: 50%;
+        margin-bottom: 20px;
+        display: block;
+        z-index: 100;
+    }
+
+    .sidebar button {
+        background-color: #1d1b31;
+        color: black;
+        border: none;
+        font-size: 18px;
+        z-index: 100;
+    }
+
+        .sidebar button i {
+            font-size: 24px;
+        }
+
+    .sidebar nav {
+        margin-left: 30px;
+        margin-right: 60px;
+        margin-top: 90px;
+        padding-left: 20px;
+    }
+
+    .sidebar .nav-item {
+        margin-bottom: 10px;
+    }
+
+    .sidebar .nav-link {
+        color: black;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .sidebar .nav-link:hover {
+            background-color: #444;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: #007bff;
+        }
+
+        .sidebar .nav-link i {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+    .sidebar .btn {
+        color: black;
+        background-color: transparent;
+        border: none;
+        padding: 10px 15px;
+        text-align: left;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+        .sidebar .btn:hover {
+            background-color: #444;
+        }
+
+    .sidebar .collapse {
+        display: none;
+        transition: height 0.3s ease-out;
+    }
+
+        .sidebar .collapse.show {
+            display: block;
+        }
+
+        .sidebar .collapse ul {
+            padding-left: 20px;
+        }
+
+        .sidebar .collapse .nav-link {
+            padding-left: 25px;
+        }
+
+    .sidebar .nav-item + .nav-item {
+        margin-top: 3px;
+    }
