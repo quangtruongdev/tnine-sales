@@ -1,3 +1,10 @@
+
+<style>
+.md-autocomplete-suggestions-container {
+    z-index: 1060 !important;
+}
+</style>
+
 <div class="modal fade" id="createOrEditInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditInvoiceLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -10,20 +17,40 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <md-datepicker ng-model="vm.invoice.CreationTime" md-placeholder="Creation Time" disabled></md-datepicker>
                     <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">CreationTime</span>
-                            <input type="text" class="form-control" ng-model="vm.invoice.CreationTime" placeholder="CreationTime">
-                        </div>
+                        <md-input-container class="md-block">
+                            <label>Customer Name</label>
+                            <input ng-model="vm.invoice.CustomerName">
+                          </md-input-container>
                     </div>
-                    <tnine-combobox 
-                        items="vm.listPaymentStatus" 
-                        value="vm.invoice.PaymentStatusId"
-                        input-label="Name" key="Id"
-                        text="Payment Status"
-                        placeholder="Please select payment status"
-                        has-filter="true"
-                        ></tnine-combobox>
+                    <div class="col-md-12">
+                        <md-input-container class="md-block">
+                            <label>Total</label>
+                            <input ng-model="vm.invoice.Total">
+                          </md-input-container>
+                    </div>
+
+                    <md-autocomplete
+                        ng-disabled="vm.isDisabled"
+                        md-no-cache="vm.noCache"
+                        md-selected-item="vm.selectedPaymentMethod"
+                        md-search-text-change="vm.searchTextChangePaymentMethod(vm.searchTextPaymentMethod)"
+                        md-search-text="vm.searchTextPaymentMethod"
+                        md-selected-item-change="vm.selectedItemChangePaymentMethod(item)"
+                        md-items="item in vm.querySearchPaymentMethod(vm.searchTextPaymentMethod)"
+                        md-item-text="item.Name"
+                        md-min-length="0"
+                        placeholder="Please select payment method"
+                        input-aria-labelledby="favoriteStateLabel"
+                        ng-required="true">
+                        <md-item-template>
+                            <span md-highlight-text="vm.searchTextPaymentMethod" md-highlight-flags="^i">{{item.Name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No payment method matching "{{vm.searchTextPaymentMethod}}" were found.
+                        </md-not-found>
+                    </md-autocomplete>
                 </div>
             </div>
             <div class="modal-footer">

@@ -4,5 +4,6 @@
        'oc.lazyLoad',
         'app.services',
        'angular-loading-bar',
+        'ngMaterial',
    ]);
 })();
