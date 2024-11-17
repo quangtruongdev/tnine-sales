@@ -46,11 +46,11 @@ namespace tnine.Web.Host.Api
 
         [HttpPost]
         [Route("")]
-        public async Task<HttpResponseMessage> CreateOrEdit([System.Web.Http.FromBody] CreateOrEditProductAndImageDto input)
+        public async Task<HttpResponseMessage> CreateOrEdit([System.Web.Http.FromBody] CreateOrEditProductDto input)
         {
-            await _productService.CreateOrEdit(input);
+            var productId = await _productService.CreateOrEdit(input);
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, productId);
         }
     }
 }

@@ -27,24 +27,27 @@ namespace tnine.Application
         }
 
 
-        public async Task CreateOrEdit(CreateOrEditProductVariaionDto input)
+        public async Task CreateOrEdit(List<CreateOrEditProductVariaionDto> input)
         {
-            var productVariation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == input.ProductId && x.ColorId == input.ColorId && x.SizeId == input.SizeId);
+            foreach(var item in input)
+            {
+                var productVariation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == item.ProductId && x.ColorId == item.ColorId && x.SizeId == item.SizeId);
 
-            if (productVariation == null)
-            {
-                await Create(input);
-            }
-            else
-            {
-                await Edit(input);
+                if (productVariation == null)
+                {
+                    await Create(item);
+                }
+                else
+                {
+                    await Edit(item);
+                }
             }
         }
 
-        public async Task Delete(long productId, long colorId, long sizeId)
+        public async Task Delete(CreateOrEditProductVariaionDto input)
         {
 
-            var variation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == productId && x.ColorId == colorId && x.SizeId == sizeId);
+            var variation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == input.ProductId && x.ColorId == input.ColorId && x.SizeId == input.SizeId);
             await _productVariationRepository.DeleteAsync(variation);
         }
 
@@ -81,6 +84,7 @@ namespace tnine.Application
         {
             var productVariation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == input.ProductId && x.ColorId == input.ColorId && x.SizeId == input.SizeId);
             _mapper.Map(input, productVariation);
+            await _productVariationRepository.UpdateAsync(productVariation);
         }
 
         public async Task<List<GetProductVariationForEditDto>> GetProductVariationById(long productId)

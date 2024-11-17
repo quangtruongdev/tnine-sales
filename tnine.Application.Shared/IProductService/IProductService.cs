@@ -9,7 +9,7 @@ namespace tnine.Application.Shared.IProductService
         Task<PagedResultDto<GetProductForViewDto>> GetAll();
         Task<GetProductForEditDto> GetProductForEdit(long Id);
         Task Delete(long Id);
-        Task CreateOrEdit(CreateOrEditProductAndImageDto input);
+        Task<long> CreateOrEdit(CreateOrEditProductDto input);
         Task<PagedResultDto<GetProductForViewDto>> GetProductByCategoryId(long CateGoryId);
     }
 }

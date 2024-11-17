@@ -8,8 +8,8 @@ namespace tnine.Application.Shared.IProductVariationDto
     public interface IProductVariationService
     {
         Task<PagedResultDto<GetProductVariationForViewDto>> GetProductVariationByProductId(GetProductVariationInputDto input);
-        Task CreateOrEdit(CreateOrEditProductVariaionDto input);
-        Task Delete(long productId, long colorId, long sizeId);
+        Task CreateOrEdit(List<CreateOrEditProductVariaionDto> input);
+        Task Delete(CreateOrEditProductVariaionDto input);
         Task<List<GetProductVariationForEditDto>> GetProductVariationById(long productId);
     }
 }

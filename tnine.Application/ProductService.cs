@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
-using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using tnine.Application.Shared.IImageService.Dto;
 using tnine.Application.Shared.IProductService;
 using tnine.Application.Shared.IProductService.Dto;
-using tnine.Application.Shared.IProductVariationDto.Dto;
 using tnine.Core;
 using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
@@ -47,126 +43,34 @@ namespace tnine.Application
             _categoreisRepo = categoreisRepo;
         }
 
-        public async Task CreateOrEdit(CreateOrEditProductAndImageDto input)
-        {
-            if (input.Product.Id == null)
-            {
-                await Create(input);
-            }
-            else
-            {
-                await Edit(input);
-            }
-        }
-
-        public async Task Create(CreateOrEditProductAndImageDto input)
-        {
-            var product = _mapper.Map<Product>(input.Product);
-            product.IsDeleted = false;
-            var productId = await _productRepo.InsertAndGetIdAsync(product);
-            if (input.ImgUrl != null)
-            {
-                foreach (var item in input.ImgUrl)
-                {
-                    await CreateImage(item, productId);
-                }
-            }
-
-            if (input.ProductVariation != null)
-            {
-                foreach (var item in input.ProductVariation)
-                {
-                    await CreateProductVariation(item, productId);
-                }
-            }
-        }
-
-        public async Task Edit(CreateOrEditProductAndImageDto input)
-        {
-            var product = await _productRepo.FirstOrDefaultAsync(e => e.Id == input.Product.Id);
-            _mapper.Map(input.Product, product);
-            await _productRepo.UpdateAsync(product);
-            if (input.ImgUrl != null)
-            {
-                foreach (var item in input.ImgUrl)
-                {
-                    await CreateImage(item, product.Id);
-                }
-            }
-
-            if (input.ProductVariation != null)
-            {
-                foreach (var item in input.ProductVariation)
-                {
-                    await CreateProductVariation(item, product.Id);
-                }
-            }
-        }
-
-        protected async Task CreateProductVariation(CreateOrEditProductVariaionDto input, long productId)
-        {
-            var isExist = await _productVariationsRepo.FirstOrDefaultAsync(e => e.ProductId == productId && e.ColorId == input.ColorId && e.SizeId == input.SizeId);
-            if (isExist != null)
-            {
-                isExist.Quantity = input.Quantity;
-                isExist.SizeId = input.SizeId;
-                isExist.ColorId = input.ColorId;
-                await _productVariationsRepo.UpdateAsync(isExist);
-                return;
-            }
-            else
-            {
-                var productVariation = _mapper.Map<ProductVariations>(input);
-                productVariation.ProductId = productId;
-                await _productVariationsRepo.InsertAsync(productVariation);
-            }
-
-        }
-
-        public async Task CreateImage(CreateOrEditImageDto input, long productId)
+        public async Task<long> CreateOrEdit(CreateOrEditProductDto input)
         {
             if (input.Id == null)
             {
-                string wwwRootPath = GetWwwRootPath();
-
-                var url = Path.Combine(Guid.NewGuid().ToString() + ".jpg");
-
-                var imagePath = Path.Combine(wwwRootPath, url);
-
-                if (!Directory.Exists(Path.GetDirectoryName(imagePath)))
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(imagePath));
-                }
-
-                var base64Data = input.ImgUrl.Split(',')[1];
-                var imageBytes = Convert.FromBase64String(base64Data);
-
-                using (var fileStream = new FileStream(imagePath, FileMode.Create))
-                {
-                    await fileStream.WriteAsync(imageBytes, 0, imageBytes.Length);
-                }
-                var isMain = _imageRepo.FirstOrDefaultAsync(e => e.ProductId == productId && e.IsMain == true);
-                if (isMain != null)
-                {
-                    var image = new Images
-                    {
-                        ImgUrl = url,
-                        ProductId = productId,
-                        IsMain = true
-                    };
-                    await _imageRepo.InsertAsync(image);
-                }
-                else
-                {
-                    var image = new Images
-                    {
-                        ImgUrl = url,
-                        ProductId = productId
-                    };
-                    await _imageRepo.InsertAsync(image);
-                }
-
+                return await Create(input);
             }
+            else
+            {
+                return await Edit(input);
+            }
+        }
+
+        protected async Task<long> Create(CreateOrEditProductDto input)
+        {
+            var product = _mapper.Map<Product>(input);
+            product.IsDeleted = false;
+            var productId = await _productRepo.InsertAndGetIdAsync(product);
+            return productId;
+
+        }
+
+        protected async Task<long> Edit(CreateOrEditProductDto input)
+        {
+            var product = await _productRepo.FirstOrDefaultAsync(e => e.Id == input.Id);
+            _mapper.Map(input, product);
+            await _productRepo.UpdateAsync(product);
+            return product.Id;
+
         }
 
         public async Task Delete(long Id)
@@ -230,15 +134,6 @@ namespace tnine.Application
             var totalCount = query.Count();
             var items = query.Skip(0).Take(10).ToList();
             return new PagedResultDto<GetProductForViewDto>(totalCount, items);
-        }
-
-        public string GetWwwRootPath()
-        {
-
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string wwwRootPath = Path.Combine(baseDirectory, "wwwroot");
-
-            return wwwRootPath;
         }
     }
 }
