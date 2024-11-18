@@ -35,7 +35,7 @@ namespace tnine.Application
         private async Task Create(CreateOrEditCategoryDto input)
         {
             var category = _mapper.Map<Categories>(input);
-
+            category.IsDeleted = false;
             await _categoreisRepo.InsertAsync(category);
         }
 
@@ -51,7 +51,8 @@ namespace tnine.Application
         public async Task Delete(long id)
         {
             var category = await _categoreisRepo.FirstOrDefaultAsync(o => o.Id == id);
-            await _categoreisRepo.DeleteAsync(category);
+            category.IsDeleted = true;
+            await _categoreisRepo.UpdateAsync(category);
         }
 
         public async Task<List<GetCategoryForViewDto>> GetAll()
@@ -59,6 +60,7 @@ namespace tnine.Application
             var categories = await _categoreisRepo.GetAllAsync();
 
             var query = from category in categories
+                        where category.IsDeleted == false
                         select new
                         {
                             category.Id,

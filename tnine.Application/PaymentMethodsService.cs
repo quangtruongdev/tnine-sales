@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tnine.Application.Shared.IPaymentMethodsService;
+using tnine.Application.Shared.IPaymentMethodsService.Dto;
+using tnine.Core;
 using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core.Shared.Repositories;
-using tnine.Core;
-using tnine.Application.Shared.IPaymentMethodsService;
-using tnine.Application.Shared.IPaymentMethodsService.Dto;
 
 namespace tnine.Application
 {
@@ -26,7 +26,8 @@ namespace tnine.Application
         public async Task<List<GetPaymentMethodsForViewDto>> GetAll()
         {
             var paymentMethods = await _paymentMethodsRepo.GetAllAsync();
-            return paymentMethods.Select(p => new GetPaymentMethodsForViewDto
+            var filteredPaymentMethods = paymentMethods.Where(x => x.IsDeleted == false);
+            return filteredPaymentMethods.Select(p => new GetPaymentMethodsForViewDto
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -47,6 +48,7 @@ namespace tnine.Application
         private async Task Create(CreateOrEditPaymentMethodsDto input)
         {
             var paymentMethods = _mapper.Map<PaymentMethods>(input);
+            paymentMethods.IsDeleted = false;
             await _paymentMethodsRepo.InsertAsync(paymentMethods);
         }
 
@@ -69,7 +71,9 @@ namespace tnine.Application
 
         public async Task Delete(EntityDto<long> input)
         {
-            await _paymentMethodsRepo.DeleteAsync(input.Id.Value);
+            var paymentMethods = await _paymentMethodsRepo.GetSingleByIdAsync(input.Id.Value);
+            paymentMethods.IsDeleted = true;
+            await _paymentMethodsRepo.UpdateAsync(paymentMethods);
         }
     }
 }

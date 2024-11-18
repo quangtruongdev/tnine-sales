@@ -1,17 +1,13 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IPaymentStatusService;
 using tnine.Application.Shared.IPaymentStatusService.Dto;
-using tnine.Application.Shared.IProductService.Dto;
-using tnine.Application.Shared.IShopService.Dto;
 using tnine.Core;
+using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
 using tnine.Core.Shared.Repositories;
-using tnine.Core.Shared.Dtos;
 
 namespace tnine.Application
 {
@@ -30,7 +26,8 @@ namespace tnine.Application
         public async Task<List<GetPaymentStatusForViewDto>> GetAll()
         {
             var paymentStatus = await _paymentStatusRepo.GetAllAsync();
-            return paymentStatus.Select(p => new GetPaymentStatusForViewDto
+            var filteredPaymentStatus = paymentStatus.Where(x => x.IsDeleted == false);
+            return filteredPaymentStatus.Select(p => new GetPaymentStatusForViewDto
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -51,6 +48,7 @@ namespace tnine.Application
         private async Task Create(CreateOrEditPaymentStatusDto input)
         {
             var paymentStatus = _mapper.Map<PaymentStatus>(input);
+            paymentStatus.IsDeleted = false;
             await _paymentStatusRepo.InsertAsync(paymentStatus);
         }
 
@@ -73,6 +71,8 @@ namespace tnine.Application
 
         public async Task Delete(EntityDto<long> input)
         {
+            var paymentStatus = await _paymentStatusRepo.GetSingleByIdAsync(input.Id.Value);
+            paymentStatus.IsDeleted = true;
             await _paymentStatusRepo.DeleteAsync(input.Id.Value);
         }
     }

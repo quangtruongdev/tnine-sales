@@ -26,7 +26,7 @@
             });
         };
 
-        vm.reload = function () {
+        vm.reloads = function () {
             vm.getPaymentMethods();
         };
 
