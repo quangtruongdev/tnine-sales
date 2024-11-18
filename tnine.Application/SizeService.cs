@@ -24,7 +24,8 @@ namespace tnine.Application
         public async Task<List<GetSizeForViewDto>> GetAll()
         {
             var sizes = await _sizeRepository.GetAllAsync();
-            return sizes.Select(x => new GetSizeForViewDto
+            var filteredSizes = sizes.Where(x => x.IsDeleted == false);
+            return filteredSizes.Select(x => new GetSizeForViewDto
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -45,6 +46,7 @@ namespace tnine.Application
         private async Task Create(CreateOrEditSizeDto input)
         {
             var size = _mapper.Map<Sizes>(input);
+            size.IsDeleted = false;
             await _sizeRepository.InsertAsync(size);
         }
         private async Task Edit(CreateOrEditSizeDto input)
@@ -65,7 +67,9 @@ namespace tnine.Application
         }
         public async Task Delete(long id)
         {
-            await _sizeRepository.DeleteAsync(id);
+            var size = await _sizeRepository.GetSingleByIdAsync(id);
+            size.IsDeleted = true;
+            await _sizeRepository.UpdateAsync(size);
         }
     }
 }

@@ -41,7 +41,7 @@
 
         vm.delete = function () {
             if (confirm('Are you sure you want to delete?')) {
-                serviceProxies.colorService.delete(vm.selectedId).then(function () {
+                serviceProxies.sizeService.delete(vm.selectedId).then(function () {
                     vm.getsizes();
                 }).catch(function (error) {
                     console.error('Error deleting color:', error);

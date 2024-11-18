@@ -24,7 +24,8 @@ namespace tnine.Application
         public async Task<List<GetColorForViewDto>> GetAll()
         {
             var colors = await _colorRepository.GetAllAsync();
-            return colors.Select(x => new GetColorForViewDto
+            var filteredColors = colors.Where(x => x.IsDeleted == false);
+            return filteredColors.Select(x => new GetColorForViewDto
             {
                 Id = x.Id,
                 HexCode = x.HexCode,
@@ -45,6 +46,7 @@ namespace tnine.Application
         private async Task Create(CreateOrEditColorDto input)
         {
             var color = _mapper.Map<Colors>(input);
+            color.IsDeleted = false;
             await _colorRepository.InsertAsync(color);
         }
         private async Task Edit(CreateOrEditColorDto input)
@@ -65,7 +67,9 @@ namespace tnine.Application
         }
         public async Task Delete(long id)
         {
-            await _colorRepository.DeleteAsync(id);
+            var color = await _colorRepository.GetSingleByIdAsync(id);
+            color.IsDeleted = true;
+            await _colorRepository.UpdateAsync(color);
         }
     }
 }
