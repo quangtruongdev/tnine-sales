@@ -57,4 +57,4 @@
         vm.getShops();
     }
 
-})(angular.module('app.pages.shop'));
+})(angular.module('app.admin.shop'));

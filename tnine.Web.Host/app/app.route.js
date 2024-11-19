@@ -156,7 +156,7 @@
 
             name: 'shop',
             url: '/shop',
-            templateUrl: '/app/pages/shop/shop.component.html',
+            templateUrl: '/app/admin/shop/shop.component.html',
             controller: 'shopController',
             files: [
                 '/app/admin/shop/shop.module.js',
