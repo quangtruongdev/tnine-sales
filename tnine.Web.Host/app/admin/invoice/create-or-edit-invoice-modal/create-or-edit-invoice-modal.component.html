@@ -22,7 +22,7 @@
                         <md-input-container class="md-block">
                             <label>Customer Name</label>
                             <input ng-model="vm.invoice.CustomerName">
-                          </md-input-container>
+                        </md-input-container>
                     </div>
                     <div class="col-md-12">
                         <md-input-container class="md-block">
@@ -30,27 +30,46 @@
                             <input ng-model="vm.invoice.Total">
                           </md-input-container>
                     </div>
-
-                    <md-autocomplete
-                        ng-disabled="vm.isDisabled"
-                        md-no-cache="vm.noCache"
-                        md-selected-item="vm.selectedPaymentMethod"
-                        md-search-text-change="vm.searchTextChangePaymentMethod(vm.searchTextPaymentMethod)"
-                        md-search-text="vm.searchTextPaymentMethod"
-                        md-selected-item-change="vm.selectedItemChangePaymentMethod(item)"
-                        md-items="item in vm.querySearchPaymentMethod(vm.searchTextPaymentMethod)"
-                        md-item-text="item.Name"
-                        md-min-length="0"
-                        placeholder="Please select payment method"
-                        input-aria-labelledby="favoriteStateLabel"
-                        ng-required="true">
-                        <md-item-template>
-                            <span md-highlight-text="vm.searchTextPaymentMethod" md-highlight-flags="^i">{{item.Name}}</span>
-                        </md-item-template>
-                        <md-not-found>
-                            No payment method matching "{{vm.searchTextPaymentMethod}}" were found.
-                        </md-not-found>
-                    </md-autocomplete>
+                    <div class="col-md-12 mb-4">
+                        <md-autocomplete
+                            placeholder="Please select payment status"
+                            ng-required="true"
+                            ng-disabled="false"
+                            md-no-cache="true"
+                            md-min-length="0"
+                            md-item-text="item.Name"
+                            md-search-text="vm.searchTextPaymentStatus"
+                            md-selected-item="vm.selectedPaymentStatus"
+                            md-selected-item-change="vm.selectedItemChangePaymentStatus(item)"
+                            md-items="item in vm.querySearchPaymentStatus(vm.searchTextPaymentStatus)">
+                            <md-item-template>
+                                <span md-highlight-text="vm.searchTextPaymentStatus" md-highlight-flags="^i">{{item.Name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No payment status matching "{{vm.searchTextPaymentStatus}}" were found.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </div>
+                    <div class="col-md-12">
+                        <md-autocomplete
+                            placeholder="Please select payment method"
+                            ng-required="true"
+                            ng-disabled="false"
+                            md-no-cache="true"
+                            md-min-length="0"
+                            md-item-text="item.Name"
+                            md-search-text="vm.searchTextPaymentMethod"
+                            md-selected-item="vm.selectedPaymentMethod"
+                            md-selected-item-change="vm.selectedItemChangePaymentMethod(item)"
+                            md-items="item in vm.querySearchPaymentMethod(vm.searchTextPaymentMethod)">
+                            <md-item-template>
+                                <span md-highlight-text="vm.searchTextPaymentMethod" md-highlight-flags="^i">{{item.Name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No payment method matching "{{vm.searchTextPaymentMethod}}" were found.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
