@@ -1,1 +1,38 @@
 ﻿
+nav.bg-light {
+    background-color: #ececec !important;
+}
+
+.btn-outline-primary {
+    color: #333;
+    border-color: white;
+}
+
+    .btn-outline-primary:hover {
+        background-color: #ececec;
+        color: #007bff;
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #333;
+    border-color: #6c757d;
+}
+
+    .btn-secondary:hover {
+        background-color: #ececec;
+        color: #333;
+    }
+
+.dropdown-menu {
+    background-color: #ececec;
+}
+
+.dropdown-item {
+    color: #333;
+}
+
+    .dropdown-item:hover {
+        background-color: #007bff; 
+        color: white;
+    }
