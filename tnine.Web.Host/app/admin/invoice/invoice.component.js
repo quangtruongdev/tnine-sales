@@ -6,9 +6,9 @@
             controllerAs: 'vm'
         });
 
-    invoiceController.$inject = ['serviceProxies', '$state', '$element', '$scope', '$timeout'];
+    invoiceController.$inject = ['serviceProxies', '$state', '$element', '$http', '$timeout'];
 
-    function invoiceController(serviceProxies, $state, $element, $scope, $timeout) {
+    function invoiceController(serviceProxies, $state, $element, $http, $timeout) {
         var vm = this;
         vm.invoices = [];
         vm.selectedId = null;
@@ -44,7 +44,7 @@
             },
             onGridReady: function (params) {
                 vm.gridApi = params.api
-                params.api.sizeColumnsToFit()
+                window.addEventListener('resize', () => params.api.sizeColumnsToFit())
             },
             onFirstDataRendered: function (params) {
                 params.api.sizeColumnsToFit();
@@ -62,9 +62,25 @@
                         vm.gridApi.setRowData(vm.invoices);
                     }
                 })
-                .catch((error) => console.error('Error fetching invoices:', error));    
+                .catch((error) => console.error('Error fetching invoices:', error))  
 
         vm.reload = () => vm.getInvoices()
+
+        vm.exportExcel = () => {
+            if(confirm('Are you sure you want to export?')) {
+                fetch('/api/invoice/exportExcel')
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(new Blob([blob]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', 'invoices.xlsx');
+                        document.body.appendChild(link);
+                        link.click();
+                        link.remove();
+                    });
+            }
+        }
 
         vm.add = () => angular.element(document.querySelector('create-or-edit-invoice-modal'))
             .controller('createOrEditInvoiceModal').show();

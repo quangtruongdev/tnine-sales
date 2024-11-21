@@ -11,7 +11,7 @@ using tnine.Core.Shared.Repositories;
 
 namespace tnine.Application
 {
-    public class InvoiceService : IOrderService
+    public class InvoiceService : IInvoiceService
     {
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly ICustomerRepository _customerRepository;

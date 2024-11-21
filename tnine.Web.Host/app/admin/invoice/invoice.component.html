@@ -3,16 +3,20 @@
 
     <div class="d-flex float-end">
         <div>
+            <md-button type="button" class="md-raised md-primary" ng-click="vm.exportExcel()">
+                <i class="fa-solid fa-file-excel"></i>
+                Export Excel
+            </md-button>
             <md-button type="button" class="md-raised md-primary" ng-click="vm.add()">
-                <i class="fa-solid fa-plus me-1"></i>
+                <i class="fa-solid fa-plus"></i>
                 Add
             </md-button>
             <md-button type="button" class="md-raised md-primary" ng-disabled="!vm.selectedId" ng-click="vm.edit()">
-                <i class="fa-solid fa-pen me-1"></i>
+                <i class="fa-solid fa-pen"></i>
                 Edit
             </md-button>
             <md-button type="button" class="md-warn md-raised md-hue-1" ng-disabled="!vm.selectedId" ng-click="vm.delete()">
-                <i class="fa-solid fa-trash me-1"></i>
+                <i class="fa-solid fa-trash"></i>
                 Delete
             </md-button>
         </div>

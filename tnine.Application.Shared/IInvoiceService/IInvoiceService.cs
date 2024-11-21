@@ -4,7 +4,7 @@ using tnine.Application.Shared.IInvoiceService.Dto;
 
 namespace tnine.Application.Shared.IInvoiceService
 {
-    public interface IOrderService
+    public interface IInvoiceService
     {
         Task<List<GetInvoiceForViewDto>> GetAll();
         Task<GetInvoiceForEditOutputDto> GetById(long id);
