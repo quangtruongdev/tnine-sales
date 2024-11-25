@@ -11,6 +11,15 @@
     function sidebarController(AppMenu, AppMenuItem, serviceProxies, $document) {
         var vm = this;
 
+        vm.onClickSidebar = () => {
+            const sidebar = document.querySelector(".sidebar");
+            const mainContent = document.querySelector('.main-content');
+
+            mainContent.style.marginLeft = sidebar.classList.contains('expanded') ? '5rem' : '16rem';
+
+            sidebar.classList.toggle('expanded');
+        }
+
         vm.loadCss = function () {
             var linkElement = $document[0].createElement('link');
             linkElement.rel = 'stylesheet';

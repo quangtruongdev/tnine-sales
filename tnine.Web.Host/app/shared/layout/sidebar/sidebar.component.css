@@ -1,21 +1,52 @@
-﻿.sidebar {
+﻿.main-content {
+    margin-left: 16rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar {
+    --sb-width: 5rem;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
-    width: 20%;
+    width: var(--sb-width);
     background-color: #ececec;
     color: black;
     padding-top: 20px;
     z-index: 99;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar.expanded {
+    --sb-width: 16rem;
+}
+
+.sidebar nav span {
+    display: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.expanded nav span {
+    display: block;
+}
+
+.expanded nav ul {
+    padding-left: 1rem;
+}
+
+.sidebar .logo {
+    display: none;
+}
+
+.expanded.sidebar img {
+    display: block;
 }
 
     .sidebar .d-flex {
         padding: 10px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: start;
     }
 
     .sidebar img {
