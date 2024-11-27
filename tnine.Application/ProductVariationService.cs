@@ -29,7 +29,7 @@ namespace tnine.Application
 
         public async Task CreateOrEdit(List<CreateOrEditProductVariaionDto> input)
         {
-            foreach(var item in input)
+            foreach (var item in input)
             {
                 var productVariation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == item.ProductId && x.ColorId == item.ColorId && x.SizeId == item.SizeId);
 
@@ -44,10 +44,10 @@ namespace tnine.Application
             }
         }
 
-        public async Task Delete(CreateOrEditProductVariaionDto input)
+        public async Task Delete(long productId, long colorId, long sizeId)
         {
 
-            var variation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == input.ProductId && x.ColorId == input.ColorId && x.SizeId == input.SizeId);
+            var variation = await _productVariationRepository.FirstOrDefaultAsync(x => x.ProductId == productId && x.ColorId == colorId && x.SizeId == sizeId);
             await _productVariationRepository.DeleteAsync(variation);
         }
 

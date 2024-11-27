@@ -83,6 +83,15 @@ namespace tnine.Web.Host.Api
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<HttpResponseMessage> Delete(long id)
+        {
+            await _iamgeService.Delete(id);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
         protected string GetWwwRootPath()
         {
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;

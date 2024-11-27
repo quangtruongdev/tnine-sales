@@ -39,10 +39,10 @@ namespace tnine.Web.Host.Api
         }
 
         [HttpDelete]
-        [Route("")]
-        public async Task<HttpResponseMessage> Delete([FromBody] CreateOrEditProductVariaionDto input)
+        [Route("{productId}/{colorId}/{sizeId}")]
+        public async Task<HttpResponseMessage> Delete([FromUri] long productId, [FromUri] long colorId, [FromUri] long sizeId)
         {
-            await _productVariationsAppService.Delete(input);
+            await _productVariationsAppService.Delete(productId, colorId, sizeId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

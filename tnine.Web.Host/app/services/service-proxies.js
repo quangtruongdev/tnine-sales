@@ -254,8 +254,8 @@
             getForEdit: function (id) {
                 return baseService.get('api/productVariation/' + id);
             },
-            delete: function (data) {
-                return baseService.remove('api/productVariation/', data);
+            delete: function (productId, colorId, sizeId) {
+                return baseService.remove('api/productVariation/' + productId + '/' + colorId + '/' + sizeId);
             },
             createOrEdit: function (data) {
                 return baseService.post('api/productVariation/', data);
@@ -268,6 +268,9 @@
             },
             createOrEdit: function (data) {
                 return baseService.post('api/image', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/image/' + id);
             }
         };
 

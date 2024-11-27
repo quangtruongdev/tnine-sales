@@ -9,7 +9,7 @@ namespace tnine.Application.Shared.IProductVariationDto
     {
         Task<PagedResultDto<GetProductVariationForViewDto>> GetProductVariationByProductId(GetProductVariationInputDto input);
         Task CreateOrEdit(List<CreateOrEditProductVariaionDto> input);
-        Task Delete(CreateOrEditProductVariaionDto input);
+        Task Delete(long productId, long colorId, long sizeId);
         Task<List<GetProductVariationForEditDto>> GetProductVariationById(long productId);
     }
 }

@@ -82,6 +82,8 @@
                 vm.ProductVariation = [];
                 vm.ImgUrl = [];
             } else {
+                vm.ProductVariation = [];
+                vm.ImgUrl = [];
                 serviceProxies.productService.getProductForEdit(id).then(function (response) {
                     vm.product = response.Product;
                 }).catch(function (error) {
@@ -95,6 +97,7 @@
                 });
                 serviceProxies.productVariationService.getForEdit(id).then(function (response) {
                     vm.ProductVariation = response;
+                    console.log(response);
                 }).catch(function (error) {
                     console.error('Error fetching product variations:', error);
                 });
@@ -112,10 +115,16 @@
                 vm.ProductVariation.forEach(function (variation) {
                     variation.ProductId = vm.productId;
                 });
-
-                vm.ImgUrl.forEach(function (image) {
-                    image.ProductId = vm.productId;
+                vm.ImgUrl = vm.ImgUrl.filter(function (image) {
+                    if (!image.Id) {
+                        image.ProductId = vm.productId;
+                        return true;
+                    }
+                    return false;
                 });
+                //vm.ImgUrl.forEach(function (image) {
+                //    image.ProductId = vm.productId;
+                //});
                 
                 serviceProxies.productVariationService.createOrEdit(vm.ProductVariation).then(function () {
 
@@ -124,12 +133,11 @@
                 });
 
                 serviceProxies.imageService.createOrEdit(vm.ImgUrl).then(function () {
-
+                    vm.onSaved();
+                    vm.close();
                 }).catch(function (error) {
                     console.error('Error saving product:', error);
-                })
-                vm.close();
-                vm.onSaved();
+                });
             }).catch(function (error) {
                 console.error('Error saving product:', error);
             }).finally(function () {
@@ -153,34 +161,43 @@
             });
         };
 
-        vm.removeImage = function (index) {
-            if (!Array.isArray(vm.product.ImgUrl)) {
-                vm.product.ImgUrl = [];
-            }
+        vm.removeImage = function (img) {
+            
             if (confirm("Bạn có chắc chắn muốn xóa không"))
             {
-                vm.product.ImgUrl.splice(index, 1);
-                if (vm.product.ImgUrl.Id != null) {
-                    vm.deleteImage(vm.product.ImgUrl.Id);
-                }
+                vm.ImgUrl = vm.ImgUrl.filter(function (item) {
+                    return item !== img;
+                });
+
+                if(img.Id != null)
+                {
+                    vm.deleteImage(img.Id);
+                };
             }
+        };
+
+        vm.deleteImage = function (id) {
+            serviceProxies.imageService.delete(id).then(function () {
+                console.log('Deleted image');
+            }).catch(function (error) {
+                console.error('Error deleting image:', error);
+            });
         };
 
         vm.removeProductVariation = function (variation) {
             if (confirm("Bạn có chắc chắn muốn xóa không")) {
                 if (variation.ProductId != null) {
-                    vm.deleteProductVariation(variation);
+                    vm.deleteProductVariation(variation.ProductId, variation.ColorId, variation.SizeId);
                 }
 
-                var index = vm.product.ProductVariation.indexOf(variation);
-                if (index > -1) {
-                    vm.product.ProductVariation.splice(index, 1);
-                }
+                vm.ProductVariation = vm.ProductVariation.filter(function (item) {
+                    return item !== variation;
+                });
             }
         };
 
-        vm.deleteProductVariation = function (data) {
-            serviceProxies.productVariationService.delete(data).then(function () {
+        vm.deleteProductVariation = function (productId, colorId, sizeId) {
+            serviceProxies.productVariationService.delete(productId, colorId, sizeId).then(function () {
                 console.log('Deleted product variation');
             }).catch(function (error) {
                 console.error('Error deleting product variation:', error);
