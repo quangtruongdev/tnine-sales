@@ -6,29 +6,65 @@
             controllerAs: 'vm'
         });
 
-    productController.$inject = ['serviceProxies', '$state', '$element'];
+    productController.$inject = ['serviceProxies', '$state', '$element', '$http', '$timeout'];
 
-    function productController(serviceProxies, $state, $element) {
+    function productController(serviceProxies, $state, $element, $http, $timeout) {
         var vm = this;
         vm.products = [];
         vm.selectedId = null;
 
-        vm.columns = [
-            { headerName: "Id", field: "Id" },
-            {
-                headerName: "Image",
-                field: 'ImgUrl',
+        vm.gridOptions = {
+            columnDefs: [
+                { headerName: "No", valueGetter: "node.rowIndex + 1" },
+                { headerName: "Id", field: "Id" },
+                {
+                    headerName: "Image",
+                    field: 'ImgUrl',
+                    cellRenderer: function (params) {
+                        return `<img src="/wwwroot/${params.value}" style="width: 50px; height: 50px;" />`;
+                    }
+                },
+                { headerName: "Name", field: "Name" },
+                { headerName: "Price", field: "Price" },
+                { headerName: "Category", field: "CategoryName" },
+                { headerName: "Description", field: "Description" },
+            ],
+            rowData: [],
+            pagination: true,
+            defaultColDef: {
+                sortable: true,
+                filter: true,
+                resizable: true,
+                floatingFilter: true,
+                flex: 1,
+                cellStyle: {
+                    display: 'flex',
+                    alignItems: 'center',
+                }
             },
-            { headerName: "Name", field: "Name" },
-            { headerName: "Price", field: "Price" },
-            { headerName: "Category", field: "CategoryName"},
-            { headerName: "Description", field: "Description" },
-
-        ];
+            rowSelection: 'single',
+            enableColResize: true,
+            rowHeight: 35,
+            frameworkComponents: {
+            },
+            onGridReady: function (params) {
+                vm.gridApi = params.api
+                window.addEventListener('resize', () => params.api.sizeColumnsToFit())
+            },
+            onFirstDataRendered: function (params) {
+                params.api.sizeColumnsToFit();
+            },
+            onRowClicked: function (event) {
+                $timeout(() => vm.selectedId = event.data.Id)
+            }
+        };
 
         vm.getProducts = function () {
             serviceProxies.productService.getAll().then(function (response) {
                 vm.products = response.Results;
+                if (vm.gridApi) {
+                    vm.gridApi.setRowData(vm.products);
+                }
             }).catch(function (error) {
                 console.error('Error fetching products:', error);
             });
