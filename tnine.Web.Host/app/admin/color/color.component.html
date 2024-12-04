@@ -1,20 +1,20 @@
 ﻿<div ng-controller="colorController as vm">
-    <tnine-table data="vm.colors" columns="vm.columns" options="{}" on-row-click="vm.handleRowClick(item)">
-    </tnine-table>
+    <div id="myGrid" class="ag-theme-alpine mb-3" ag-grid="vm.gridOptions" style="height: 400px; width: 100%;"></div>
+
     <div class="d-flex float-end">
         <div>
-            <button type="button" class="btn btn-outline-primary" ng-click="vm.add()">
-                <i class="fa-solid fa-plus me-1"></i>
+            <md-button type="button" class="md-raised md-primary" ng-click="vm.add()">
+                <i class="fa-solid fa-plus"></i>
                 Add
-            </button>
-            <button type="button" class="btn btn-outline-primary" ng-disabled="!vm.selectedId" ng-click="vm.edit()">
-                <i class="fa-solid fa-pen me-1"></i>
+            </md-button>
+            <md-button type="button" class="md-raised md-primary" ng-disabled="!vm.selectedId" ng-click="vm.edit()">
+                <i class="fa-solid fa-pen"></i>
                 Edit
-            </button>
-            <button type="button" class="btn btn-outline-danger" ng-disabled="!vm.selectedId" ng-click="vm.delete()">
-                <i class="fa-solid fa-trash me-1"></i>
+            </md-button>
+            <md-button type="button" class="md-warn md-raised md-hue-1" ng-disabled="!vm.selectedId" ng-click="vm.delete()">
+                <i class="fa-solid fa-trash"></i>
                 Delete
-            </button>
+            </md-button>
         </div>
     </div>
     <create-or-edit-color-modal on-saved="vm.reloads()">

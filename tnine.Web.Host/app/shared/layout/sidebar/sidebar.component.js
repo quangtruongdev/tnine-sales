@@ -54,10 +54,8 @@
             new AppMenuItem('color', 'Colors', 'color', 'fa-solid fa-palette', [], false, 'admin', true),
             new AppMenuItem('size', 'Sizes', 'size', 'fa-solid fa-signal', [], false, 'admin', true),
             new AppMenuItem('shop', 'Shops', 'shop', 'fa-solid fa-shop', [], false, 'admin', true),
-            new AppMenuItem('payment', 'Payements', '', '', [
-                new AppMenuItem('paymentMethods', 'PaymentMethods', 'paymentMethods', 'fa-solid fa-users', [], false, 'admin', true),
-                new AppMenuItem('paymentStatus', 'PaymentStatus', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true),
-            ], true, 'admin', true),
+            new AppMenuItem('paymentMethods', 'Payment Methods', 'paymentMethods', 'fa-solid fa-users', [], false, 'admin', true),
+            new AppMenuItem('paymentStatus', 'Payment Status', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('category', 'Category', 'category', 'fa-solid fa-bars-progress', [], false, 'admin', true),
         ]);
 

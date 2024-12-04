@@ -6,21 +6,54 @@
             controllerAs: 'vm'
         });
 
-    paymentStatusController.$inject = ['serviceProxies', '$state', '$element'];
+    paymentStatusController.$inject = ['serviceProxies', '$state', '$element', '$http', '$timeout'];
 
-    function paymentStatusController(serviceProxies, $state, $element) {
+    function paymentStatusController(serviceProxies, $state, $element, $http, $timeout) {
         var vm = this;
         vm.paymentStatus = [];
         vm.selectedId = null;
 
-        vm.columns = [
-            { headerName: "Id", field: "Id" },
-            { headerName: "Name", field: "Name" }
-        ];
+        vm.gridOptions = {
+            columnDefs: [
+                { headerName: "No", valueGetter: "node.rowIndex + 1", width: 30 },
+                { headerName: "Name", field: "Name" }
+            ],
+            rowData: [],
+            pagination: true,
+            defaultColDef: {
+                sortable: true,
+                filter: true,
+                resizable: true,
+                floatingFilter: true,
+                flex: 1,
+                cellStyle: {
+                    display: 'flex',
+                    alignItems: 'center',
+                }
+            },
+            rowSelection: 'single',
+            enableColResize: true,
+            rowHeight: 35,
+            frameworkComponents: {
+            },
+            onGridReady: function (params) {
+                vm.gridApi = params.api
+                window.addEventListener('resize', () => params.api.sizeColumnsToFit())
+            },
+            onFirstDataRendered: function (params) {
+                params.api.sizeColumnsToFit();
+            },
+            onRowClicked: function (event) {
+                $timeout(() => vm.selectedId = event.data.Id)
+            }
+        };
 
         vm.getPaymentStatus = function () {
             serviceProxies.paymentStatusService.getAll().then(function (response) {
                 vm.paymentStatus = response;
+                if (vm.gridApi) {
+                    vm.gridApi.setRowData(vm.paymentStatus);
+                }
             }).catch(function (error) {
                 console.error('Error fetching payment status:', error);
             });

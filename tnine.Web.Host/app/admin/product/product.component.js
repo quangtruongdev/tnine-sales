@@ -16,7 +16,6 @@
         vm.gridOptions = {
             columnDefs: [
                 { headerName: "No", valueGetter: "node.rowIndex + 1" },
-                { headerName: "Id", field: "Id" },
                 {
                     headerName: "Image",
                     field: 'ImgUrl',
