@@ -274,6 +274,18 @@
             }
         };
 
+        serviceProxies.reportService = {
+            getDailyRevenue: function (date) {
+                return baseService.get(`api/report/daily-revenue?date=${date}`);
+            },
+            getMonthlyRevenue: function (date) {
+                return baseService.get(`api/report/monthly-revenue?date=${date}`);
+            },
+            getYearlyRevenue: function (date) {
+                return baseService.get(`api/report/yearly-revenue?date=${date}`);
+            }
+        };
+
         return serviceProxies;
     }
     serviceProxies.orderService = {

@@ -100,5 +100,6 @@ namespace tnine.Application
         {
             await _invoiceRepository.DeleteAsync(id);
         }
+
     }
 }

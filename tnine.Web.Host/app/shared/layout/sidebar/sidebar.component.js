@@ -57,6 +57,7 @@
             new AppMenuItem('paymentMethods', 'Payment Methods', 'paymentMethods', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('paymentStatus', 'Payment Status', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('category', 'Category', 'category', 'fa-solid fa-bars-progress', [], false, 'admin', true),
+
         ]);
 
         vm.sidebar = new AppMenu('main', 'Main Menu', menus.items);

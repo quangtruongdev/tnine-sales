@@ -6,22 +6,55 @@
             controllerAs: 'vm'
         });
 
-    categoryController.$inject = ['serviceProxies', '$state', '$element'];
+    categoryController.$inject = ['serviceProxies', '$state', '$element', '$http', '$timeout'];
 
-    function categoryController(serviceProxies, $state, $element) {
+    function categoryController(serviceProxies, $state, $element, $http, $timeout) {
         var vm = this;
         vm.categories = [];
         vm.selectedId = null;
 
-        vm.columns = [
-            { headerName: "Id", field: "Id" },
-            { headerName: "Name", field: "Name" },
-            { headerName: "Description", field: "Description" },
-        ];
+        vm.gridOptions = {
+            columnDefs: [
+                { headerName: "Id", field: "Id" },
+                { headerName: "Name", field: "Name" },
+                { headerName: "Description", field: "Description" },
+            ],
+            rowData: [],
+            pagination: true,
+            defaultColDef: {
+                sortable: true,
+                filter: true,
+                resizable: true,
+                floatingFilter: true,
+                flex: 1,
+                cellStyle: {
+                    display: 'flex',
+                    alignItems: 'center',
+                }
+            },
+            rowSelection: 'single',
+            enableColResize: true,
+            rowHeight: 35,
+            frameworkComponents: {
+            },
+            onGridReady: function (params) {
+                vm.gridApi = params.api
+                window.addEventListener('resize', () => params.api.sizeColumnsToFit())
+            },
+            onFirstDataRendered: function (params) {
+                params.api.sizeColumnsToFit();
+            },
+            onRowClicked: function (event) {
+                $timeout(() => vm.selectedId = event.data.Id)
+            }
+        },
 
         vm.getCategories = function () {
             serviceProxies.categoryService.getAll().then(function (response) {
                 vm.categories = response;
+                if (vm.gridApi) {
+                    vm.gridApi.setRowData(vm.categories);
+                }
             }).catch(function (error) {
                 console.error('Error fetching categories:', error);
             });

@@ -6,22 +6,55 @@
             controllerAs: 'vm'
         });
 
-    sizeController.$inject = ['serviceProxies'];
+    sizeController.$inject = ['serviceProxies', '$state', '$element', '$http', '$timeout'];
 
-    function sizeController(serviceProxies) {
+    function sizeController(serviceProxies, $state, $element, $http, $timeout) {
         var vm = this;
         vm.sizes = [];
         vm.selectedId = null;
 
-        vm.columns = [
-            { headerName: "Id", field: "Id" },
-            { headerName: "Name", field: "Name" },
-            { headerName: "Description", field: "Description" }
-        ];
+        vm.gridOptions = {
+            columnDefs: [
+                { headerName: "Id", field: "Id" },
+                { headerName: "Name", field: "Name" },
+                { headerName: "Description", field: "Description" }
+            ],
+            rowData: [],
+            pagination: true,
+            defaultColDef: {
+                sortable: true,
+                filter: true,
+                resizable: true,
+                floatingFilter: true,
+                flex: 1,
+                cellStyle: {
+                    display: 'flex',
+                    alignItems: 'center',
+                }
+            },
+            rowSelection: 'single',
+            enableColResize: true,
+            rowHeight: 35,
+            frameworkComponents: {
+            },
+            onGridReady: function (params) {
+                vm.gridApi = params.api
+                window.addEventListener('resize', () => params.api.sizeColumnsToFit())
+            },
+            onFirstDataRendered: function (params) {
+                params.api.sizeColumnsToFit();
+            },
+            onRowClicked: function (event) {
+                $timeout(() => vm.selectedId = event.data.Id)
+            }
+        };
 
         vm.getsizes = function () {
             serviceProxies.sizeService.getAll().then(function (response) {
                 vm.sizes = response;
+                if (vm.gridApi) {
+                    vm.gridApi.setRowData(vm.sizes);
+                }
             }).catch(function (error) {
                 console.error('Error fetching colors:', error);
             });

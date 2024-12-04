@@ -115,6 +115,7 @@
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />
     <Compile Include="IProductService\Dto\GetProductInputDto.cs" />
     <Compile Include="IProductService\IProductService.cs" />
+    <Compile Include="IReportService\IReportService.cs" />
     <Compile Include="IShopService\Dto\CreateOrEditShopDto.cs" />
     <Compile Include="IShopService\Dto\GetShopForEditOutputDto.cs" />
     <Compile Include="IShopService\Dto\GetShopForInputDto.cs" />

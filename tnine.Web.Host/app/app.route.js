@@ -199,5 +199,6 @@
                 '/app/admin/category/create-or-edit-category-modal/create-or-edit-category-modal.component.js'
             ]
         },
+     
     ]);
 })(angular.module('root'));

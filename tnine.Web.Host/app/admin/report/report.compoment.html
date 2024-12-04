@@ -1,5 +1,6 @@
-﻿<div ng-controller="customerController as vm">
-    <div id="myGrid" class="ag-theme-alpine mb-3" ag-grid="vm.gridOptions" style="height: 400px; width: 100%;"></div>
+﻿<div ng-controller="ReportController as vm">
+    <tnine-table data="vm.colors" columns="vm.columns" options="{}" on-row-click="vm.handleRowClick(item)">
+    </tnine-table>
     <div class="d-flex float-end">
         <div>
             <button type="button" class="btn btn-outline-primary" ng-click="vm.add()">
@@ -16,6 +17,6 @@
             </button>
         </div>
     </div>
-    <create-or-edit-customer-modal on-saved="vm.reloads()">
-    </create-or-edit-customer-modal>
+    <create-or-edit-color-modal on-saved="vm.reloads()">
+    </create-or-edit-color-modal>
 </div>

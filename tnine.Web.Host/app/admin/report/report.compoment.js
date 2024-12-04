@@ -1,13 +1,15 @@
-﻿(function (app) {
-    app.component('homeTest', {
-        templateUrl: '/app/pages/home/hometest.html',
-        controller: homeTestController,
-        controllerAs: 'vm',
-    });
+﻿// Corrected file name: report.component.js
+(function (app) {
+    app.controller('ReportController', ReportController)
+        .component('report', {
+            templateUrl: '/app/admin/report/report.component.html',
+            controller: 'ReportController',
+            controllerAs: 'vm'
+        });
 
-    homeTestController.$inject = ['serviceProxies'];
+    ReportController.$inject = ['serviceProxies'];
 
-    function homeTestController(serviceProxies) {
+    function ReportController(serviceProxies) {
         var vm = this;
 
         vm.dailyRevenue = 0;
@@ -64,5 +66,4 @@
             vm.loadRevenueData();
         };
     }
-
-})(angular.module('tnine.home'));
+})(angular.module('app.admin.report'));

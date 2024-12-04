@@ -237,6 +237,7 @@
     <Compile Include="Api\SizeApiController.cs" />
     <Compile Include="Api\TodoApiController.cs" />
     <Compile Include="Api\Authorization\UserApiController.cs" />
+    <Compile Include="Api\ReportApiController.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
