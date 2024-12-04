@@ -15,8 +15,8 @@
 
         vm.gridOptions = {
             columnDefs: [
-                { headerName: "Id", field: "Id" },
-                { headerName: "Name", field: "Name" },
+                { headerName: "No", valueGetter: "node.rowIndex + 1", width: 30 },
+                { headerName: "Name", field: "Name", width: 120 },
                 { headerName: "Description", field: "Description" }
             ],
             rowData: [],
