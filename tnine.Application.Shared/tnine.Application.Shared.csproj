@@ -125,11 +125,11 @@
     <Compile Include="ISizeService\Dto\GetSizeForEditOutputDto.cs" />
     <Compile Include="ISizeService\Dto\GetSizeForViewDto.cs" />
     <Compile Include="ISizeService\ISizeService.cs" />
-    <Compile Include="IProductVariationDto\Dto\CreateOrEditProductVariationDto.cs" />
-    <Compile Include="IProductVariationDto\Dto\GetProductVariationForEditDto.cs" />
-    <Compile Include="IProductVariationDto\Dto\GetProductVariationForViewDto.cs" />
-    <Compile Include="IProductVariationDto\Dto\GetProductVariationInputDto.cs" />
-    <Compile Include="IProductVariationDto\IProductVariationService.cs" />
+    <Compile Include="IProductVariationService\Dto\CreateOrEditProductVariationDto.cs" />
+    <Compile Include="IProductVariationService\Dto\GetProductVariationForEditDto.cs" />
+    <Compile Include="IProductVariationService\Dto\GetProductVariationForViewDto.cs" />
+    <Compile Include="IProductVariationService\Dto\GetProductVariationInputDto.cs" />
+    <Compile Include="IProductVariationService\IProductVariationService.cs" />
     <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForEditOutputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />

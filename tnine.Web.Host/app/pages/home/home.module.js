@@ -3,7 +3,10 @@
 (function () {
     var home = angular.module('tnine.home', []);
 
-    home.controller('homeController', ['$scope', function ($scope) {
-        $scope.message = "BDES"; // Parent message
-    }]);
+    home.controller('homeController', homeController)
+        .component('home', {
+            templateUrl: '/app/pages/home/home.component.html',
+            controller: homeController,
+            controllerAs: 'vm'
+        });
 })();

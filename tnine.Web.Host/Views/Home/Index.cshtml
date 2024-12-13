@@ -1,0 +1,23 @@
+﻿@model IEnumerable<tnine.Web.Host.Models.ColorViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Color HexCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var color in Model)
+        {
+            <tr>
+                <td>@color.HexCode</td>
+            </tr>
+        }
+    </tbody>
+</table>

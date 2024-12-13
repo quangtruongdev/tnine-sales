@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using tnine.Application.Shared.IProductVariationDto.Dto;
+using tnine.Application.Shared.IProductVariationService.Dto;
 using tnine.Core.Shared.Dtos;
 
-namespace tnine.Application.Shared.IProductVariationDto
+namespace tnine.Application.Shared.IProductVariationService
 {
     public interface IProductVariationService
     {

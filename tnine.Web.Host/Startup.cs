@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
 using tnine.Application.ExportService;
 using tnine.Core;
 using tnine.Core.Shared;
@@ -65,9 +66,14 @@ namespace tnine.Web.Host
                 .Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().InstancePerRequest();
 
+            builder.RegisterAssemblyTypes(Assembly.Load("tnine.Application.Shared"))
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces().InstancePerRequest();
+
             builder.RegisterType<InvoiceExportService>().AsSelf().InstancePerDependency();
 
             Autofac.IContainer container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             AutofacDependencyResolver resolver = new AutofacDependencyResolver(container);
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);

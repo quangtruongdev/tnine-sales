@@ -1,6 +1,6 @@
 ﻿using tnine.Core.Shared.Dtos;
 
-namespace tnine.Application.Shared.IProductVariationDto.Dto
+namespace tnine.Application.Shared.IProductVariationService.Dto
 {
     public class GetProductVariationInputDto : PagedAndSortedResultRequestDto
     {

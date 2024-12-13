@@ -29,7 +29,6 @@ namespace tnine.Web.Host.App_Start
             var mapperConfiguration = AutoMapperConfig.GetConfiguration();
             builder.RegisterInstance(mapperConfiguration.CreateMapper()).As<IMapper>().SingleInstance();
 
-
             // Asp .Net Identity
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
@@ -43,6 +42,10 @@ namespace tnine.Web.Host.App_Start
 
             // Services
             builder.RegisterAssemblyTypes(Assembly.Load("tnine.Application"))
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces().InstancePerRequest();
+
+            builder.RegisterAssemblyTypes(Assembly.Load("tnine.Application.Shared"))
                 .Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().InstancePerRequest();
 

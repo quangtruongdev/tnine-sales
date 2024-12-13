@@ -9,13 +9,14 @@ using tnine.Application.Shared.IOrderService.Dto;
 using tnine.Application.Shared.IPaymentMethodsService.Dto;
 using tnine.Application.Shared.IPaymentStatusService.Dto;
 using tnine.Application.Shared.IProductService.Dto;
-using tnine.Application.Shared.IProductVariationDto.Dto;
+using tnine.Application.Shared.IProductVariationService.Dto;
 using tnine.Application.Shared.IRoleService.Dto;
 using tnine.Application.Shared.IShopService.Dto;
 using tnine.Application.Shared.ISizeService.Dto;
 using tnine.Application.Shared.ITodoService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.IColorService.Dto;
+using tnine.Web.Host.Models;
 
 
 namespace tnine.Web.Host.App_Start
@@ -44,6 +45,8 @@ namespace tnine.Web.Host.App_Start
             CreateMap<Shop, CreateOrEditShopDto>().ReverseMap();
             CreateMap<Categories, CreateOrEditCategoryDto>().ReverseMap();
             CreateMap<Orders, CreateOrEditOrderDto>().ReverseMap();
+
+            CreateMap<GetColorForViewDto, ColorViewModel>();
         }
     }
 

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using tnine.Application.Shared.IProductVariationDto;
-using tnine.Application.Shared.IProductVariationDto.Dto;
+using tnine.Application.Shared.IProductVariationService;
+using tnine.Application.Shared.IProductVariationService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Repositories;

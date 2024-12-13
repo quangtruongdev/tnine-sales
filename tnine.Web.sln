@@ -11,10 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tnine.Core", "tnine.Core\tn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tnine.Core.Shared", "tnine.Core.Shared\tnine.Core.Shared.csproj", "{03AB7C62-1B0C-4A60-A630-F68A13C62776}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tnine.EntityFramework", "tnine.EntityFramework\tnine.EntityFramework.csproj", "{EA28743E-F0A8-4FA0-9485-08B878179BB3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tnine.UnitTest", "tnine.UnitTest\tnine.UnitTest.csproj", "{F4402E24-CCD1-4712-B6CB-7EF60CCCC6E9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tnine.Web.Host", "tnine.Web.Host\tnine.Web.Host.csproj", "{2FEB665D-4640-4F25-878C-A6D00F781395}"
 EndProject
 Global
@@ -39,14 +35,6 @@ Global
 		{03AB7C62-1B0C-4A60-A630-F68A13C62776}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03AB7C62-1B0C-4A60-A630-F68A13C62776}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03AB7C62-1B0C-4A60-A630-F68A13C62776}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA28743E-F0A8-4FA0-9485-08B878179BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA28743E-F0A8-4FA0-9485-08B878179BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA28743E-F0A8-4FA0-9485-08B878179BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA28743E-F0A8-4FA0-9485-08B878179BB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4402E24-CCD1-4712-B6CB-7EF60CCCC6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4402E24-CCD1-4712-B6CB-7EF60CCCC6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4402E24-CCD1-4712-B6CB-7EF60CCCC6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4402E24-CCD1-4712-B6CB-7EF60CCCC6E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FEB665D-4640-4F25-878C-A6D00F781395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FEB665D-4640-4F25-878C-A6D00F781395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FEB665D-4640-4F25-878C-A6D00F781395}.Release|Any CPU.ActiveCfg = Release|Any CPU

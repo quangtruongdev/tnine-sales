@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using tnine.Application.Shared.IImageService.Dto;
-using tnine.Application.Shared.IProductVariationDto.Dto;
+using tnine.Application.Shared.IProductVariationService.Dto;
 
 namespace tnine.Application.Shared.IProductService.Dto
 {

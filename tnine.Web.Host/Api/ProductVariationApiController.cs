@@ -4,8 +4,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using tnine.Application.Shared.IProductVariationDto;
-using tnine.Application.Shared.IProductVariationDto.Dto;
+using tnine.Application.Shared.IProductVariationService;
+using tnine.Application.Shared.IProductVariationService.Dto;
 
 namespace tnine.Web.Host.Api
 {

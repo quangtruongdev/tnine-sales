@@ -1,4 +1,4 @@
-﻿namespace tnine.Application.Shared.IProductVariationDto.Dto
+﻿namespace tnine.Application.Shared.IProductVariationService.Dto
 {
     public class GetProductVariationForViewDto
     {

@@ -1,9 +1,9 @@
 ﻿(function (app) {
     app.controller('topbarController', topbarController)
         .component('topbar', {
-        templateUrl: '/app/shared/layout/topbar/topbar.component.html',
-        controller: topbarController,
-        controllerAs: 'vm'
+            templateUrl: '/app/shared/layout/topbar/topbar.component.html',
+            controller: topbarController,
+            controllerAs: 'vm'
         });
 
     topbarController.$inject = ['$document', 'serviceProxies', '$state'];
