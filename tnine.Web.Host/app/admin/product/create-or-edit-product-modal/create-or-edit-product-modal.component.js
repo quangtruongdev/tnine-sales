@@ -97,7 +97,6 @@
                 });
                 serviceProxies.productVariationService.getForEdit(id).then(function (response) {
                     vm.ProductVariation = response;
-                    console.log(response);
                 }).catch(function (error) {
                     console.error('Error fetching product variations:', error);
                 });
@@ -108,7 +107,16 @@
         vm.save = function () {
             vm.saving = true;
             vm.productId = 0;
-
+            if (vm.product.Price <= 0) {
+                alert("Giá sản phẩm không được nhỏ hơn 0");
+                vm.saving = false;
+                return;
+            }
+            if (vm.ProductVariation && vm.ProductVariation.some(variation => variation.Quantity < 0)) {
+                alert("Số lượng sản phẩm không được nhỏ hơn 0");
+                vm.saving = false;
+                return;
+            }
             serviceProxies.productService.createOrEdit(vm.product).then(function (response) {
                 vm.productId = response;
 

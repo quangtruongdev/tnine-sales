@@ -26,6 +26,7 @@
             ],
             rowData: [],
             pagination: true,
+            paginationPageSize: 10,
             defaultColDef: {
                 sortable: true,
                 filter: true,
