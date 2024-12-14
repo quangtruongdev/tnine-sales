@@ -17,6 +17,8 @@ namespace tnine.Application
         private readonly ICustomerRepository _customerRepository;
         private readonly IPaymentMethodsRepository _paymentMethodsRepository;
         private readonly IPaymentStatusRepository _paymentStatusRepository;
+        private readonly IProductInvoicesRepository _productInvoicesRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
@@ -25,6 +27,8 @@ namespace tnine.Application
             ICustomerRepository customerRepository,
             IPaymentMethodsRepository paymentMethodsRepository,
             IPaymentStatusRepository paymentStatusRepository,
+            IProductInvoicesRepository productInvoicesRepository,
+            IProductRepository productRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper
             )
@@ -33,6 +37,8 @@ namespace tnine.Application
             _customerRepository = customerRepository;
             _paymentMethodsRepository = paymentMethodsRepository;
             _paymentStatusRepository = paymentStatusRepository;
+            _productInvoicesRepository = productInvoicesRepository;
+            _productRepository = productRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }

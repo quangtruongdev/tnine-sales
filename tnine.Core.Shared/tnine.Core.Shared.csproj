@@ -95,6 +95,7 @@
     <Compile Include="Repositories\Authorization\RoleRepository.cs" />
     <Compile Include="Repositories\Authorization\UserRepository.cs" />
     <Compile Include="Repositories\Authorization\UserRoleRepository.cs" />
+    <Compile Include="Repositories\ProductInvoicesRepository.cs" />
     <Compile Include="Repositories\ShopRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />

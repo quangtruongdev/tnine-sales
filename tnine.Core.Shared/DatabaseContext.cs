@@ -29,6 +29,7 @@ namespace tnine.Core.Shared
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<ProductInvoices> ProductInvoices { get; set; }
 
         public static DatabaseContext Create()
         {
