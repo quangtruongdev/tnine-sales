@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,17 +26,32 @@ namespace tnine.Web.Host.Controllers
             _sizeService = sizeService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int pageIndex = 1, int pageSize = 10)
         {
             var pagedResult = await _productService.GetAll();
-            var products = pagedResult.Results;
-            var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(products);
+            var totalCount = pagedResult.TotalCount;
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            pageIndex = pageIndex < 1 ? 1 : pageIndex;
+            pageIndex = pageIndex > totalPages ? totalPages : pageIndex;
+
+            var pagedItems = pagedResult.Results
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(pagedItems);
+
+            ViewBag.TotalCount = totalCount;
+            ViewBag.PageIndex = pageIndex;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalPages = totalPages;
+
             return View(productViewModels);
         }
 
+
         public async Task<ActionResult> Details(long id)
         {
-            // Lấy thông tin sản phẩm theo id
             var product = await _productService.GetDetailProduct(id);  
             var color = await _colorService.GetAll();
             var listColor = color.ToList();

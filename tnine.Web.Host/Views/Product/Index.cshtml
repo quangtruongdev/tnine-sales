@@ -1,25 +1,146 @@
 ﻿@model IEnumerable<tnine.Web.Host.Models.ProductViewModel>
 @{
     ViewData["Title"] = "Danh sách sản phẩm";
+    int totalCount = ViewBag.TotalCount ?? 0;
+    int pageIndex = ViewBag.PageIndex ?? 1;
+    int pageSize = ViewBag.PageSize ?? 10;
+    int totalPages = ViewBag.TotalPages ?? (int)Math.Ceiling((double)totalCount / pageSize);
 }
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Danh sách sản phẩm</h2>
-    <div class="row">
-        @foreach (var product in Model)
+
+
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <label for="pageSize" class="form-label">Số sản phẩm mỗi trang:</label>
+        <select id="pageSize" class="form-select" onchange="changePageSize(this.value)">
+            <option value="1" @(pageSize == 1 ? "selected" : "")>1</option>
+            <option value="2" @(pageSize == 2 ? "selected" : "")>2</option>
+            <option value="5" @(pageSize == 5 ? "selected" : "")>5</option>
+            <option value="10" @(pageSize == 10 ? "selected" : "")>10</option>
+        </select>
+    </div>
+
+
+    <!-- Danh sách sản phẩm -->
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        @if (Model.Any())
         {
-            <div class="col-md-3 col-sm-6 col-12 mb-4">
-                <!-- Đổi từ col-md-4 thành col-md-3 -->
-                <div class="card">
-                    <img src="@Url.Content("/wwwroot/"+product.ImgUrl)" class="card-img-top" alt="@product.Name">
-                    <div class="card-body">
-                        <h5 class="card-title">@product.Name</h5>
-                        <p class="card-text">@product.Description</p>
-                        <p class="card-text"><strong>Giá:</strong> @product.Price.ToString("C")</p>
-                        <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Xem chi tiết</a>
+            foreach (var product in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm border-light rounded">
+                        <img src="@Url.Content("/wwwroot/" + product.ImgUrl)" class="card-img-top" alt="@product.Name">
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate" title="@product.Name">@product.Name</h5>
+                            <p class="card-text text-muted text-truncate" title="@product.Description">@product.Description</p>
+                            <p class="card-text"><strong>Giá:</strong> @product.Price.ToString("C")</p>
+                            <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary w-100">Xem chi tiết</a>
+                        </div>
                     </div>
                 </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <p class="text-center text-muted">Không có sản phẩm nào được tìm thấy.</p>
             </div>
         }
     </div>
+
+    <!-- Phân trang -->
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                @if (pageIndex > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "Product", new { pageIndex = pageIndex - 1, pageSize = pageSize })">Trước</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == pageIndex ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", "Product", new { pageIndex = i, pageSize = pageSize })">@i</a>
+                    </li>
+                }
+
+                @if (pageIndex < totalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "Product", new { pageIndex = pageIndex + 1, pageSize = pageSize })">Tiếp</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>
+
+<script>
+    function changePageSize(pageSize) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('pageSize', pageSize);
+        url.searchParams.set('pageIndex', 1); // Reset về trang đầu tiên
+        window.location.href = url.toString();
+    }
+</script>
+
+<style>
+    /* CSS tùy chỉnh cho giao diện đẹp */
+    .form-select{
+        width:120px;
+        height:32px;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .pagination .page-link {
+        border-radius: 0.25rem;
+    }
+
+    .pagination .page-item a {
+        color: #007bff;
+    }
+
+        .pagination .page-item a:hover {
+            background-color: #f1f1f1;
+        }
+
+    /* Thiết kế cho các phần tử */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+</style>
