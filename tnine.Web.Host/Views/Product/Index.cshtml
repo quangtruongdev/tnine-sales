@@ -1,0 +1,25 @@
+﻿@model IEnumerable<tnine.Web.Host.Models.ProductViewModel>
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Danh sách sản phẩm</h2>
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 col-sm-6 col-12 mb-4">
+                <!-- Đổi từ col-md-4 thành col-md-3 -->
+                <div class="card">
+                    <img src="@Url.Content("/wwwroot/"+product.ImgUrl)" class="card-img-top" alt="@product.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text"><strong>Giá:</strong> @product.Price.ToString("C")</p>
+                        <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

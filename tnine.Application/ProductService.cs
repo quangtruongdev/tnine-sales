@@ -137,5 +137,30 @@ namespace tnine.Application
             var items = query.Skip(0).Take(10).ToList();
             return new PagedResultDto<GetProductForViewDto>(totalCount, items);
         }
+
+        public async Task<GetProductForViewDto> GetDetailProduct(long id)
+        {
+            var products = await _productRepo.GetAllAsync();
+            var images = await _imageRepo.GetAllAsync();
+            var category = await _categoreisRepo.GetAllAsync();
+
+            var query = from p in products
+                        join i in images on p.Id equals i.ProductId
+                        join c in category on p.CategoryId equals c.Id
+                        where i.IsMain == true && p.IsDeleted == false
+                        where id == p.Id
+                        select new GetProductForViewDto
+                        {
+                            Id = p.Id,
+                            Name = p.Name,
+                            Description = p.Description,
+                            Price = p.Price,
+                            CategoryName = c.Name,
+                            ImgUrl = i == null ? "" : i.ImgUrl,
+                        };
+            var result = query.FirstOrDefault();
+
+            return result;
+        }
     }
 }

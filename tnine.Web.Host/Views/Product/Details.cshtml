@@ -1,0 +1,127 @@
+﻿@model tnine.Web.Host.Models.ProductDetailViewModel
+
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">@Model.ProductViewModel.Name</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Url.Content("/wwwroot/" + Model.ProductViewModel.ImgUrl)" class="img-fluid" alt="@Model.ProductViewModel.Name">
+        </div>
+        <div class="col-md-6">
+            <h5><strong>Danh mục:</strong> @Model.ProductViewModel.CategoryName</h5> <!-- Nếu bạn có thông tin danh mục -->
+            <p><strong>Giới thiệu:</strong> @Model.ProductViewModel.Description</p>
+            <p><strong>Giá:</strong> @Model.ProductViewModel.Price.ToString("C")</p>
+
+            <!-- Lựa chọn màu sắc -->
+            <div class="form-group">
+                <label><strong>Màu sắc:</strong></label><br />
+                @foreach (var color in Model.colorViewModels)
+                {
+                    <div class="form-check form-check-inline" style="align-items: center;">
+                        <input class="form-check-input" type="radio" name="color" id="color-@color.HexCode" value="@color.HexCode">
+                        <label class="form-check-label" for="color-@color.HexCode" style="display: flex; align-items: center; cursor: pointer;">
+                            <span style="display: inline-block; width: 20px; height: 20px; background-color: @color.HexCode; border: 1px solid #000; margin-right: 5px;"></span>
+                            @color.HexCode
+                        </label>
+                    </div>
+                }
+            </div>
+
+
+            <!-- Lựa chọn kích cỡ -->
+            <div class="form-group">
+                <label><strong>Kích cỡ:</strong></label><br />
+                @foreach (var size in Model.sizeViewModels)
+                {
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="size" id="size-@size.Id" value="@size.Id">
+                        <label class="form-check-label" for="size-@size.Name">@size.Name</label>
+                    </div>
+                }
+            </div>
+
+            <!-- Số lượng sản phẩm -->
+            <div class="form-group">
+                <label><strong>Số lượng:</strong></label><br />
+                <button class="btn btn-outline-secondary" id="decreaseQty">-</button>
+                <input type="number" id="quantity" value="1" min="1" class="form-control d-inline-block w-25" style="display: inline-block; width: auto;" />
+                <button class="btn btn-outline-secondary" id="increaseQty">+</button>
+            </div>
+
+            <!-- Nút thêm vào giỏ hàng -->
+            <button class="btn btn-success" onclick="addToCart(@Model.ProductViewModel.Id)">Thêm vào giỏ hàng</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tăng số lượng
+    document.getElementById('increaseQty').addEventListener('click', function () {
+        var qtyInput = document.getElementById('quantity');
+        var currentQty = parseInt(qtyInput.value);
+        qtyInput.value = currentQty + 1;
+    });
+
+    // Giảm số lượng
+    document.getElementById('decreaseQty').addEventListener('click', function () {
+        var qtyInput = document.getElementById('quantity');
+        var currentQty = parseInt(qtyInput.value);
+        if (currentQty > 1) {
+            qtyInput.value = currentQty - 1;
+        }
+    });
+
+    // Hàm thêm vào giỏ hàng
+    function addToCart(productId) {
+        // Lấy giá trị của màu sắc, kích cỡ, và số lượng
+        var selectedColor = document.querySelector('input[name="color"]:checked');
+        var selectedSize = document.querySelector('input[name="size"]:checked');
+        var quantity = parseInt(document.getElementById('quantity').value);
+
+        // Kiểm tra nếu chưa chọn màu sắc hoặc kích cỡ
+        if (!selectedColor || !selectedSize) {
+            alert('Vui lòng chọn màu sắc và kích cỡ!');
+            return;
+        }
+
+        // Lấy thông tin sản phẩm
+        var product = {
+            id: productId,
+            name: "@Model.ProductViewModel.Name", // Tên sản phẩm
+            price: @Model.ProductViewModel.Price, // Giá sản phẩm
+            color: {
+                id: selectedColor.id,
+                hexCode: selectedColor.value // Mã màu
+            },
+            size: {
+                id: selectedSize.id,
+                name: selectedSize.nextElementSibling.textContent // Tên kích cỡ
+            },
+            quantity: quantity
+        };
+
+        // Lấy giỏ hàng từ localStorage
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Kiểm tra sản phẩm đã tồn tại chưa
+        var existingProduct = cart.find(p => p.id === product.id && p.color.id === product.color.id && p.size.id === product.size.id);
+
+        if (existingProduct) {
+            // Nếu sản phẩm đã tồn tại, tăng số lượng
+            existingProduct.quantity += product.quantity;
+        } else {
+            // Nếu chưa, thêm sản phẩm mới vào giỏ hàng
+            cart.push(product);
+        }
+
+        // Lưu lại giỏ hàng vào localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    }
+</script>
+

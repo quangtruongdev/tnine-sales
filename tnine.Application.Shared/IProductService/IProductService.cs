@@ -11,5 +11,6 @@ namespace tnine.Application.Shared.IProductService
         Task Delete(long Id);
         Task<long> CreateOrEdit(CreateOrEditProductDto input);
         Task<PagedResultDto<GetProductForViewDto>> GetProductByCategoryId(long CateGoryId);
+        Task<GetProductForViewDto> GetDetailProduct(long id);
     }
 }

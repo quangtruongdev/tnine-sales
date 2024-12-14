@@ -47,6 +47,10 @@ namespace tnine.Web.Host.App_Start
             CreateMap<Orders, CreateOrEditOrderDto>().ReverseMap();
 
             CreateMap<GetColorForViewDto, ColorViewModel>();
+            CreateMap<GetProductForViewDto, ProductViewModel>();
+            CreateMap<GetSizeForViewDto, SizeViewModel>();
+            //CreateMap<CreateOrEditProductDto, ProductViewModel>();
+
         }
     }
 
