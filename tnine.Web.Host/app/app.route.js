@@ -199,6 +199,16 @@
                 '/app/admin/category/create-or-edit-category-modal/create-or-edit-category-modal.component.js'
             ]
         },
+        {
+            name: 'dashboard',
+            url: '/dashboard',
+            templateUrl: '/app/admin/dashboard/dashboard.component.html',
+            controller: 'dashboardController',
+            files: [
+                '/app/admin/dashboard/dashboard.module.js',
+                '/app/admin/dashboard/dashboard.component.js',
+            ]
+        },
      
     ]);
 })(angular.module('root'));

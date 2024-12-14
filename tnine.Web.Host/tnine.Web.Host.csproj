@@ -225,6 +225,7 @@
     <Compile Include="Api\CategoryApiController.cs" />
     <Compile Include="Api\CustomerApiController.cs" />
     <Compile Include="Api\ColorApiController.cs" />
+    <Compile Include="Api\DashBroadApiController.cs" />
     <Compile Include="Api\OrderApiController.cs" />
     <Compile Include="Api\PaymentMethodsApiController.cs" />
     <Compile Include="Api\PaymentStatusApiController.cs" />
@@ -301,6 +302,9 @@
     <Content Include="app\admin\customer\customer.component.html" />
     <Content Include="app\admin\customer\customer.component.js" />
     <Content Include="app\admin\customer\customer.module.js" />
+    <Content Include="app\admin\dashboard\dashboard.component.html" />
+    <Content Include="app\admin\dashboard\dashboard.component.js" />
+    <Content Include="app\admin\dashboard\dashboard.module.js" />
     <Content Include="app\admin\order\create-or-edit-order-modal\create-or-edit-order-modal.component.html" />
     <Content Include="app\admin\order\create-or-edit-order-modal\create-or-edit-order-modal.component.js" />
     <Content Include="app\admin\order\order.component.html" />

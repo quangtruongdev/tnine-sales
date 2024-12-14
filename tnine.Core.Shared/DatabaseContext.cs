@@ -64,6 +64,9 @@ namespace tnine.Core.Shared
             modelBuilder.Entity<ProductVariations>()
             .HasKey(pv => new { pv.ProductId, pv.ColorId, pv.SizeId });
 
+            modelBuilder.Entity<ProductInvoices>()
+             .HasKey(pi => new { pi.ProductId, pi.InvoiceId });
+
         }
     }
 }

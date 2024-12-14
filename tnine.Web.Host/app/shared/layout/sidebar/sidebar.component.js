@@ -57,6 +57,7 @@
             new AppMenuItem('paymentMethods', 'Payment Methods', 'paymentMethods', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('paymentStatus', 'Payment Status', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true),
             new AppMenuItem('category', 'Category', 'category', 'fa-solid fa-bars-progress', [], false, 'admin', true),
+            new AppMenuItem('dashboard', 'Dashboard', 'dashboard', 'fa-solid fa-bars-progress', [], false, 'admin', true),
 
         ]);
 

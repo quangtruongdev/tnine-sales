@@ -286,6 +286,16 @@
             }
         };
 
+        serviceProxies.dashboardService = {
+            getDashboardByMonth: function () {
+                return baseService.get('api/dashboard');
+            },
+            getProductBestSaleOfMonth: function () {
+                return baseService.get('api/dashboard/product-best-sales');
+            }
+
+        }
+
         return serviceProxies;
     }
     serviceProxies.orderService = {

@@ -88,8 +88,9 @@ namespace tnine.Application
 
             var query = from p in product
                         join c in category on p.CategoryId equals c.Id
-                        join i in image on p.Id equals i.ProductId
-                        where i.IsMain == true && p.IsDeleted == false
+                        join i in image on p.Id equals i.ProductId into imgJoin
+                        from i in imgJoin.DefaultIfEmpty()
+                        where (i == null || i.IsMain == true) && p.IsDeleted == false
                         select new GetProductForViewDto
                         {
                             Id = p.Id,
@@ -100,8 +101,9 @@ namespace tnine.Application
                             ImgUrl = i == null ? "" : i.ImgUrl,
                         };
 
+
             var totalCount = query.Count();
-            var items = query.Skip(0).Take(10).ToList();
+            var items = query.ToList();
             return new PagedResultDto<GetProductForViewDto>(totalCount, items);
         }
 
