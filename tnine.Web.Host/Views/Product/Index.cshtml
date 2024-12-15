@@ -7,21 +7,30 @@
     int totalPages = ViewBag.TotalPages ?? (int)Math.Ceiling((double)totalCount / pageSize);
 }
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Danh sách sản phẩm</h2>
+<!-- Header -->
+<header class="bg-light py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="@Url.Action("Index", "Product")" class="text-primary text-decoration-none">
+            <h1 class="h3 mb-0">TineSale</h1>
+        </a>
+        <form action="@Url.Action("Search", "Product")" method="get" class="input-group w-50">
+            <input type="text" name="searchTerm" class="form-control"
+                   placeholder="Tìm sản phẩm..." aria-label="Tìm sản phẩm"
+                   value="@ViewBag.SearchTerm">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
 
-
-    <div class="mb-4 d-flex justify-content-between align-items-center">
-        <label for="pageSize" class="form-label">Số sản phẩm mỗi trang:</label>
-        <select id="pageSize" class="form-select" onchange="changePageSize(this.value)">
-            <option value="1" @(pageSize == 1 ? "selected" : "")>1</option>
-            <option value="2" @(pageSize == 2 ? "selected" : "")>2</option>
-            <option value="5" @(pageSize == 5 ? "selected" : "")>5</option>
-            <option value="10" @(pageSize == 10 ? "selected" : "")>10</option>
-        </select>
+        <a href="@Url.Action("Cart", "Product")" class="btn btn-primary">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Cart
+        </a>
     </div>
+</header>
 
-
+<!-- Content -->
+<div class="container mt-5">
     <!-- Danh sách sản phẩm -->
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         @if (Model.Any())
@@ -30,7 +39,7 @@
             {
                 <div class="col">
                     <div class="card shadow-sm border-light rounded">
-                        <img src="@Url.Content("/wwwroot/" + product.ImgUrl)" class="card-img-top" alt="@product.Name">
+                        <div class="card-img-top" style="background-image: url('@Url.Content("/wwwroot/" + product.ImgUrl)');"></div>
                         <div class="card-body">
                             <h5 class="card-title text-truncate" title="@product.Name">@product.Name</h5>
                             <p class="card-text text-muted text-truncate" title="@product.Description">@product.Description</p>
@@ -48,12 +57,11 @@
             </div>
         }
     </div>
-
     <!-- Phân trang -->
     @if (totalPages > 1)
     {
-        <nav aria-label="Pagination">
-            <ul class="pagination justify-content-center">
+        <nav aria-label="Pagination" class="mt-4">
+            <ul class="pagination justify-content-center gap-2">
                 @if (pageIndex > 1)
                 {
                     <li class="page-item">
@@ -77,6 +85,7 @@
             </ul>
         </nav>
     }
+
 </div>
 
 <script>
@@ -89,10 +98,13 @@
 </script>
 
 <style>
-    /* CSS tùy chỉnh cho giao diện đẹp */
-    .form-select{
-        width:120px;
-        height:32px;
+    .card-img-top {
+        height: 180px;
+        background-size: contain;
+        background-position: top center;
+        background-repeat: no-repeat;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
     }
 
     .card {
@@ -115,32 +127,32 @@
         color: #555;
     }
 
-    .pagination .page-item.active .page-link {
-        background-color: #007bff;
+    <style >
+    .input-group .form-control {
+        height: 45px;
+        border-right: none;
+        box-shadow: none;
+    }
+
+    .input-group .form-control:focus {
         border-color: #007bff;
-        color: white;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
     }
 
-    .pagination .page-link {
-        border-radius: 0.25rem;
+    .input-group .btn-primary {
+        height: 45px;
+        border-left: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .pagination .page-item a {
-        color: #007bff;
-    }
-
-        .pagination .page-item a:hover {
-            background-color: #f1f1f1;
-        }
-
-    /* Thiết kế cho các phần tử */
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-        .btn-primary:hover {
+        .input-group .btn-primary:hover {
             background-color: #0056b3;
-            border-color: #0056b3;
         }
+
+    .input-group i {
+        font-size: 1.2rem;
+    }
 </style>

@@ -12,5 +12,6 @@ namespace tnine.Application.Shared.IProductService
         Task<long> CreateOrEdit(CreateOrEditProductDto input);
         Task<PagedResultDto<GetProductForViewDto>> GetProductByCategoryId(long CateGoryId);
         Task<GetProductForViewDto> GetDetailProduct(long id);
+        Task<PagedResultDto<GetProductForViewDto>> SearchProductByNameAsync(string name, int pageIndex = 1, int pageSize = 8);
     }
 }

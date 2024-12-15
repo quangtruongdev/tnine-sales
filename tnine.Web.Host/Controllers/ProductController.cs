@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using tnine.Application.Shared.IColorService;
 using tnine.Application.Shared.IProductService;
+using tnine.Application.Shared.IProductService.Dto;
 using tnine.Application.Shared.ISizeService;
+using tnine.Core.Shared.Dtos;
 using tnine.Web.Host.Models;
 
 namespace tnine.Web.Host.Controllers
@@ -26,21 +28,19 @@ namespace tnine.Web.Host.Controllers
             _sizeService = sizeService;
         }
 
-        public async Task<ActionResult> Index(int pageIndex = 1, int pageSize = 10)
+        public async Task<ActionResult> Index(int pageIndex = 1, int pageSize = 8)
         {
+
             var pagedResult = await _productService.GetAll();
             var totalCount = pagedResult.TotalCount;
             var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
             pageIndex = pageIndex < 1 ? 1 : pageIndex;
             pageIndex = pageIndex > totalPages ? totalPages : pageIndex;
-
             var pagedItems = pagedResult.Results
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-
             var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(pagedItems);
-
             ViewBag.TotalCount = totalCount;
             ViewBag.PageIndex = pageIndex;
             ViewBag.PageSize = pageSize;
@@ -48,6 +48,8 @@ namespace tnine.Web.Host.Controllers
 
             return View(productViewModels);
         }
+
+
 
 
         public async Task<ActionResult> Details(long id)
@@ -82,6 +84,32 @@ namespace tnine.Web.Host.Controllers
 
 
             return View(productDetailViewModel); // Trả về view chi tiết sản phẩm
+        }
+        public async Task<ActionResult> Search(string searchTerm, int pageIndex = 1, int pageSize = 8)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return RedirectToAction("Index");
+            }
+            var searchResults = await _productService.SearchProductByNameAsync(searchTerm, pageIndex, pageSize);
+            ViewBag.TotalPages = (int)Math.Ceiling((double)searchResults.TotalCount / pageSize);
+
+            pageIndex = pageIndex < 1 ? 1 : pageIndex;
+            pageIndex = pageIndex > ViewBag.TotalPages ? ViewBag.TotalPages : pageIndex;
+
+  
+            var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(searchResults.Results);
+            ViewBag.SearchTerm = searchTerm;
+            ViewBag.TotalCount = searchResults.TotalCount;
+            ViewBag.PageIndex = pageIndex;
+            ViewBag.PageSize = pageSize;
+
+            return View("Index", productViewModels);
+        }
+
+        public ActionResult Cart()
+        {
+            return View();
         }
     }
 }

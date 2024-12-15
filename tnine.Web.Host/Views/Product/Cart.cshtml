@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+<header class="bg-light py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="@Url.Action("Index", "Product")" class="text-primary text-decoration-none">
+            <h1 class="h3 mb-0">TineSale</h1>
+        </a>
+        <a href="@Url.Action("Cart", "Product")" class="btn btn-primary">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Cart
+        </a>
+    </div>
+</header>
+
+<div class="container my-5">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>STT</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Hình ảnh</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <h4 class="text-success">Tổng tiền: <span id="total-price">0</span></h4>
+        @*<button class="btn btn-primary btn-lg">
+                <i class="fa-solid fa-credit-card"></i> Thanh toán
+            </button>*@
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lấy danh sách sản phẩm từ Local Storage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalPriceElement = document.getElementById('total-price');
+
+        let totalPrice = 0;
+
+        cart.forEach((product, index) => {
+            totalPrice = totalPrice + product.quantity * product.price;
+
+            const row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${product.name}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                    <td>
+                        <img src="/wwwroot/${product.imgUrl}" alt="${product.name}" class="img-thumbnail" style="width: 100px; height: auto;" />
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm remove-from-cart" data-index="${index}">
+                            <i class="bi bi-trash"></i> Xóa
+                        </button>
+                    </td>
+                </tr>
+            `;
+            cartItemsContainer.innerHTML += row;
+        });
+
+        totalPriceElement.textContent = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+        // Xử lý xóa sản phẩm khỏi giỏ hàng
+        document.querySelectorAll('.remove-from-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const index = parseInt(this.getAttribute('data-index'));
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                location.reload();
+            });
+        });
+    });
+</script>

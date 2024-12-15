@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IProductService;
@@ -162,5 +163,36 @@ namespace tnine.Application
 
             return result;
         }
+        public async Task<PagedResultDto<GetProductForViewDto>> SearchProductByNameAsync(string name, int pageIndex = 1, int pageSize = 8)
+        {
+            var products = await _productRepo.GetAllAsync();
+            var categories = await _categoreisRepo.GetAllAsync();
+            var images = await _imageRepo.GetAllAsync();
+
+            var query = from p in products
+                        join c in categories on p.CategoryId equals c.Id
+                        join i in images on p.Id equals i.ProductId into imgJoin
+                        from i in imgJoin.DefaultIfEmpty()
+                        where (i == null || i.IsMain == true) && p.IsDeleted == false
+                              && (string.IsNullOrEmpty(name) || p.Name.Contains(name)) // Tìm kiếm theo tên (nếu có)
+                        select new GetProductForViewDto
+                        {
+                            Id = p.Id,
+                            Name = p.Name,
+                            Description = p.Description,
+                            Price = p.Price,
+                            CategoryName = c.Name,
+                            ImgUrl = i == null ? "" : i.ImgUrl,
+                        };
+
+            var totalCount = query.Count();
+            var items = query
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResultDto<GetProductForViewDto>(totalCount, items);
+        }
+
     }
 }
