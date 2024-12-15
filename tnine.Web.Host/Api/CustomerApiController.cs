@@ -49,7 +49,10 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _customerService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "Customer created or updated successfully.");
+                return Request.CreateResponse(HttpStatusCode.OK, new
+                {
+                    Message = "Save successfully."
+                });
             }
             catch (Exception ex)
             {
@@ -63,7 +66,10 @@ namespace tnine.Web.Host.Api
         {
             var input = new EntityDto<long> { Id = id };
             await _customerService.Delete(input);
-            return Request.CreateResponse(HttpStatusCode.OK, "Customer deleted successfully.");
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
     }
 }

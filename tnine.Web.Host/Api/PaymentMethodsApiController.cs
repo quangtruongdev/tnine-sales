@@ -47,7 +47,10 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _paymentMethodsService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "PaymentMethods created or updated successfully.");
+                return Request.CreateResponse(HttpStatusCode.OK, new
+                {
+                    Message = "Save successfully."
+                });
             }
             catch (Exception ex)
             {
@@ -62,7 +65,10 @@ namespace tnine.Web.Host.Api
         {
             var input = new EntityDto<long> { Id = id };
             await _paymentMethodsService.Delete(input);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
     }
 }

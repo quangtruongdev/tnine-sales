@@ -18,7 +18,9 @@
         function post(url, data) {
             return $http.post(url, data)
                 .then(function (response) {
-                    toastrService.success(response.data.Message);
+                    if (response.data.Message) {
+                        toastrService.success(response.data.Message);
+                    }
                     return response.data;
                 })
                 .catch(function (error) {
@@ -30,7 +32,9 @@
         function put(url, data) {
             return $http.put(url, data)
                 .then(function (response) {
-                    toastrService.success(response.data.Message);
+                    if (response.data.Message) {
+                        toastrService.success(response.data.Message);
+                    }
                     return response.data;
                 })
                 .catch(function (error) {
@@ -42,7 +46,9 @@
         function remove(url) {
             return $http.delete(url)
                 .then(function (response) {
-                    toastrService.success(response.data.Message);
+                    if (response.data.Message) {
+                        toastrService.success(response.data.Message);
+                    }
                     return response.data;
                 })
                 .catch(function (error) {

@@ -118,7 +118,7 @@
                 return;
             }
             serviceProxies.productService.createOrEdit(vm.product).then(function (response) {
-                vm.productId = response;
+                vm.productId = response.Data;
 
                 vm.ProductVariation.forEach(function (variation) {
                     variation.ProductId = vm.productId;

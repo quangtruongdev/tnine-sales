@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -37,20 +36,13 @@ namespace tnine.Web.Host.Api
         [Route("")]
         public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditColorDto input)
         {
-            if (input == null)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid data.");
-            }
 
-            try
+            await _colorService.CreateOrEdit(input);
+            return Request.CreateResponse(HttpStatusCode.OK, new
             {
-                await _colorService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "Color created or updated successfully.");
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, $"An error occurred: {ex.Message}");
-            }
+                Message = "Save successfully."
+            });
+
         }
 
 
@@ -59,7 +51,10 @@ namespace tnine.Web.Host.Api
         public async Task<HttpResponseMessage> Delete(long id)
         {
             await _colorService.Delete(id);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
     }
 }

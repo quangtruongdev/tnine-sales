@@ -41,7 +41,10 @@ namespace tnine.Web.Host.Api
         {
             await _productService.Delete(Id);
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
 
         [HttpPost]
@@ -50,7 +53,11 @@ namespace tnine.Web.Host.Api
         {
             var productId = await _productService.CreateOrEdit(input);
 
-            return Request.CreateResponse(HttpStatusCode.OK, productId);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Save successfully.",
+                Data = productId
+            });
         }
     }
 }

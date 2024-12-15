@@ -41,7 +41,10 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _sizeService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "Size created or updated successfully.");
+                return Request.CreateResponse(HttpStatusCode.OK, new
+                {
+                    Message = "Save successfully."
+                });
             }
             catch (Exception ex)
             {
@@ -53,7 +56,10 @@ namespace tnine.Web.Host.Api
         public async Task<HttpResponseMessage> Delete(long id)
         {
             await _sizeService.Delete(id);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
     }
 }

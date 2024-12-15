@@ -32,7 +32,10 @@ namespace tnine.Web.Host.Api
         {
             await _categoryService.CreateOrEdit(input);
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Save successfully."
+            });
         }
 
         [HttpDelete]
@@ -41,7 +44,10 @@ namespace tnine.Web.Host.Api
         {
             await _categoryService.Delete(id);
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
 
         [HttpGet]

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using tnine.Application.Shared.IPaymentStatusService;
 using tnine.Application.Shared.IPaymentStatusService.Dto;
-using tnine.Application.Shared.IShopService.Dto;
 using tnine.Core.Shared.Dtos;
 
 namespace tnine.Web.Host.Api
@@ -49,7 +48,10 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _paymentStatusService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "PaymentStatus created or updated successfully.");
+                return Request.CreateResponse(HttpStatusCode.OK, new
+                {
+                    Message = "Save successfully."
+                });
             }
             catch (Exception ex)
             {
@@ -64,7 +66,10 @@ namespace tnine.Web.Host.Api
         {
             var input = new EntityDto<long> { Id = id };
             await _paymentStatusService.Delete(input);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
     }
 }

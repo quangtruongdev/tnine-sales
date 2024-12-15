@@ -18,7 +18,7 @@ namespace tnine.Web.Host.Api
         private IInvoiceService _invoiceService;
         private InvoiceExportService _invoiceExportService;
 
-        public InvoiceApiController(IInvoiceService invoiceService, 
+        public InvoiceApiController(IInvoiceService invoiceService,
             InvoiceExportService invoiceExportService)
         {
             _invoiceService = invoiceService;
@@ -53,7 +53,10 @@ namespace tnine.Web.Host.Api
             try
             {
                 await _invoiceService.CreateOrEdit(input);
-                return Request.CreateResponse(HttpStatusCode.OK, "Invoice created or updated successfully.");
+                return Request.CreateResponse(HttpStatusCode.OK, new
+                {
+                    Message = "Save successfully."
+                });
             }
             catch (Exception ex)
             {
@@ -66,7 +69,10 @@ namespace tnine.Web.Host.Api
         public async Task<HttpResponseMessage> Delete(long id)
         {
             await _invoiceService.Delete(id);
-            return Request.CreateResponse(HttpStatusCode.OK, "Invoice deleted successfully.");
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                Message = "Delete successfully."
+            });
         }
 
         [HttpGet]
