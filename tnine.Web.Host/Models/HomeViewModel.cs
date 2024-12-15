@@ -48,4 +48,11 @@ namespace tnine.Web.Host.Models
         public string ColorName { get; set; }
         public string SizeName { get; set; }
     }
+
+    public class Category
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
 }

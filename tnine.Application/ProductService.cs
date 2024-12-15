@@ -102,6 +102,7 @@ namespace tnine.Application
                             Price = p.Price,
                             CategoryName = c.Name,
                             ImgUrl = i == null ? "" : i.ImgUrl,
+                            CategoryId = c.Id,
                         };
 
 

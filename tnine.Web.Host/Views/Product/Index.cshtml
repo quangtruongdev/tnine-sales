@@ -22,6 +22,46 @@
             </button>
         </form>
 
+        <!-- Phần chọn danh mục -->
+        <div class="dropdown-container">
+            <form action="@Url.Action("Index", "Product")" method="get" class="d-flex align-items-center">
+                <label for="categorySelect" class="me-2">Danh mục:</label>
+                <select id="categorySelect" name="categoryId" class="form-select w-auto me-2" onchange="this.form.submit()">
+                    <option value="">Tất cả</option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.Value" @(category.Selected ? "selected" : "")>@category.Text</option>
+                    }
+                </select>
+                <input type="hidden" name="pageIndex" value="1" />
+                <input type="hidden" name="pageSize" value="@ViewBag.PageSize" />
+                <input type="hidden" name="sortOrder" value="@ViewBag.SortOrder" />
+            </form>
+        </div>
+
+        <!-- Phần lọc theo giá -->
+        <div class="dropdown-container">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sắp xếp giá
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                    <li>
+                        <a class="dropdown-item @(ViewBag.SortOrder == "asc" ? "active" : "")"
+                           href="@Url.Action("Index", "Product", new { pageIndex = 1, pageSize = ViewBag.PageSize, sortOrder = "asc" })">
+                            Tăng dần
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item @(ViewBag.SortOrder == "desc" ? "active" : "")"
+                           href="@Url.Action("Index", "Product", new { pageIndex = 1, pageSize = ViewBag.PageSize, sortOrder = "desc" })">
+                            Giảm dần
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <a href="@Url.Action("Cart", "Product")" class="btn btn-primary">
             <i class="fa-solid fa-cart-shopping"></i>
             Cart
@@ -33,7 +73,7 @@
 <div class="container mt-5">
     <!-- Danh sách sản phẩm -->
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-        @if (Model.Any())
+        @if (Model != null && Model.Any())
         {
             foreach (var product in Model)
             {
@@ -65,21 +105,21 @@
                 @if (pageIndex > 1)
                 {
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index", "Product", new { pageIndex = pageIndex - 1, pageSize = pageSize })">Trước</a>
+                        <a class="page-link" href="@Url.Action("Index", "Product", new { categoryId = ViewBag.SelectedCategoryId, pageIndex = pageIndex - 1, pageSize = pageSize, sortOrder = ViewBag.SortOrder })">Trước</a>
                     </li>
                 }
 
                 @for (int i = 1; i <= totalPages; i++)
                 {
                     <li class="page-item @(i == pageIndex ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("Index", "Product", new { pageIndex = i, pageSize = pageSize })">@i</a>
+                        <a class="page-link" href="@Url.Action("Index", "Product", new { categoryId = ViewBag.SelectedCategoryId, pageIndex = i, pageSize = pageSize, sortOrder = ViewBag.SortOrder })">@i</a>
                     </li>
                 }
 
                 @if (pageIndex < totalPages)
                 {
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index", "Product", new { pageIndex = pageIndex + 1, pageSize = pageSize })">Tiếp</a>
+                        <a class="page-link" href="@Url.Action("Index", "Product", new { categoryId = ViewBag.SelectedCategoryId, pageIndex = pageIndex + 1, pageSize = pageSize, sortOrder = ViewBag.SortOrder })">Tiếp</a>
                     </li>
                 }
             </ul>
@@ -98,6 +138,75 @@
 </script>
 
 <style>
+    /* Cải thiện kiểu dáng cho phần lọc theo giá */
+    .dropdown-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .dropdown-container .dropdown-toggle {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .dropdown-container .dropdown-menu {
+            min-width: 150px;
+            font-size: 1rem;
+        }
+
+        .dropdown-container .dropdown-item {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+            .dropdown-container .dropdown-item:hover {
+                background-color: #f1f1f1;
+            }
+
+            .dropdown-container .dropdown-item.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+    /* Cải thiện kiểu dáng cho phần chọn danh mục */
+    .select-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .select-container label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .select-container select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: auto;
+            background-color: #f8f9fa;
+        }
+
+            .select-container select:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+
+            .select-container select option {
+                font-size: 1rem;
+            }
+
+    /* Cải thiện khoảng cách giữa các phần tử */
+    .dropdown-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
     .card-img-top {
         height: 180px;
         background-size: contain;
