@@ -44,6 +44,15 @@
         vm.close = function () {
             $('#createOrEditPaymentMethodsModal').modal('hide');
         };
+
+        vm.isSaveDisabled = function () {
+            // Kiểm tra các trường chính
+            if (!vm.paymentMethods.Name) {
+                return true;
+            }
+
+            return false;
+        };
     }
 
 })(angular.module('app.pages.paymentMethods'));

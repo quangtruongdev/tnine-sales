@@ -44,6 +44,14 @@
         vm.close = function () {
             $('#createOrEditSizeModal').modal('hide');
         };
+        vm.isSaveDisabled = function () {
+            // Kiểm tra các trường chính
+            if (!vm.size.Name) {
+                return true;
+            }
+            
+            return false;
+        };
     }
 
 })(angular.module('app.admin.size'));

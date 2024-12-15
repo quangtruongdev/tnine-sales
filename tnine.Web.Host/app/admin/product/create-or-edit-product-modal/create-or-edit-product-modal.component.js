@@ -212,6 +212,20 @@
             });
         };
 
+        vm.isSaveDisabled = function () {
+            // Kiểm tra các trường chính
+            if (!vm.product.Name || !vm.product.Price || !vm.product.CategoryId) {
+                return true;
+            }
+            // Kiểm tra các trường của từng variation
+            for (let variation of vm.ProductVariation) {
+                if (!variation.ColorId || !variation.SizeId || !variation.Quantity) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
     }
 
 })(angular.module('app.admin.product'));

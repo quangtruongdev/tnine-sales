@@ -44,6 +44,15 @@
         vm.close = function () {
             $('#createOrEditColorModal').modal('hide');
         };
+
+        vm.isSaveDisabled = function () {
+            // Kiểm tra các trường chính
+            if (!vm.color.HexCode || !vm.color.Code) {
+                return true;
+            }
+
+            return false;
+        };
     }
 
 })(angular.module('app.admin.color'));

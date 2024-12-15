@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Code</span>
+                            <span class="input-group-text">Code*</span>
                             <input type="text" class="form-control" ng-model="vm.color.Code"
                                    placeholder="">
                         </div>
@@ -22,7 +22,7 @@
 
                     <div class="col-md-12">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">HexCode</span>
+                            <span class="input-group-text">HexCode*</span>
                             <input type="color" class="form-control" ng-model="vm.color.HexCode"
                                    placeholder="">
                         </div>
@@ -30,7 +30,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving">
+                <button type="submit"
+                        class="btn btn-outline-primary"
+                        ng-click="vm.save()"
+                        ng-disabled="vm.saving || vm.isSaveDisabled()">
                     <i class="fa-regular fa-floppy-disk me-1"></i>
                     <span>Save</span>
                 </button>
