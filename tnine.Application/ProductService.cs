@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IProductService;
 using tnine.Application.Shared.IProductService.Dto;
+using tnine.Application.Shared.IProductVariationService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.Dtos;
 using tnine.Core.Shared.Infrastructure;
@@ -22,6 +23,7 @@ namespace tnine.Application
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ICategoreisRepository _categoreisRepo;
+        
 
         public ProductService(
             IProductRepository productRepo,
@@ -192,6 +194,27 @@ namespace tnine.Application
                 .ToList();
 
             return new PagedResultDto<GetProductForViewDto>(totalCount, items);
+        }
+
+        public async Task<List<GetProductVariationForViewDto>> GetListProductVariationByProductId(long id)
+        {
+            var variations = await _productVariationsRepo.GetAllAsync();
+            var color = await _colorRepo.GetAllAsync();
+            var size = await _sizeRepo.GetAllAsync();
+            var query = from variation in variations
+                        join c in color on variation.ColorId equals c.Id
+                        join s in size on variation.SizeId equals s.Id
+                        where variation.ProductId == id
+                        select new GetProductVariationForViewDto
+                        {
+                            ProductId = variation.ProductId,
+                            ColorId = variation.ColorId,
+                            SizeId = variation.SizeId,
+                            Quantity = variation.Quantity,
+                            ColorName = c.HexCode,
+                            SizeName = s.Name
+                        };
+            return new List<GetProductVariationForViewDto>(query.ToList());
         }
 
     }

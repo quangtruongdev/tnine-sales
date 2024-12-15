@@ -55,11 +55,11 @@ namespace tnine.Web.Host.Controllers
         public async Task<ActionResult> Details(long id)
         {
             var product = await _productService.GetDetailProduct(id);  
-            var color = await _colorService.GetAll();
-            var listColor = color.ToList();
-            var size = await _sizeService.GetAll();
-            var listSize = size.ToList();
-
+            //var color = await _colorService.GetAll();
+            //var listColor = color.ToList();
+            //var size = await _sizeService.GetAll();
+            //var listSize = size.ToList();
+            var productVarition = await _productService.GetListProductVariationByProductId(id);
             //if (product == null)
             //{
             //    return HttpNotFound(); // Trả về lỗi 404 nếu không tìm thấy sản phẩm
@@ -71,6 +71,7 @@ namespace tnine.Web.Host.Controllers
             //var productDetailViewModel = _mapper.Map<ProductDetailViewModel>(products);
             var productDetailViewModel = new ProductDetailViewModel();
             productDetailViewModel.ProductViewModel = _mapper.Map<ProductViewModel>(product);
+            productDetailViewModel.productVariationViewModels = _mapper.Map<List<ProductVariationViewModel>>(productVarition);
             //productDetailViewModel.ProductViewModel.Id = (long)product.Id;
             //productDetailViewModel.ProductViewModel.Name = product.Product.Name;
             //productDetailViewModel.ProductViewModel.CategoryId = product.Product.CategoryId;
@@ -79,8 +80,8 @@ namespace tnine.Web.Host.Controllers
             //productDetailViewModel.ProductViewModel.Price = product.Product.Price;
             //productDetailViewModel.ProductViewModel.ImgUrl = product.Product.ImgUrl;
 
-            productDetailViewModel.colorViewModels = _mapper.Map<List<ColorViewModel>>(listColor);
-            productDetailViewModel.sizeViewModels = _mapper.Map<List<SizeViewModel>>(listSize);
+            //productDetailViewModel.colorViewModels = _mapper.Map<List<ColorViewModel>>(listColor);
+            //productDetailViewModel.sizeViewModels = _mapper.Map<List<SizeViewModel>>(listSize);
 
 
             return View(productDetailViewModel); // Trả về view chi tiết sản phẩm

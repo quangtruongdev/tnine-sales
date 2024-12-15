@@ -50,6 +50,7 @@ namespace tnine.Web.Host.App_Start
             CreateMap<GetProductForViewDto, ProductViewModel>();
             CreateMap<GetSizeForViewDto, SizeViewModel>();
             //CreateMap<CreateOrEditProductDto, ProductViewModel>();
+            CreateMap<GetProductVariationForViewDto, ProductVariationViewModel>();
 
         }
     }

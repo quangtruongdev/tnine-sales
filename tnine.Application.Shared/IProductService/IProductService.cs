@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using tnine.Application.Shared.IProductService.Dto;
+using tnine.Application.Shared.IProductVariationService.Dto;
 using tnine.Core.Shared.Dtos;
 
 namespace tnine.Application.Shared.IProductService
@@ -13,5 +15,6 @@ namespace tnine.Application.Shared.IProductService
         Task<PagedResultDto<GetProductForViewDto>> GetProductByCategoryId(long CateGoryId);
         Task<GetProductForViewDto> GetDetailProduct(long id);
         Task<PagedResultDto<GetProductForViewDto>> SearchProductByNameAsync(string name, int pageIndex = 1, int pageSize = 8);
+        Task<List<GetProductVariationForViewDto>> GetListProductVariationByProductId(long id);
     }
 }

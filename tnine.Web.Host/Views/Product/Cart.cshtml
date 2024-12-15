@@ -21,6 +21,8 @@
                     <th>STT</th>
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
+                    <th>Màu</th>
+                    <th>Size</th>
                     <th>Giá</th>
                     <th>Hình ảnh</th>
                     <th>Thao tác</th>
@@ -39,6 +41,16 @@
     </div>
 </div>
 
+<style>
+    .color-square {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ccc;
+        vertical-align: middle;
+        margin-right: 8px;
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -58,6 +70,10 @@
                     <td>${index + 1}</td>
                     <td>${product.name}</td>
                     <td>${product.quantity}</td>
+                    <td>
+                        <span class="color-square" style="background-color: ${product.color.hexCode};"></span>
+                    </td>
+                    <td>${product.size}</td>
                     <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                     <td>
                         <img src="/wwwroot/${product.imgUrl}" alt="${product.name}" class="img-thumbnail" style="width: 100px; height: auto;" />
