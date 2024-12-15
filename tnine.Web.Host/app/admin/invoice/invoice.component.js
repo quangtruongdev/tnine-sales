@@ -83,6 +83,22 @@
             }
         }
 
+        vm.exportPdf = () => {
+            if(confirm('Are you sure you want to export?')) {
+                fetch(`/api/invoice/exportPDF/${vm.selectedId}`)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(new Blob([blob]));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', 'invoice.pdf');
+                        document.body.appendChild(link);
+                        link.click();
+                        link.remove();
+                    });
+            }
+        }
+
         vm.add = () => angular.element(document.querySelector('create-or-edit-invoice-modal'))
             .controller('createOrEditInvoiceModal').show();
 

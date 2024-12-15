@@ -95,5 +95,22 @@ namespace tnine.Web.Host.Api
             return httpResponseMessage;
         }
 
+        [HttpGet]
+        [Route("exportPDF/{id}")]
+        public HttpResponseMessage GenerateInvoicePDF(long id)
+        {
+            var pdfFile = _invoiceExportService.GeneratePDF(id);
+            var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(pdfFile)
+            };
+            httpResponseMessage.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = "Invoice.pdf"
+            };
+            httpResponseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+            return httpResponseMessage;
+        }
     }
 }

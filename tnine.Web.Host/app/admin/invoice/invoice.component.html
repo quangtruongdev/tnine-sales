@@ -3,6 +3,10 @@
 
     <div class="d-flex float-end">
         <div>
+            <md-button type="button" class="md-raised md-primary" ng-disabled="!vm.selectedId" ng-click="vm.exportPdf()">
+                <i class="fa-solid fa-file-excel"></i>
+                Export Pdf
+            </md-button>
             <md-button type="button" class="md-raised md-primary" ng-click="vm.exportExcel()">
                 <i class="fa-solid fa-file-excel"></i>
                 Export Excel

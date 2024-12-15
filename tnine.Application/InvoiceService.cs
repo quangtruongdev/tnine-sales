@@ -19,6 +19,9 @@ namespace tnine.Application
         private readonly IPaymentStatusRepository _paymentStatusRepository;
         private readonly IProductInvoicesRepository _productInvoicesRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IProductVariationsRepository _productVariationsRepository;
+        private readonly IColorRepository _colorRepository;
+        private readonly ISizeRepository _sizeRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
@@ -29,6 +32,9 @@ namespace tnine.Application
             IPaymentStatusRepository paymentStatusRepository,
             IProductInvoicesRepository productInvoicesRepository,
             IProductRepository productRepository,
+            IProductVariationsRepository productVariationsRepository,
+            IColorRepository colorRepository,
+            ISizeRepository sizeRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper
             )
@@ -39,6 +45,9 @@ namespace tnine.Application
             _paymentStatusRepository = paymentStatusRepository;
             _productInvoicesRepository = productInvoicesRepository;
             _productRepository = productRepository;
+            _productVariationsRepository = productVariationsRepository;
+            _colorRepository = colorRepository;
+            _sizeRepository = sizeRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -58,11 +67,11 @@ namespace tnine.Application
                     {
                         Id = invoice.Id,
                         CreationTime = (DateTime)invoice.CreationTime,
-                        CustomerName = customer.FullName,
-                        CustomerTelephone = customer.PhoneNumber,
-                        PaymentStatusName = paymentStatu.Name,
-                        PaymentMethodName = paymentMethod.Name,
-                        Total = invoice.Total
+                        CustomerName = customer.FullName == null ? "" : customer.FullName,
+                        CustomerTelephone = customer.PhoneNumber == null ? "" : customer.PhoneNumber,
+                        PaymentStatusName = paymentStatu.Name == null ? "" : paymentStatu.Name,
+                        PaymentMethodName = paymentMethod.Name == null ? "" : paymentMethod.Name,
+                        Total = invoice.Total 
                     }).ToList();
         }
 
@@ -105,6 +114,42 @@ namespace tnine.Application
         public async Task Delete(long id)
         {
             await _invoiceRepository.DeleteAsync(id);
+        }
+
+
+        public GetInvoiceDetailDto GetInvoiceDetailInfo(long id)
+        {
+            var invoiceDetail = (from inv in _invoiceRepository.GetAll()
+                               join pm in _paymentMethodsRepository.GetAll() on inv.PaymentMethodId equals pm.Id
+                               join ps in _paymentStatusRepository.GetAll() on inv.PaymentStatusId equals ps.Id
+                               join c in _customerRepository.GetAll() on inv.CustomerId equals c.Id into customerGroup
+                               from c in customerGroup.DefaultIfEmpty()
+                               where inv.Id == id
+                               select new GetInvoiceDetailDto
+                               {
+                                   InvoiceNumber = $"Tnine-Inv-{inv.Id}",
+                                   Date = (DateTime)inv.CreationTime,
+                                   CustomerName = c != null ? c.FullName : "",
+                                   PaymentMode = pm.Name,
+                                   TotalAmount = inv.Total
+                               }).FirstOrDefault();
+
+            if (invoiceDetail == null) throw new Exception($"Invoice with ID {id} not found.");
+
+            invoiceDetail.Items = (from pi in _productInvoicesRepository.GetAll()
+                                 join p in _productRepository.GetAll() on pi.ProductId equals p.Id
+                                 join pv in _productVariationsRepository.GetAll() on p.Id equals pv.ProductId
+                                 join color in _colorRepository.GetAll() on pv.ColorId equals color.Id
+                                 join size in _sizeRepository.GetAll() on pv.SizeId equals size.Id
+                                 where pi.InvoiceId == id
+                                 select new InvoiceItem
+                                 {
+                                     ItemName = $"{p.Name} ({color.Code}, {size.Name})",
+                                     Quantity = pi.Quantity,
+                                     UnitPrice = p.Price,
+                                 }).ToList();
+
+            return invoiceDetail;
         }
 
     }
