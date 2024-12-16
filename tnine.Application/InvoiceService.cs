@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IInvoiceService;
 using tnine.Application.Shared.IInvoiceService.Dto;
@@ -37,7 +38,8 @@ namespace tnine.Application
             IColorRepository colorRepository,
             ISizeRepository sizeRepository,
             IUnitOfWork unitOfWork,
-            IMapper mapper
+            IMapper mapper,
+            QuantityUpdateQueue quantityQueue
             )
         {
             _invoiceRepository = invoiceRepository;
@@ -80,15 +82,9 @@ namespace tnine.Application
 
         public async Task CreateOrEdit(InvoiceAndInvoiceDetailsDto input)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input), "Input cannot be null");
-            }
+            if (input == null) throw new ArgumentNullException(nameof(input), "Input cannot be null");
 
-            if (input.Invoice == null)
-            {
-                throw new ArgumentNullException(nameof(input.Invoice), "Invoice cannot be null");
-            }
+            if (input.Invoice == null) throw new ArgumentNullException(nameof(input.Invoice), "Invoice cannot be null");
 
             if (input.Invoice.Id == null)
             {
@@ -107,8 +103,7 @@ namespace tnine.Application
             var invoice = _mapper.Map<Invoice>(input.Invoice);
             var invoiceId = await _invoiceRepository.InsertAndGetIdAsync(invoice);
 
-            var items = input.Items;
-            foreach (var item in items)
+            foreach (var item in input.Items)
             {
                 var productInvoice = new ProductInvoices
                 {
@@ -158,6 +153,8 @@ namespace tnine.Application
                                    InvoiceNumber = $"Tnine-Inv-{inv.Id}",
                                    Date = (DateTime)inv.CreationTime,
                                    CustomerName = c != null ? c.FullName : "One time customer",
+                                   CustomerAddress = c != null ? c.Address : "",
+                                   CustomerPhoneNumber = c != null ? c.PhoneNumber : "",
                                    PaymentMode = pm.Name,
                                    TotalAmount = inv.Total
                                }).FirstOrDefault();

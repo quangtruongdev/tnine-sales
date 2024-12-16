@@ -11,6 +11,8 @@ namespace tnine.Application.Shared.IInvoiceService.Dto
         public string PaymentMode { get; set; }
         public List<InvoiceItem> Items { get; set; }
         public decimal TotalAmount { get; set; }
+        public string CustomerAddress { get; set; }
+        public string CustomerPhoneNumber { get; set; }
     }
 
     public class InvoiceItem

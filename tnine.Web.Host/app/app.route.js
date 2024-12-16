@@ -124,7 +124,8 @@
             files: [
                 '/app/admin/invoice/invoice.module.js',
                 '/app/admin/invoice/invoice.component.js',
-                '/app/admin/invoice/create-or-edit-invoice-modal/create-or-edit-invoice-modal.component.js'
+                '/app/admin/invoice/create-or-edit-invoice-modal/create-or-edit-invoice-modal.component.js',
+                '/app/admin/invoice/view-detail-modal/view-detail-modal.component.js'
             ]
         },
         //{

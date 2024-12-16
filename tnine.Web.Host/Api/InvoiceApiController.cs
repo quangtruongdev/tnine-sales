@@ -41,6 +41,14 @@ namespace tnine.Web.Host.Api
             return Request.CreateResponse(HttpStatusCode.OK, invoice);
         }
 
+        [HttpGet]
+        [Route("details/{id}")]
+        public async Task<HttpResponseMessage> GetInvoiceDetails(long id)
+        {
+            var invoiceDetail = _invoiceService.GetInvoiceDetailInfo(id);
+            return Request.CreateResponse(HttpStatusCode.OK, invoiceDetail);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<HttpResponseMessage> CreateOrEdit([FromBody] InvoiceAndInvoiceDetailsDto input)

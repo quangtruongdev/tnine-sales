@@ -113,6 +113,9 @@
 
         vm.edit = () => angular.element(document.querySelector('create-or-edit-invoice-modal'))
             .controller('createOrEditInvoiceModal').show(vm.selectedId);
+        
+        vm.viewDetails = () => angular.element(document.querySelector('view-detail-modal'))
+        .controller('viewDetailModal').show(vm.selectedId);
 
         vm.delete = () => {
             if (confirm('Are you sure you want to delete?')) {

@@ -203,7 +203,10 @@
             },
             delete: function (id) {
                 return baseService.remove('api/invoice/' + id);
-            }
+            },
+            getInvoiceDetails: function (id) {
+                return baseService.get('api/invoice/details/' + id);
+            },
         };
 
 

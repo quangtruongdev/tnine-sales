@@ -1,0 +1,97 @@
+<div class="modal fade" id="viewDetailModal" tabindex="-1" role="dialog"
+    aria-labelledby="viewDetailLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 95%; max-width: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>Invoice Details</span>
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    ng-disabled="vm.saving"></button>
+            </div>
+
+            <div class="modal-body">
+                    <div class="container my-5">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h2 class="mb-0">Invoice</h2>
+                                    <p class="mb-0">Invoice No: #{{vm.invoiceDetail.InvoiceNumber}}</p>
+                                    <p class="mb-0">Date: {{vm.invoiceDetail.Date | date:'EEEE, dd/MM/yyyy'}}</p>
+                                </div>
+                                <div>
+                                    <img src="https://via.placeholder.com/150" alt="Company Logo" class="img-fluid">
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <h5>Billed To:</h5>
+                                        <p class="mb-0"><strong>{{vm.invoiceDetail.CustomerName}}</strong></p>
+                                        <p class="mb-0">Address: {{vm.invoiceDetail.CustomerAddress}}</p>
+                                        <p class="mb-0">Payment Method: {{vm.invoiceDetail.PaymentMode}}</p>
+                                        <p class="mb-0">Phone Number: {{vm.invoiceDetail.CustomerPhoneNumber}}</p>
+                                    </div>
+                                    <div class="col-md-6 text-md-end">
+                                        <h5>Company Info:</h5>
+                                        <p class="mb-0"><strong>Tnine Clothes Shop</strong></p>
+                                        <p class="mb-0">55 Giai Phong</p>
+                                        <p class="mb-0">Dong Tam, Ha Noi</p>
+                                        <p class="mb-0">Email: blackouthound@gmail.com</p>
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 5%;">#</th>
+                                            <th style="width: 45%;">Item</th>
+                                            <th style="width: 10%;">Quantity</th>
+                                            <th style="width: 16%;">Unit Price</th>
+                                            <th style="width: 24%;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in vm.invoiceDetail.Items">
+                                            <td>{{$index + 1}}</td>
+                                            <td>{{item.ItemName}}</td>
+                                            <td>{{item.Quantity}}</td>
+                                            <td>{{item.UnitPrice }} VND</td>
+                                            <td>{{item.TotalPrice }} VND</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4" class="text-end fw-bold">Subtotal</td>
+                                            <td>{{vm.invoiceDetail.TotalAmount * 0.9 }} VND</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-end">Tax (10%)</td>
+                                            <td>{{vm.invoiceDetail.TotalAmount * 0.1 }} VND</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-end fw-bold">Total</td>
+                                            <td>{{vm.invoiceDetail.TotalAmount }} VND</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                                <div class="text-center mt-4">
+                                    <p class="text-muted">Thank you for your business!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" ng-click="vm.close()" ng-disabled="vm.saving">
+                    <i class="fa-solid fa-xmark me-1"></i>
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -45,7 +45,7 @@
                             ng-disabled="!vm.selectedProductId">
                             <i class="fa-solid fa-plus"></i>Add to cart
                         </md-button>
-                        <div class="ag-theme-alpine mb-3" ag-grid="vm.gridOptions" style="height: 400px; width: 100%;">
+                        <div class="ag-theme-alpine mb-3" ag-grid="vm.gridOptions" style="height: 450px; width: 100%;">
                         </div>
                     </div>
 
@@ -125,7 +125,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving">
+                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving || !vm.invoice.PaymentStatusId || !vm.invoice.PaymentMethodId || vm.cart.length == 0">
                     <i class="fa-regular fa-floppy-disk me-1"></i>
                     <span>Save</span>
                 </button>
