@@ -32,43 +32,112 @@ namespace tnine.Web.Host.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<ActionResult> Index(int? categoryId = null, int pageIndex = 1, int pageSize = 8, string sortOrder = null)
+        //public async Task<ActionResult> Index(int? categoryId = null, int pageIndex = 1, int pageSize = 8, string sortOrder = null)
+        //{
+        //    // Lấy danh mục để đổ vào ViewBag
+        //    var categories = await _categoryService.GetAll();
+        //    ViewBag.Categories = categories.Select(c => new SelectListItem
+        //    {
+        //        Value = c.Id.ToString(),
+        //        Text = c.Name,
+        //        Selected = categoryId.HasValue && c.Id == categoryId
+        //    }).ToList();
+
+        //    // Lấy danh sách sản phẩm và áp dụng bộ lọc danh mục
+        //    var pagedResult = await _productService.GetAll();
+        //    var products = pagedResult.Results.AsQueryable();
+        //    if (categoryId.HasValue)
+        //    {
+        //        products = products.Where(p => p.CategoryId == categoryId);
+        //    }
+
+        //    // Sắp xếp sản phẩm theo giá
+        //    if (!string.IsNullOrEmpty(sortOrder))
+        //    {
+        //        if (sortOrder.ToLower() == "asc")
+        //        {
+        //            products = products.OrderBy(p => p.Price);
+        //        }
+        //        else if (sortOrder.ToLower() == "desc")
+        //        {
+        //            products = products.OrderByDescending(p => p.Price);
+        //        }
+        //    }
+
+        //    // Tính tổng số sản phẩm và số trang
+        //    var totalCount = products.Count();
+        //    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+        //    // Đảm bảo pageIndex nằm trong phạm vi hợp lệ
+        //    pageIndex = pageIndex < 1 ? 1 : (pageIndex > totalPages ? totalPages : pageIndex);
+
+        //    // Phân trang
+        //    var pagedItems = products
+        //        .Skip((pageIndex - 1) * pageSize)
+        //        .Take(pageSize)
+        //        .ToList();
+
+        //    // Chuyển đổi sang ViewModel
+        //    var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(pagedItems);
+
+        //    // Truyền dữ liệu cần thiết sang View bằng ViewBag
+        //    ViewBag.TotalCount = totalCount;
+        //    ViewBag.PageIndex = pageIndex;
+        //    ViewBag.PageSize = pageSize;
+        //    ViewBag.TotalPages = totalPages;
+        //    ViewBag.SortOrder = sortOrder;
+        //    ViewBag.SelectedCategoryId = categoryId;
+
+        //    return View(productViewModels);
+        //}
+
+        public async Task<ActionResult> Index(string searchTerm = null, int? categoryId = null, int pageIndex = 1, int pageSize = 8, string sortOrder = null)
         {
-            // Lấy danh mục để đổ ra select
-            var categories = await _categoryService.GetAll(); // Thay bằng hàm phù hợp trong service
+            // Lấy danh mục để đổ vào ViewBag
+            var categories = await _categoryService.GetAll();
             ViewBag.Categories = categories.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.Name,
-                Selected = c.Id == categoryId
+                Selected = categoryId.HasValue && c.Id == categoryId
             }).ToList();
 
+            // Lấy danh sách sản phẩm
             var pagedResult = await _productService.GetAll();
-            var products = pagedResult.Results.AsQueryable().Where(e => categoryId == null || e.CategoryId == categoryId);
-            var totalCount = pagedResult.TotalCount;
-            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-            pageIndex = pageIndex < 1 ? 1 : pageIndex;
-            pageIndex = pageIndex > totalPages ? totalPages : pageIndex;
+            var products = pagedResult.Results.AsQueryable();
+
+            // Áp dụng tìm kiếm nếu có
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                products = products.Where(p => p.Name.ToLower().Contains(searchTerm));
+            }
+
+            // Áp dụng bộ lọc danh mục nếu có
+            if (categoryId.HasValue)
+            {
+                products = products.Where(p => p.CategoryId == categoryId);
+            }
 
             // Sắp xếp sản phẩm theo giá
-            //var products = pagedResult.Results.AsQueryable();
-            //if (!string.IsNullOrEmpty(sortOrder))
-            //{
-            //    if (sortOrder == "asc")
-            //    {
-            //        products = products.OrderBy(p => p.Price);
-            //    }
-            //    else if (sortOrder == "desc")
-            //    {
-            //        products = products.OrderByDescending(p => p.Price);
-            //    }
-            //}
             if (!string.IsNullOrEmpty(sortOrder))
             {
-                products = sortOrder == "asc"
-                    ? products.OrderBy(p => p.Price)
-                    : products.OrderByDescending(p => p.Price);
+                if (sortOrder.ToLower() == "asc")
+                {
+                    products = products.OrderBy(p => p.Price);
+                }
+                else if (sortOrder.ToLower() == "desc")
+                {
+                    products = products.OrderByDescending(p => p.Price);
+                }
             }
+
+            // Tính tổng số sản phẩm và số trang
+            var totalCount = products.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            // Đảm bảo pageIndex nằm trong phạm vi hợp lệ
+            pageIndex = pageIndex < 1 ? 1 : (pageIndex > totalPages ? totalPages : pageIndex);
 
             // Phân trang
             var pagedItems = products
@@ -76,53 +145,62 @@ namespace tnine.Web.Host.Controllers
                 .Take(pageSize)
                 .ToList();
 
+            // Chuyển đổi sang ViewModel
             var productViewModels = _mapper.Map<IEnumerable<ProductViewModel>>(pagedItems);
+
+            // Truyền dữ liệu cần thiết sang View bằng ViewBag
             ViewBag.TotalCount = totalCount;
             ViewBag.PageIndex = pageIndex;
             ViewBag.PageSize = pageSize;
             ViewBag.TotalPages = totalPages;
-            ViewBag.SortOrder = sortOrder; // Truyền thông tin sortOrder sang View
+            ViewBag.SortOrder = sortOrder;
             ViewBag.SelectedCategoryId = categoryId;
+            ViewBag.SearchTerm = searchTerm;
 
             return View(productViewModels);
         }
 
 
+        //public async Task<ActionResult> Details(long id)
+        //{
+        //    var product = await _productService.GetDetailProduct(id);  
+        //    var productVarition = await _productService.GetListProductVariationByProductId(id);
+
+        //    var productDetailViewModel = new ProductDetailViewModel();
+        //    productDetailViewModel.ProductViewModel = _mapper.Map<ProductViewModel>(product);
+        //    productDetailViewModel.productVariationViewModels = _mapper.Map<List<ProductVariationViewModel>>(productVarition);
+
+
+        //    return View(productDetailViewModel); // Trả về view chi tiết sản phẩm
+        //}
 
         public async Task<ActionResult> Details(long id)
         {
-            var product = await _productService.GetDetailProduct(id);  
-            //var color = await _colorService.GetAll();
-            //var listColor = color.ToList();
-            //var size = await _sizeService.GetAll();
-            //var listSize = size.ToList();
+            // Lấy chi tiết sản phẩm
+            var product = await _productService.GetDetailProduct(id);
+            if (product == null)
+            {
+                // Trả về trang lỗi nếu không tìm thấy sản phẩm
+                return HttpNotFound("Sản phẩm không tồn tại.");
+            }
+
+            // Lấy danh sách biến thể sản phẩm
             var productVarition = await _productService.GetListProductVariationByProductId(id);
-            //if (product == null)
-            //{
-            //    return HttpNotFound(); // Trả về lỗi 404 nếu không tìm thấy sản phẩm
-            //}
 
+            // Tạo ViewModel chi tiết sản phẩm
+            var productDetailViewModel = new ProductDetailViewModel
+            {
+                ProductViewModel = _mapper.Map<ProductViewModel>(product),
+                productVariationViewModels = productVarition != null
+                    ? _mapper.Map<List<ProductVariationViewModel>>(productVarition)
+                    : new List<ProductVariationViewModel>()
+            };
 
-
-            // Map từ sản phẩm sang ProductViewModel
-            //var productDetailViewModel = _mapper.Map<ProductDetailViewModel>(products);
-            var productDetailViewModel = new ProductDetailViewModel();
-            productDetailViewModel.ProductViewModel = _mapper.Map<ProductViewModel>(product);
-            productDetailViewModel.productVariationViewModels = _mapper.Map<List<ProductVariationViewModel>>(productVarition);
-            //productDetailViewModel.ProductViewModel.Id = (long)product.Id;
-            //productDetailViewModel.ProductViewModel.Name = product.Product.Name;
-            //productDetailViewModel.ProductViewModel.CategoryId = product.Product.CategoryId;
-            //productDetailViewModel.ProductViewModel.CategoryName = product.Product.CategoryName;
-            //productDetailViewModel.ProductViewModel.Description = product.Product.Description;
-            //productDetailViewModel.ProductViewModel.Price = product.Product.Price;
-            //productDetailViewModel.ProductViewModel.ImgUrl = product.Product.ImgUrl;
-
-            //productDetailViewModel.colorViewModels = _mapper.Map<List<ColorViewModel>>(listColor);
-            //productDetailViewModel.sizeViewModels = _mapper.Map<List<SizeViewModel>>(listSize);
-
-
-            return View(productDetailViewModel); // Trả về view chi tiết sản phẩm
+            // Trả về view chi tiết sản phẩm
+            return View(productDetailViewModel);
         }
+
+
         public async Task<ActionResult> Search(string searchTerm, int pageIndex = 1, int pageSize = 8)
         {
             if (string.IsNullOrEmpty(searchTerm))

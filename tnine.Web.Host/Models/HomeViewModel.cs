@@ -24,17 +24,9 @@ namespace tnine.Web.Host.Models
         public string ImgUrl { get; set; }
     }
 
-    public class SizeViewModel
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-    }
-
     public class ProductDetailViewModel
     {
         public ProductViewModel ProductViewModel { get; set; }
-        //public List<ColorViewModel> colorViewModels { get; set; }
-        //public List<SizeViewModel> sizeViewModels { get; set; }
         public List<ProductVariationViewModel> productVariationViewModels { get; set; }
     }
 

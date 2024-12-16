@@ -13,7 +13,7 @@
         <a href="@Url.Action("Index", "Product")" class="text-primary text-decoration-none">
             <h1 class="h3 mb-0">TineSale</h1>
         </a>
-        <form action="@Url.Action("Search", "Product")" method="get" class="input-group w-50">
+        <form action="@Url.Action("Index", "Product")" method="get" class="input-group w-50">
             <input type="text" name="searchTerm" class="form-control"
                    placeholder="Tìm sản phẩm..." aria-label="Tìm sản phẩm"
                    value="@ViewBag.SearchTerm">
@@ -22,44 +22,32 @@
             </button>
         </form>
 
-        <!-- Phần chọn danh mục -->
         <div class="dropdown-container">
             <form action="@Url.Action("Index", "Product")" method="get" class="d-flex align-items-center">
+                <!-- Phần chọn danh mục -->
                 <label for="categorySelect" class="me-2">Danh mục:</label>
                 <select id="categorySelect" name="categoryId" class="form-select w-auto me-2" onchange="this.form.submit()">
                     <option value="">Tất cả</option>
-                    @foreach (var category in ViewBag.Categories)
+                    @if (ViewBag.Categories != null && ViewBag.Categories.Count > 0) // Check if Categories is not null and has items
                     {
-                        <option value="@category.Value" @(category.Selected ? "selected" : "")>@category.Text</option>
+                        foreach (var category in ViewBag.Categories)
+                        {
+                            <option value="@category.Value" @(category.Selected ? "selected" : "")>@category.Text</option>
+                        }
                     }
                 </select>
+
+                <!-- Sắp xếp theo giá -->
+                <label for="sortOrderSelect" class="me-2">Giá:</label>
+                <select id="sortOrderSelect" name="sortOrder" class="form-select w-auto me-2" onchange="this.form.submit()">
+                    <option value="">Mặc định</option>
+                    <option value="asc" @(ViewBag.SortOrder == "asc" ? "selected" : "")>Tăng dần</option>
+                    <option value="desc" @(ViewBag.SortOrder == "desc" ? "selected" : "")>Giảm dần</option>
+                </select>
+
                 <input type="hidden" name="pageIndex" value="1" />
                 <input type="hidden" name="pageSize" value="@ViewBag.PageSize" />
-                <input type="hidden" name="sortOrder" value="@ViewBag.SortOrder" />
             </form>
-        </div>
-
-        <!-- Phần lọc theo giá -->
-        <div class="dropdown-container">
-            <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Sắp xếp giá
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-                    <li>
-                        <a class="dropdown-item @(ViewBag.SortOrder == "asc" ? "active" : "")"
-                           href="@Url.Action("Index", "Product", new { pageIndex = 1, pageSize = ViewBag.PageSize, sortOrder = "asc" })">
-                            Tăng dần
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item @(ViewBag.SortOrder == "desc" ? "active" : "")"
-                           href="@Url.Action("Index", "Product", new { pageIndex = 1, pageSize = ViewBag.PageSize, sortOrder = "desc" })">
-                            Giảm dần
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
 
         <a href="@Url.Action("Cart", "Product")" class="btn btn-primary">
@@ -97,6 +85,7 @@
             </div>
         }
     </div>
+
     <!-- Phân trang -->
     @if (totalPages > 1)
     {
@@ -125,17 +114,7 @@
             </ul>
         </nav>
     }
-
 </div>
-
-<script>
-    function changePageSize(pageSize) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('pageSize', pageSize);
-        url.searchParams.set('pageIndex', 1); // Reset về trang đầu tiên
-        window.location.href = url.toString();
-    }
-</script>
 
 <style>
     /* Cải thiện kiểu dáng cho phần lọc theo giá */
