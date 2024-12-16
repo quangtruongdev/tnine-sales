@@ -15,14 +15,23 @@
 
         vm.gridOptions = {
             columnDefs: [
-                { headerName: "No", valueGetter: "node.rowIndex + 1" },
-                { headerName: "Id", field: "Id" },
-                { headerName: "CreationTime", field: "CreationTime" },
-                { headerName: "CustomerName", field: "CustomerName" },
-                { headerName: "CustomerTelephone", field: "CustomerTelephone" },
-                { headerName: "PaymentStatusName", field: "PaymentStatusName" },
-                { headerName: "PaymentMethodName", field: "PaymentMethodName" },
-                { headerName: "Total", field: "Total", valueGetter: `data.Total.toLocaleString() + ' VNĐ'` },
+                { headerName: "No", valueGetter: "node.rowIndex + 1", maxWidth: 50 },
+                { headerName: "CreationTime", field: "CreationTime", maxWidth: 210,   
+                    valueFormatter: (params) => {
+                        if (params.value) {
+                            const date = new Date(params.value);
+                            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                            const day = daysOfWeek[date.getDay()];
+                            return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}, ${day} `;
+                        }
+                        return '';
+                    } 
+                },
+                { headerName: "CustomerName", field: "CustomerName", maxWidth: 250 },
+                { headerName: "PhoneNumber", field: "CustomerTelephone", maxWidth: 150 },
+                { headerName: "PaymentStatusName", field: "PaymentStatusName", maxWidth: 200 },
+                { headerName: "PaymentMethodName", field: "PaymentMethodName", maxWidth: 200 },
+                { headerName: "Total", field: "Total", valueGetter: `data.Total.toLocaleString() + ' VNĐ'`, maxWidth: 300 },
             ],
             rowData: [],
             pagination: true,

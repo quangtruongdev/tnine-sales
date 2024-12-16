@@ -8,7 +8,7 @@ namespace tnine.Application.Shared.IInvoiceService
     {
         Task<List<GetInvoiceForViewDto>> GetAll();
         Task<GetInvoiceForEditOutputDto> GetById(long id);
-        Task CreateOrEdit(CreateOrEditInvoiceDto input);
+        Task CreateOrEdit(InvoiceAndInvoiceDetailsDto input);
         Task Delete(long id);
         GetInvoiceDetailDto GetInvoiceDetailInfo(long id);
     }

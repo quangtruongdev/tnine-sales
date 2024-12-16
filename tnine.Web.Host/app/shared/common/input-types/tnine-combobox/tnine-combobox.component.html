@@ -15,3 +15,7 @@
 <div class="text-danger mt-1" ng-if="vm.isValidated && !vm.value">
     <small>{{vm.errorMessage}}</small>
 </div>
+
+<div class="text-danger" ng-if="vm.items.length == 0">
+    <small>No data available</small>
+</div>

@@ -20,6 +20,14 @@ namespace tnine.Web.Host.Api
         }
 
         [HttpGet]
+        [Route("")]
+        public async Task<HttpResponseMessage> GetAll()
+        {
+            var productVariations = await _productVariationsAppService.GetAll();
+            return Request.CreateResponse(HttpStatusCode.OK, productVariations);
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public async Task<HttpResponseMessage> GetProductVariationByProductId([FromUri] long Id)
         {

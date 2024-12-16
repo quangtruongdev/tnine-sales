@@ -26,6 +26,11 @@ namespace tnine.Application
             _sizeRepository = sizeRepository;
         }
 
+        public async Task<List<ProductVariations>> GetAll()
+        {
+            return await _productVariationRepository.GetAllAsync();
+        }
+
 
         public async Task CreateOrEdit(List<CreateOrEditProductVariaionDto> input)
         {

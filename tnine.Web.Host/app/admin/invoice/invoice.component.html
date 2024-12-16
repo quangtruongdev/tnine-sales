@@ -1,13 +1,13 @@
 <div ng-controller="invoiceController as vm">
-    <div id="myGrid" class="ag-theme-alpine mb-3" ag-grid="vm.gridOptions" style="height: 400px; width: 100%;"></div>
+    <div id="myGrid" class="ag-theme-alpine mb-3" ag-grid="vm.gridOptions" style="height: 450px; width: 100%;"></div>
 
     <div class="d-flex float-end">
         <div>
-            <md-button type="button" class="md-raised md-primary" ng-disabled="!vm.selectedId" ng-click="vm.exportPdf()">
+            <md-button type="button" class="md-raised md-primary bg-danger" ng-disabled="!vm.selectedId" ng-click="vm.exportPdf()">
                 <i class="fa-solid fa-file-excel"></i>
                 Export Pdf
             </md-button>
-            <md-button type="button" class="md-raised md-primary" ng-click="vm.exportExcel()">
+            <md-button type="button" class="md-raised md-primary bg-success" ng-click="vm.exportExcel()">
                 <i class="fa-solid fa-file-excel"></i>
                 Export Excel
             </md-button>
@@ -25,6 +25,6 @@
             </md-button>
         </div>
     </div>
-    <create-or-edit-invoice-modal on-saved="vm.reloads()"></create-or-edit-invoice-modal>
+    <create-or-edit-invoice-modal on-saved="vm.getInvoices()"></create-or-edit-invoice-modal>
 
 </div>

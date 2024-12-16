@@ -93,6 +93,7 @@
     <Compile Include="IImageService\Dto\GetImageInputDto.cs" />
     <Compile Include="IImageService\IIamgeService.cs" />
     <Compile Include="IInvoiceService\Dto\GetInvoiceDetailDto.cs" />
+    <Compile Include="IInvoiceService\Dto\InvoiceAndInvoiceDetailsDto.cs" />
     <Compile Include="IOrderService\Dto\CreateOrEditOrderDto.cs" />
     <Compile Include="IOrderService\Dto\GetOrderForEditOutputDto.cs" />
     <Compile Include="IOrderService\Dto\GetOrderForViewDto.cs" />

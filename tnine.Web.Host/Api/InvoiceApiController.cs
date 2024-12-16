@@ -43,7 +43,7 @@ namespace tnine.Web.Host.Api
 
         [HttpPost]
         [Route("")]
-        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] CreateOrEditInvoiceDto input)
+        public async Task<HttpResponseMessage> CreateOrEdit([FromBody] InvoiceAndInvoiceDetailsDto input)
         {
             if (input == null)
             {

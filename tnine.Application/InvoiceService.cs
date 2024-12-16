@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IInvoiceService;
@@ -59,25 +60,37 @@ namespace tnine.Application
             var paymentMethods = await _paymentMethodsRepository.GetAllAsync();
             var paymentStatus = await _paymentStatusRepository.GetAllAsync();
 
-            return (from invoice in invoices
-                    join customer in customers on invoice.CustomerId equals customer.Id
+            var query = from invoice in invoices
+                    join customer in customers on invoice.CustomerId equals customer.Id into customerjoin
+                    from customer in customerjoin.DefaultIfEmpty()
                     join paymentMethod in paymentMethods on invoice.PaymentMethodId equals paymentMethod.Id
                     join paymentStatu in paymentStatus on invoice.PaymentStatusId equals paymentStatu.Id
                     select new GetInvoiceForViewDto
                     {
                         Id = invoice.Id,
                         CreationTime = (DateTime)invoice.CreationTime,
-                        CustomerName = customer.FullName == null ? "" : customer.FullName,
-                        CustomerTelephone = customer.PhoneNumber == null ? "" : customer.PhoneNumber,
-                        PaymentStatusName = paymentStatu.Name == null ? "" : paymentStatu.Name,
-                        PaymentMethodName = paymentMethod.Name == null ? "" : paymentMethod.Name,
-                        Total = invoice.Total 
-                    }).ToList();
+                        CustomerName = customer == null ? "One Time Customer" : customer.FullName,
+                        CustomerTelephone = customer == null ? "" : customer.PhoneNumber,
+                        PaymentStatusName = paymentStatu.Name,
+                        PaymentMethodName = paymentMethod.Name,
+                        Total = invoice.Total
+                    };
+            return query.ToList();
         }
 
-        public async Task CreateOrEdit(CreateOrEditInvoiceDto input)
+        public async Task CreateOrEdit(InvoiceAndInvoiceDetailsDto input)
         {
-            if (input.Id == null)
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input), "Input cannot be null");
+            }
+
+            if (input.Invoice == null)
+            {
+                throw new ArgumentNullException(nameof(input.Invoice), "Invoice cannot be null");
+            }
+
+            if (input.Invoice.Id == null)
             {
                 await Create(input);
             }
@@ -87,17 +100,32 @@ namespace tnine.Application
             }
         }
 
-        private async Task Create(CreateOrEditInvoiceDto input)
+        private async Task Create(InvoiceAndInvoiceDetailsDto input)
         {
-            input.CreationTime = DateTime.Now;
-            var invoice = _mapper.Map<Invoice>(input);
-            await _invoiceRepository.InsertAsync(invoice);
+            input.Invoice.CreationTime = DateTime.Now;
+            input.Invoice.CustomerId = input.Invoice.CustomerId == 0 ? null : input.Invoice.CustomerId;
+            var invoice = _mapper.Map<Invoice>(input.Invoice);
+            var invoiceId = await _invoiceRepository.InsertAndGetIdAsync(invoice);
+
+            var items = input.Items;
+            foreach (var item in items)
+            {
+                var productInvoice = new ProductInvoices
+                {
+                    InvoiceId = invoiceId,
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    SizeId = item.SizeId,
+                    ColorId = item.ColorId
+                };
+                await _productInvoicesRepository.InsertAsync(productInvoice);
+            }
         }
 
-        private async Task Edit(CreateOrEditInvoiceDto input)
+        private async Task Edit(InvoiceAndInvoiceDetailsDto input)
         {
-            var invoice = await _invoiceRepository.GetSingleByIdAsync(input.Id.Value);
-            _mapper.Map(input, invoice);
+            var invoice = await _invoiceRepository.GetSingleByIdAsync(input.Invoice.Id.Value);
+            _mapper.Map(input.Invoice, invoice);
             await _invoiceRepository.UpdateAsync(invoice);
         }
 
@@ -129,7 +157,7 @@ namespace tnine.Application
                                {
                                    InvoiceNumber = $"Tnine-Inv-{inv.Id}",
                                    Date = (DateTime)inv.CreationTime,
-                                   CustomerName = c != null ? c.FullName : "",
+                                   CustomerName = c != null ? c.FullName : "One time customer",
                                    PaymentMode = pm.Name,
                                    TotalAmount = inv.Total
                                }).FirstOrDefault();
@@ -139,8 +167,8 @@ namespace tnine.Application
             invoiceDetail.Items = (from pi in _productInvoicesRepository.GetAll()
                                  join p in _productRepository.GetAll() on pi.ProductId equals p.Id
                                  join pv in _productVariationsRepository.GetAll() on p.Id equals pv.ProductId
-                                 join color in _colorRepository.GetAll() on pv.ColorId equals color.Id
-                                 join size in _sizeRepository.GetAll() on pv.SizeId equals size.Id
+                                 join color in _colorRepository.GetAll() on pi.ColorId equals color.Id
+                                 join size in _sizeRepository.GetAll() on pi.SizeId equals size.Id
                                  where pi.InvoiceId == id
                                  select new InvoiceItem
                                  {

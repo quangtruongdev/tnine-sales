@@ -198,8 +198,8 @@
             getInvoiceForEdit: function (id) {
                 return baseService.get('api/invoice/' + id);
             },
-            createOrEdit: function (data) {
-                return baseService.post('api/invoice', data);
+            createOrEdit: function (invoice, items) {
+                return baseService.post('api/invoice', { invoice: invoice, items: items });
             },
             delete: function (id) {
                 return baseService.remove('api/invoice/' + id);
@@ -251,6 +251,9 @@
         };
 
         serviceProxies.productVariationService = {
+            getAll: function () {
+                return baseService.get('api/productVariation');
+            },
             getForEdit: function (id) {
                 return baseService.get('api/productVariation/' + id);
             },
