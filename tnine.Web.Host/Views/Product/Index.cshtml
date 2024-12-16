@@ -71,7 +71,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-truncate" title="@product.Name">@product.Name</h5>
                             <p class="card-text text-muted text-truncate" title="@product.Description">@product.Description</p>
-                            <p class="card-text"><strong>Giá:</strong> @product.Price.ToString("C")</p>
+                            <p class="card-text"><strong>Giá:</strong> @product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</p>
                             <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary w-100">Xem chi tiết</a>
                         </div>
                     </div>
@@ -215,7 +215,6 @@
         color: #555;
     }
 
-    <style >
     .input-group .form-control {
         height: 45px;
         border-right: none;

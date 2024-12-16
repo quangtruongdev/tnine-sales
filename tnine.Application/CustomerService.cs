@@ -82,5 +82,11 @@ namespace tnine.Application
         {
             await _customerRepository.DeleteAsync(input.Id.Value);
         }
+        public async Task<long> CreateAndGetId(CreateOrEditCustomerDto input)
+        {
+            var customer = _mapper.Map<Customer>(input);
+            var customerId = await _customerRepository.InsertAsync(customer);
+            return customerId.Id;
+        }
     }
 }

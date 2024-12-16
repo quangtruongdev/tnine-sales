@@ -11,5 +11,6 @@ namespace tnine.Application.Shared.ICustomerService
         Task CreateOrEdit(CreateOrEditCustomerDto input);
         Task<GetCustomerForEditOutputDto> GetCustomerForEdit(EntityDto<long> input);
         Task Delete(EntityDto<long> input);
+        Task<long> CreateAndGetId(CreateOrEditCustomerDto input);
     }
 }

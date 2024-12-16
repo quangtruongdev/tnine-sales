@@ -28,6 +28,7 @@ namespace tnine.Web.Host.Models
     {
         public ProductViewModel ProductViewModel { get; set; }
         public List<ProductVariationViewModel> productVariationViewModels { get; set; }
+        public string ErrorMessage { get; set; } // Thông báo lỗi
     }
 
     public class ProductVariationViewModel
@@ -39,6 +40,7 @@ namespace tnine.Web.Host.Models
         public string ProductName { get; set; }
         public string ColorName { get; set; }
         public string SizeName { get; set; }
+        public string ColorHexCode { get; set; }
     }
 
     public class Category

@@ -72,6 +72,7 @@ namespace tnine.Application
                             SizeId = variation.SizeId,
                             Quantity = variation.Quantity,
                             ColorName = c.Code,
+                            ColorHexCode = c.HexCode,
                             SizeName = s.Name
                         };
             var totalCount = query.Count();

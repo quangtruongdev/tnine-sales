@@ -33,11 +33,30 @@
         </table>
     </div>
 
+    <!-- Form thông tin khách hàng -->
+    <div class="mt-4">
+        <h4>Thông tin khách hàng</h4>
+        <form id="customer-info-form">
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Họ và tên</label>
+                <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Địa chỉ</label>
+                <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ" required>
+            </div>
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại" required>
+            </div>
+        </form>
+    </div>
+
     <div class="d-flex justify-content-between align-items-center mt-4">
         <h4 class="text-success">Tổng tiền: <span id="total-price">0</span></h4>
-        @*<button class="btn btn-primary btn-lg">
-                <i class="fa-solid fa-credit-card"></i> Thanh toán
-            </button>*@
+        <button class="btn btn-primary btn-lg btn-submint-order">
+            <i class="fa-solid fa-credit-card"></i> Đặt hàng
+        </button>
     </div>
 </div>
 
@@ -62,31 +81,39 @@
 
         let totalPrice = 0;
 
-        cart.forEach((product, index) => {
-            totalPrice = totalPrice + product.quantity * product.price;
 
-            const row = `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${product.name}</td>
-                    <td>${product.quantity}</td>
-                    <td>
-                        <span class="color-square" style="background-color: ${product.color};"></span>
-                    </td>
-                    <td>${product.size}</td>
-                    <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                    <td>
-                        <img src="/wwwroot/${product.imgUrl}" alt="${product.name}" class="img-thumbnail" style="width: 100px; height: auto;" />
-                    </td>
-                    <td>
-                        <button class="btn btn-danger btn-sm remove-from-cart" data-index="${index}">
-                            <i class="bi bi-trash"></i> Xóa
-                        </button>
-                    </td>
-                </tr>
-            `;
-            cartItemsContainer.innerHTML += row;
-        });
+        if (cart.length === 0) {
+            // Giỏ hàng rỗng
+            cartItemsContainer.innerHTML = '<tr><td colspan="8" class="text-center">Giỏ hàng rỗng</td></tr>';
+        } else {
+
+            cart.forEach((product, index) => {
+                totalPrice = totalPrice + product.quantity * product.price;
+
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${product.name}</td>
+                        <td>${product.quantity}</td>
+                        <td>
+                            <span class="color-square" style="background-color: ${product.color.hexcode};"></span>
+                            ${product.color.name}
+                        </td>
+                        <td>${product.size.name}</td>
+                        <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                        <td>
+                            <img src="/wwwroot/${product.imgUrl}" alt="${product.name}" class="img-thumbnail" style="width: 100px; height: auto;" />
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-sm remove-from-cart" data-index="${index}">
+                                <i class="bi bi-trash"></i> Xóa
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                cartItemsContainer.innerHTML += row;
+            });
+        }
 
         totalPriceElement.textContent = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 
@@ -98,6 +125,46 @@
                 localStorage.setItem('cart', JSON.stringify(cart));
                 location.reload();
             });
+        });
+
+        // Xử lý đặt hàng
+        document.querySelector('.btn-submint-order').addEventListener('click', function () {
+                 if (cart.length > 0) {
+            listCartItem = cart.map(item => ({
+                ProductId: item.ProductId,
+                Quantity: item.Quantity,
+                SizeId: item.SizeId,
+                ColorId: item.ColorId,
+            }));
+
+            fetch('@Url.Action("SubmitOrder", "Product")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    total: totalPrice,
+                    listCartItem: listCartItem,
+                    customerInfo: {
+                        FullName: document.getElementById('fullName').value,
+                        Address: document.getElementById('address').value,
+                        PhoneNumber: document.getElementById('phoneNumber').value,
+                    }
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Đặt hàng thành công!');
+                        location.href = '@Url.Action("Index", "Product")';
+                    } else {
+                        alert('Đặt hàng thất bại. Vui lòng thử lại!');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.');
+        }
         });
     });
 </script>
