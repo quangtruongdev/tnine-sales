@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using tnine.Application.Shared.IInvoiceService;
 using tnine.Application.Shared.IInvoiceService.Dto;
@@ -38,8 +36,7 @@ namespace tnine.Application
             IColorRepository colorRepository,
             ISizeRepository sizeRepository,
             IUnitOfWork unitOfWork,
-            IMapper mapper,
-            QuantityUpdateQueue quantityQueue
+            IMapper mapper
             )
         {
             _invoiceRepository = invoiceRepository;
