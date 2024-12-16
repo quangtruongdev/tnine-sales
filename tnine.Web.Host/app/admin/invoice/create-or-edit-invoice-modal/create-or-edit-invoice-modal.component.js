@@ -139,6 +139,11 @@
             
         }
 
+        vm.removeProductFromCart = function(index) {
+            vm.cart.splice(index, 1);
+            vm.calculateTotal();
+        };
+
         vm.caculateTotal = () => vm.invoice.Total = vm.cart.reduce((total, product) => total + product.Price * product.quantity, 0)
 
         vm.getListPaymentStatus = () =>
@@ -158,6 +163,8 @@
                 vm.invoice = {}
                 vm.selectedPaymentMethod = vm.selectedPaymentStatus = vm.selectedCustomer = null
                 vm.searchTextPaymentMethod = vm.searchTextPaymentStatus = vm.searchTextCustomer = ''
+                vm.cart = []
+                vm.selectedProductId = null
             } else {
                 serviceProxies.invoiceService.getInvoiceForEdit(id).then(response => {
                     vm.invoice = response.Invoice;
