@@ -13,6 +13,7 @@ using tnine.Application.Shared.IProductVariationService.Dto;
 using tnine.Application.Shared.IRoleService.Dto;
 using tnine.Application.Shared.IShopService.Dto;
 using tnine.Application.Shared.ISizeService.Dto;
+using tnine.Application.Shared.ISupplierService.Dto;
 using tnine.Application.Shared.ITodoService.Dto;
 using tnine.Core;
 using tnine.Core.Shared.IColorService.Dto;
@@ -50,6 +51,9 @@ namespace tnine.Web.Host.App_Start
             CreateMap<GetProductForViewDto, ProductViewModel>();
             CreateMap<GetProductVariationForViewDto, ProductVariationViewModel>();
 
+            //CreateMap<GetSizeForViewDto, SizeViewModel>();
+            //CreateMap<CreateOrEditProductDto, ProductViewModel>();
+            CreateMap<Suppliers, CreateOrEditSupplierDto>().ReverseMap();
         }
     }
 

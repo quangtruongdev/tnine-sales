@@ -1,0 +1,26 @@
+﻿<div class="modal fade" id="viewDetailModal" tabindex="-1" role="dialog"
+     aria-labelledby="viewDetailLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        ng-disabled="vm.saving"></button>
+            </div>
+            <div class="modal-body">
+                <label>Supplier Name: {{vm.supplierName}}</label>
+                <tnine-table data="vm.warehouseReceipt"
+                             columns="vm.columns"
+                             options="{}">
+                </tnine-table>
+                <label>Total: {{vm.total}}</label>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-outline-danger" ng-click="vm.close()" ng-disabled="vm.saving">
+                    <i class="fa-solid fa-xmark me-1"></i>
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

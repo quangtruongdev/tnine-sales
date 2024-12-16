@@ -277,15 +277,18 @@
             }
         };
 
-        serviceProxies.reportService = {
-            getDailyRevenue: function (date) {
-                return baseService.get(`api/report/daily-revenue?date=${date}`);
+        serviceProxies.supplierService = {
+            getAll: function () {
+                return baseService.get('api/supplier');
             },
-            getMonthlyRevenue: function (date) {
-                return baseService.get(`api/report/monthly-revenue?date=${date}`);
+            getById: function (id) {
+                return baseService.get('api/supplier/' + id);
             },
-            getYearlyRevenue: function (date) {
-                return baseService.get(`api/report/yearly-revenue?date=${date}`);
+            createOrEdit: function (data) {
+                return baseService.post('api/supplier/', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/supplier/' + id);
             }
         };
 
@@ -297,6 +300,38 @@
                 return baseService.get('api/dashboard/product-best-sales');
             }
 
+        }
+        serviceProxies.warehouseReceiptService = {
+            getAll: function () {
+                return baseService.get('api/warehouse-receipt');
+            },
+            getWarehouseReceiptForEdit: function (id) {
+                return baseService.get('api/warehouse-receipt/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/warehouse-receipt', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/warehouse-receipt/' + id);
+            },
+            getTotal: function (id) {
+                return baseService.get('api/warehouse-receipt/total/'+id);
+            },
+            getSupplier: function (id) {
+                return baseService.get('api/warehouse-receipt/supplier/'+id)
+            },
+            getListSuppliers: function () {
+                return baseService.get('api/supplier');
+            },
+            getListColors: function () {
+                return baseService.get('api/color');
+            },
+            getListSizes: function () {
+                return baseService.get('api/size');
+            },
+            getListProducts: function (id) {
+                return baseService.get('api/product');
+            }
         }
 
         return serviceProxies;

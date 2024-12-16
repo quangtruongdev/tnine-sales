@@ -96,6 +96,7 @@
     <Compile Include="Repositories\Authorization\UserRepository.cs" />
     <Compile Include="Repositories\Authorization\UserRoleRepository.cs" />
     <Compile Include="Repositories\ProductInvoicesRepository.cs" />
+    <Compile Include="Repositories\ProductWarehouseReceiptRepository.cs" />
     <Compile Include="Repositories\ShopRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
@@ -107,7 +108,9 @@
     <Compile Include="Repositories\ProductVariationsRepository.cs" />
     <Compile Include="Repositories\SizeRepository.cs" />
     <Compile Include="Repositories\Authorization\RolePermissionRepository.cs" />
+    <Compile Include="Repositories\SupplierRepository.cs" />
     <Compile Include="Repositories\TodoRepository.cs" />
+    <Compile Include="Repositories\WarehouseReceiptRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

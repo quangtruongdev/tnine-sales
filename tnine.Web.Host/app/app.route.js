@@ -209,6 +209,29 @@
                 '/app/admin/dashboard/dashboard.component.js',
             ]
         },
+        {
+            name: 'supplier',
+            url: '/supplier',
+            templateUrl: '/app/admin/supplier/supplier.component.html',
+            controller: 'supplierController',
+            files: [
+                '/app/admin/supplier/supplier.module.js',
+                '/app/admin/supplier/supplier.component.js',
+                '/app/admin/supplier/create-or-edit-supplier-modal/create-or-edit-supplier-modal.component.js'
+            ]
+        },
+        {
+            name: 'warehouseReceipt',
+            url: '/warehouseReceipt',
+            templateUrl: '/app/admin/warehouse-receipt/warehouse-receipt.component.html',
+            controller: 'warehouseReceiptController',
+            files: [
+                '/app/admin/warehouse-receipt/warehouse-receipt.module.js',
+                '/app/admin/warehouse-receipt/warehouse-receipt.component.js',
+                '/app/admin/warehouse-receipt/create-or-edit-warehouse-receipt-modal/create-or-edit-warehouse-receipt-modal.component.js',
+                '/app/admin/warehouse-receipt/view-detail-modal/view-detail-modal.component.js'
+            ]
+        },
      
     ]);
 })(angular.module('root'));

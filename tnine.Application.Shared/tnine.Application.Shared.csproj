@@ -120,7 +120,11 @@
     <Compile Include="IProductService\Dto\GetProductForViewDto.cs" />
     <Compile Include="IProductService\Dto\GetProductInputDto.cs" />
     <Compile Include="IProductService\IProductService.cs" />
-    <Compile Include="IReportService\IReportService.cs" />
+    <Compile Include="IProductWarehouseReceiptService\Dto\CreateOrEditProductWarehouseReceiptDto.cs" />
+    <Compile Include="IProductWarehouseReceiptService\Dto\GetProductWarehouseReceiptForEditDto.cs" />
+    <Compile Include="IProductWarehouseReceiptService\Dto\GetProductWarehouseReceiptForViewDto.cs" />
+    <Compile Include="IProductWarehouseReceiptService\Dto\GetProductWarehouseReceiptInputDto.cs" />
+    <Compile Include="IProductWarehouseReceiptService\IProductWarehouseReceiptService.cs" />
     <Compile Include="IShopService\Dto\CreateOrEditShopDto.cs" />
     <Compile Include="IShopService\Dto\GetShopForEditOutputDto.cs" />
     <Compile Include="IShopService\Dto\GetShopForInputDto.cs" />
@@ -135,11 +139,20 @@
     <Compile Include="IProductVariationService\Dto\GetProductVariationForViewDto.cs" />
     <Compile Include="IProductVariationService\Dto\GetProductVariationInputDto.cs" />
     <Compile Include="IProductVariationService\IProductVariationService.cs" />
+    <Compile Include="ISupplierService\Dto\CreateOrEditSupplierDto.cs" />
+    <Compile Include="ISupplierService\Dto\GetSupplierForEditOutputDto.cs" />
+    <Compile Include="ISupplierService\Dto\GetSupplierForViewDto.cs" />
+    <Compile Include="ISupplierService\ISupplierService.cs" />
     <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForEditOutputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />
     <Compile Include="ITodoService\Dto\GetTodoForViewDto.cs" />
     <Compile Include="ITodoService\ITodoService.cs" />
+    <Compile Include="IWarehouseReceiptService\Dto\CreateOrEditWarehouseReceiptAndProductDto.cs" />
+    <Compile Include="IWarehouseReceiptService\Dto\CreateOrEditWarehouseReceiptDto.cs" />
+    <Compile Include="IWarehouseReceiptService\Dto\GetWarehouseReceiptForEditDto.cs" />
+    <Compile Include="IWarehouseReceiptService\Dto\GetWarehouseReceiptForViewDto.cs" />
+    <Compile Include="IWarehouseReceiptService\IWarehouseReceiptService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

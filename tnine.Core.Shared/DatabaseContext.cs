@@ -30,6 +30,9 @@ namespace tnine.Core.Shared
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<ProductInvoices> ProductInvoices { get; set; }
+        public DbSet<Suppliers> Suppliers { get; set; }
+        public DbSet<WarehouseReceipt> WarehouseReceipt { get; set; }
+        public DbSet<ProductWarehouseReceipt> ProductWarehouseReceipt { get; set; }
 
         public static DatabaseContext Create()
         {
@@ -67,6 +70,8 @@ namespace tnine.Core.Shared
             modelBuilder.Entity<ProductInvoices>()
              .HasKey(pi => new { pi.ProductId, pi.InvoiceId });
 
+            modelBuilder.Entity<ProductWarehouseReceipt>()
+                .HasKey(pwr => new { pwr.ProductId, pwr.WarehouseReceiptId, pwr.SizeId, pwr.ColorId });
         }
     }
 }
