@@ -35,7 +35,6 @@ namespace tnine.Application
             return customers.Select(e => new GetCustomerForViewDto
             {
                 Id = e.Id,
-                Username = e.Username,
                 FullName = e.FullName,
                 Address = e.Address,
                 PhoneNumber = e.PhoneNumber

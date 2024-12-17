@@ -8,9 +8,6 @@ namespace tnine.Core
     public class Customer : FullAuditedEntity<long>
     {
         [StringLength(256)]
-        public string Username { get; set; }
-        public string Password { get; set; }
-        [StringLength(256)]
         public string FullName { get; set; }
         [StringLength(256)]
         public string Address { get; set; }
