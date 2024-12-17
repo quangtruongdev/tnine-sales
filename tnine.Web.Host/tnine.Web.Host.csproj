@@ -304,6 +304,9 @@
     <Content Include="app\admin\customer\customer.component.html" />
     <Content Include="app\admin\customer\customer.component.js" />
     <Content Include="app\admin\customer\customer.module.js" />
+    <Content Include="app\admin\dashboard\dashboard.component.html" />
+    <Content Include="app\admin\dashboard\dashboard.component.js" />
+    <Content Include="app\admin\dashboard\dashboard.module.js" />
     <Content Include="app\admin\order\create-or-edit-order-modal\create-or-edit-order-modal.component.html" />
     <Content Include="app\admin\order\create-or-edit-order-modal\create-or-edit-order-modal.component.js" />
     <Content Include="app\admin\order\order.component.html" />
