@@ -95,6 +95,16 @@ namespace tnine.Application
 
         private async Task Create(InvoiceAndInvoiceDetailsDto input)
         {
+            var productVariations = _productVariationsRepository.GetAll();
+            foreach (var item in input.Items)
+            {
+                var productVariation = productVariations.FirstOrDefault(pv => pv.ProductId == item.ProductId && pv.SizeId == item.SizeId && pv.ColorId == item.ColorId);
+                if (productVariation == null) 
+                    throw new Exception($"Product variation not found for product ID {item.ProductId}, size ID {item.SizeId}, color ID {item.ColorId}");
+                if (productVariation.Quantity < item.Quantity) 
+                    throw new Exception($"Not enough stock for product ID {item.ProductId}, size ID {item.SizeId}, color ID {item.ColorId}");
+            }
+
             input.Invoice.CreationTime = DateTime.Now;
             input.Invoice.CustomerId = input.Invoice.CustomerId == 0 ? null : input.Invoice.CustomerId;
             var invoice = _mapper.Map<Invoice>(input.Invoice);

@@ -40,6 +40,29 @@
                 () => vm.caculateTotal(),
                 true
             );
+            $scope.$watch(
+                () => vm.cart.map(item => item.sizeId),
+                (newValues, oldValues) => {
+                    newValues.forEach((newValue, index) => {
+                        if (newValue !== oldValues[index]) {
+                            vm.updateItemLeft(vm.cart[index]);
+                        }
+                    });
+                },
+                true
+            );
+
+            $scope.$watch(
+                () => vm.cart.map(item => item.colorId),
+                (newValues, oldValues) => {
+                    newValues.forEach((newValue, index) => {
+                        if (newValue !== oldValues[index]) {
+                            vm.updateItemLeft(vm.cart[index]);
+                        }
+                    });
+                },
+                true
+            );
         };
 
         vm.gridOptions = {
@@ -131,7 +154,7 @@
             const product = vm.listProducts.find(p => p.Id === vm.selectedProductId)
             const listSizes = vm.listSizes.filter(s => vm.listProductVariations.some(pv => pv.ProductId === product.Id && pv.SizeId === s.Id))
             const listColors = vm.listColors.filter(c => vm.listProductVariations.some(pv => pv.ProductId === product.Id && pv.ColorId === c.Id))
-            vm.cart.push({ ...product, quantity: 1, sizeId: null, colorId: null, listSizes, listColors });
+            vm.cart.push({ ...product, quantity: 1, itemLeft: 0, sizeId: null, colorId: null, listSizes, listColors });
         
             vm.caculateTotal();
             console.log(vm.cart);
@@ -139,12 +162,28 @@
             
         }
 
+        vm.updateItemLeft = function(item) {
+            const productVariation = vm.listProductVariations.find(variation => 
+                variation.SizeId === item.sizeId && variation.ColorId === item.colorId && variation.ProductId === item.Id);
+            item.itemLeft = productVariation ? productVariation.Quantity : 0;
+            if (item.quantity > item.itemLeft) {
+                item.quantity = item.itemLeft;
+            }
+        };
+        
         vm.removeProductFromCart = function(index) {
             vm.cart.splice(index, 1);
             vm.calculateTotal();
         };
 
-        vm.caculateTotal = () => vm.invoice.Total = vm.cart.reduce((total, product) => total + product.Price * product.quantity, 0)
+        vm.calculateTotal = () => {
+            vm.cart.forEach(item => {
+                if (item.quantity > item.itemLeft) {
+                    item.quantity = item.itemLeft;
+                }
+            });
+            vm.invoice.Total = vm.cart.reduce((total, product) => total + product.Price * product.quantity, 0);
+        };
 
         vm.getListPaymentStatus = () =>
             serviceProxies.paymentStatusService.getAll()
