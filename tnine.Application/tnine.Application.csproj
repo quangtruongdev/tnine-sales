@@ -178,6 +178,7 @@
     <Compile Include="CategoryService.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="ColorService.cs" />
+    <Compile Include="DashboardService.cs" />
     <Compile Include="ExportService\InvoiceExportService.cs" />
     <Compile Include="ImagerService.cs" />
     <Compile Include="OrderService.cs" />
