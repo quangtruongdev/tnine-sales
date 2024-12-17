@@ -129,42 +129,50 @@
 
         // Xử lý đặt hàng
         document.querySelector('.btn-submint-order').addEventListener('click', function () {
-                 if (cart.length > 0) {
-            listCartItem = cart.map(item => ({
-                ProductId: item.ProductId,
-                Quantity: item.Quantity,
-                SizeId: item.SizeId,
-                ColorId: item.ColorId,
-            }));
+            if (cart.length > 0) {
+                if (!Array.isArray(cart)) {
+                    cart = []; // Đảm bảo `cart` luôn là một mảng
+                }
 
-            fetch('@Url.Action("SubmitOrder", "Product")', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    total: totalPrice,
-                    listCartItem: listCartItem,
-                    customerInfo: {
-                        FullName: document.getElementById('fullName').value,
-                        Address: document.getElementById('address').value,
-                        PhoneNumber: document.getElementById('phoneNumber').value,
-                    }
+                let listCartItem = cart.map(item => ({
+                    ProductId: item.id,
+                    Quantity: item.quantity, // Đảm bảo dùng đúng trường `quantity`
+                    SizeId: item.size.id,
+                    ColorId: item.color.id,
+                }));
+
+                fetch('@Url.Action("SubmitOrder", "Product")', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        total: totalPrice,
+                        listCartItem: listCartItem,
+                        customerInfo: {
+                            FullName: document.getElementById('fullName').value,
+                            Address: document.getElementById('address').value,
+                            PhoneNumber: document.getElementById('phoneNumber').value,
+                        }
+                    })
                 })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Đặt hàng thành công!');
-                        location.href = '@Url.Action("Index", "Product")';
-                    } else {
-                        alert('Đặt hàng thất bại. Vui lòng thử lại!');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        } else {
-            alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.');
-        }
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Đặt hàng thành công!');
+
+                            // Xóa dữ liệu giỏ hàng khỏi Local Storage
+                            localStorage.removeItem('cart');
+
+                            location.href = '@Url.Action("Index", "Product")';
+                        } else {
+                            alert('Đặt hàng thất bại. Vui lòng thử lại!');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.');
+            }
         });
     });
 </script>

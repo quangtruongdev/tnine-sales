@@ -193,7 +193,8 @@ namespace tnine.Web.Host.Controllers
 
                 var invoice = new InvoiceAndInvoiceDetailsDto();
                 invoice.Invoice.Total = total;
-                invoice.Invoice.PaymentStatusId = 1; // chưa thanh toán
+                invoice.Invoice.PaymentMethodName = "Tiền mặt"; // mặc định trả tiền mặt
+                invoice.Invoice.PaymentStatusName = "Chưa thanh toán"; // mặc định chưa thanh toán
                 invoice.Items = listCartItem;
 
                 var newCustomer = new CreateOrEditCustomerDto();

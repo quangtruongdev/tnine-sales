@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using tnine.Core;
 
 namespace tnine.Application.Shared.IInvoiceService.Dto
 {
@@ -7,6 +8,12 @@ namespace tnine.Application.Shared.IInvoiceService.Dto
     {
         public CreateOrEditInvoiceDto Invoice { get; set; }
         public List<InvoiceItemDto> Items { get; set; }
+
+        public InvoiceAndInvoiceDetailsDto()
+        {
+            Invoice = new CreateOrEditInvoiceDto(); // Khởi tạo trong constructor
+            Items = new List<InvoiceItemDto>();
+        }
     }
 
     public class InvoiceItemDto

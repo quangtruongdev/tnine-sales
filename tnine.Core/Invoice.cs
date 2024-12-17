@@ -8,7 +8,9 @@ namespace tnine.Core
     {
         public decimal Total { get; set; }
         public long? CustomerId { get; set; }
-        public long PaymentStatusId { get; set; }
-        public long PaymentMethodId { get; set; }
+        public long? PaymentStatusId { get; set; }
+        public long? PaymentMethodId { get; set; }
+        public string PaymentStatusName { get; set; }
+        public string PaymentMethodName { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace tnine.Core
         public virtual DateTime? DeletionTime { get; set; }
         public virtual long? DeleterId { get; set; }
         public virtual bool? IsDeleted { get; set; }
-        public object ProductVariationId { get; set; }
         public long SizeId { get; set; }
         public long ColorId { get; set; }
     }
