@@ -7,5 +7,6 @@ namespace tnine.Application.Shared.IDashboardService
     {
         Task<List<GetValueForDashboardDto>> GetValueForDashboard();
         Task<List<GetProductBestSalesDto>> GetProductBestSaleOfMonth();
+        Task<GetMasterDataForDashBoardDto> GetMasterDataForDashBoard();
     }
 }

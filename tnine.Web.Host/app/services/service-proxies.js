@@ -253,6 +253,9 @@
             },
             getProductBestSaleOfMonth: function () {
                 return baseService.get('api/dashboard/product-best-sales');
+            },
+            getMasterData: function () {
+                return baseService.get('api/dashboard/master-data');
             }
         };
 

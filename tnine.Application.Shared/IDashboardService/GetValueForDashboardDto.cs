@@ -6,5 +6,6 @@ namespace tnine.Application.Shared.IDashboardService
     {
         public DateTime? DateTime { get; set; }
         public decimal Value { get; set; }
+        public long TotalInvoiceInMonth { get; set; }
     }
 }
