@@ -112,11 +112,11 @@
                 vm.saving = false;
                 return;
             }
-            if (vm.ProductVariation && vm.ProductVariation.some(variation => variation.Quantity < 0)) {
-                alert("Số lượng sản phẩm không được nhỏ hơn 0");
-                vm.saving = false;
-                return;
-            }
+            //if (vm.ProductVariation && vm.ProductVariation.some(variation => variation.Quantity < 0)) {
+            //    alert("Số lượng sản phẩm không được nhỏ hơn 0");
+            //    vm.saving = false;
+            //    return;
+            //}
             serviceProxies.productService.createOrEdit(vm.product).then(function (response) {
                 vm.productId = response.Data;
 
@@ -165,7 +165,7 @@
             vm.ProductVariation.push({
                 ColorId: null,
                 SizeId: null,
-                Quantity: null
+                Quantity: 0
             });
         };
 
@@ -219,7 +219,7 @@
             }
             // Kiểm tra các trường của từng variation
             for (let variation of vm.ProductVariation) {
-                if (!variation.ColorId || !variation.SizeId || !variation.Quantity) {
+                if (!variation.ColorId || !variation.SizeId ) {
                     return true;
                 }
             }

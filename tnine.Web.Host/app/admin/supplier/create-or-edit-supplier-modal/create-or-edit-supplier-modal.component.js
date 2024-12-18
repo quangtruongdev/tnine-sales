@@ -44,6 +44,14 @@
         vm.close = function () {
             $('#createOrEditSupplierModal').modal('hide');
         };
+        vm.isSaveDisabled = function () {
+           
+            if (!vm.supplier.Name || !vm.supplier.Address || !vm.supplier.PhoneNumber) {
+                return true;
+            }
+
+            return false;
+        };
     }
 
 })(angular.module('app.admin.supplier'));
