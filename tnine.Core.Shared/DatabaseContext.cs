@@ -11,13 +11,10 @@ namespace tnine.Core.Shared
             this.Configuration.LazyLoadingEnabled = false;
         }
 
-        public DbSet<Todo> Todos { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUserLogin> UserLogins { get; set; }
         public DbSet<ApplicationUserClaim> UserClaims { get; set; }
         public DbSet<ApplicationUserRole> UserRoles { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
-        public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Colors> Colors { get; set; }
         public DbSet<Sizes> Sizes { get; set; }
@@ -27,7 +24,6 @@ namespace tnine.Core.Shared
         public DbSet<PaymentStatus> PaymentStatus { get; set; }
         public DbSet<PaymentMethods> PaymentMethods { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<Shop> Shops { get; set; }
         public DbSet<Orders> Orders { get; set; }
         public DbSet<ProductInvoices> ProductInvoices { get; set; }
         public DbSet<Suppliers> Suppliers { get; set; }

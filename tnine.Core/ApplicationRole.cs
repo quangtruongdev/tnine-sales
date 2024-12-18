@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace tnine.Core
 {
@@ -8,7 +6,5 @@ namespace tnine.Core
     {
         public long RoleId => Id;
         public string RoleName => Name;
-        [StringLength(256)]
-        public virtual ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

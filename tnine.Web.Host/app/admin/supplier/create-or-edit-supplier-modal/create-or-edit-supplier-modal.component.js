@@ -29,6 +29,10 @@
             $('#createOrEditSupplierModal').modal('show');
         };
 
+        vm.isFormValid = function () {
+            return vm.supplier && vm.supplier.Name && vm.supplier.Address && vm.supplier.PhoneNumber;
+        };
+        
         vm.save = function () {
             vm.saving = true;
             serviceProxies.supplierService.createOrEdit(vm.supplier).then(function () {

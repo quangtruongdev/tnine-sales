@@ -1,47 +1,96 @@
-﻿<div class="modal fade" id="createOrEditUserModal" tabindex="-1" role="dialog" aria-labelledby="createOrEditUserLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <span ng-if="!vm.user.Id">Create</span>
-                    <span ng-if="vm.user.Id">Edit</span>
-                </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    ng-disabled="vm.saving"></button>
+﻿<div
+  class="modal fade"
+  id="createOrEditUserModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="createOrEditUserLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <span ng-if="!vm.user.Id">Create</span>
+          <span ng-if="vm.user.Id">Edit</span>
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          ng-disabled="vm.saving"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Email*</span>
+              <input
+                type="text"
+                class="form-control"
+                ng-model="vm.user.Email"
+                placeholder="Email"
+              />
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Email</span>
-                            <input type="text" class="form-control" ng-model="vm.user.Email" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Password</span>
-                            <input type="password" class="form-control" ng-model="vm.user.Password"
-                                placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <tnine-combobox items="vm.roles" value="vm.user.RoleId" key="Id" text="Role" is-required="true"
-                            is-validate="true" is-disabled="false" input-label="Name" placeholder="Select Role">
-                        </tnine-combobox>
-                    </div>
-                </div>
+          </div>
+          <div class="col-md-12" ng-if="!vm.user.Id">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Password*</span>
+              <input
+                type="password"
+                class="form-control"
+                ng-model="vm.user.Password"
+                placeholder="Password"
+              />
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving">
-                    <i class="fa-regular fa-floppy-disk me-1"></i>
-                    <span>Save</span>
-                </button>
-                <button type="button" class="btn btn-outline-danger" ng-click="vm.close()" ng-disabled="vm.saving">
-                    <i class="fa-solid fa-xmark me-1"></i>
-                    <span>Cancel</span>
-                </button>
+          </div>
+          <div class="col-md-12">
+            <div class="input-group mb-3">
+              <span class="input-group-text">Phone Number</span>
+              <input
+                type="text"
+                class="form-control"
+                ng-model="vm.user.PhoneNumber"
+                placeholder="PhoneNumber"
+              />
             </div>
+            <div class="col-md-12">
+              <label>Roles</label>
+              <div class="form-check" ng-repeat="role in vm.roles">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  ng-model="role.selected"
+                />
+                <label class="form-check-label">
+                  {{ role.Name }}
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-outline-primary"
+            ng-click="vm.save()"
+            ng-disabled="vm.saving || vm.isValid()"
+          >
+            <i class="fa-regular fa-floppy-disk me-1"></i>
+            <span>Save</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            ng-click="vm.close()"
+            ng-disabled="vm.saving"
+          >
+            <i class="fa-solid fa-xmark me-1"></i>
+            <span>Cancel</span>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

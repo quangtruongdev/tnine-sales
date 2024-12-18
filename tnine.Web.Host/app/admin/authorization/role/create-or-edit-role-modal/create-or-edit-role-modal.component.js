@@ -29,6 +29,10 @@
             $('#createOrEditRoleModal').modal('show');
         };
 
+        vm.isValid = function () {
+            return vm.role && vm.role.Name;
+        };
+
         vm.save = function () {
             vm.saving = true;
             serviceProxies.roleService.createOrEdit(vm.role).then(function () {

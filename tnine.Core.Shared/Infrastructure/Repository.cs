@@ -253,7 +253,7 @@ namespace tnine.Core.Shared.Infrastructure
         {
             return _dbSet.CountAsync(where);
         }
-        
+
         public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string[] includes = null)
         {
             IQueryable<TEntity> query = _dbSet;
@@ -268,21 +268,6 @@ namespace tnine.Core.Shared.Infrastructure
 
             return await query.FirstOrDefaultAsync(predicate);
         }
-
-        //public async Task<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default)
-        //{
-        //    return await _dbSet.ToListAsync(cancellationToken);
-        //}
-
-        //public async Task<long> GetCountAsync(CancellationToken cancellationToken = default)
-        //{
-        //    return await _dbSet.LongCountAsync(cancellationToken);
-        //}
-
-        //public async Task<List<TEntity>> GetPagedListAsync(int skipCount, int maxResultCount, string sorting, bool includeDetails = false, CancellationToken cancellationToken = default)
-        //{
-        //    return await _dbSet.Skip(skipCount).Take(maxResultCount).ToListAsync(cancellationToken);
-        //}
 
         #endregion
     }

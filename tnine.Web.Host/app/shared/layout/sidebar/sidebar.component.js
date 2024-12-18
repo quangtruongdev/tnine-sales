@@ -11,15 +11,6 @@
     function sidebarController(AppMenu, AppMenuItem, serviceProxies, $document) {
         var vm = this;
 
-        vm.onClickSidebar = () => {
-            const sidebar = document.querySelector(".sidebar");
-            const mainContent = document.querySelector('.main-content');
-
-            mainContent.style.marginLeft = sidebar.classList.contains('expanded') ? '5rem' : '16rem';
-
-            sidebar.classList.toggle('expanded');
-        }
-
         vm.loadCss = function () {
             var linkElement = $document[0].createElement('link');
             linkElement.rel = 'stylesheet';
@@ -28,40 +19,26 @@
         };
 
         vm.loadCss();
-
-        //const menus = new AppMenu('main', 'Main Menu', [
-        //    new AppMenuItem('home', 'Home', 'home', 'fa-solid fa-house', [], false, '', false),
-        //    new AppMenuItem('authorization', 'Authorization', '', 'fa-solid fa-user-lock', [
-        //        new AppMenuItem('roles', 'Roles', 'role', 'fa-solid fa-users', [], false, 'Pages.Roles', true),
-        //        new AppMenuItem('users', 'Users', 'user', 'fa-solid fa-user', [], false, 'Pages.Users', true),
-        //    ], true, 'Pages.Authorization', true),
-        //    new AppMenuItem('todo', 'Todos', 'todo', 'fa-solid fa-pen', [], false, 'Pages.Todos', true),
-        //    new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-users', [], false, 'Pages.Customers', true)
-        //]);
-
         const menus = new AppMenu('main', 'Main Menu', [
-            new AppMenuItem('home', 'Home', 'home', 'fa-solid fa-house', [], false, '', false),
-            new AppMenuItem('authorization', 'Authorization', '', 'fa-solid fa-user-lock', [
-                new AppMenuItem('roles', 'Roles', 'role', 'fa-solid fa-users', [], false, 'admin', true),
+            new AppMenuItem('dashboard', 'Dashboard', 'dashboard', 'fa-solid fa-chart-line', [], false, 'admin', true),
+            new AppMenuItem('authorization', 'Authorization', '', 'fa-solid fa-user-shield', [
+                new AppMenuItem('roles', 'Roles', 'role', 'fa-solid fa-user-tag', [], false, 'admin', true),
                 new AppMenuItem('users', 'Users', 'user', 'fa-solid fa-user', [], false, 'admin', true),
-                new AppMenuItem('permissions', 'Permissions', 'permission', 'fa-solid fa-user-lock', [], false, 'admin', true),
             ], true, 'admin', true),
-            //new AppMenuItem('todo', 'Todos', 'todo', 'fa-solid fa-pen', [], false, 'admin', true),
-            new AppMenuItem('product', 'Products', 'product', 'fa-regular fa-shirt', [], false, 'admin', true),
-            new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-users', [], false, 'admin', true),
-            new AppMenuItem('invoice', 'Invoices', 'invoice', 'fa-light fa-file-invoice', [], false, 'admin', true),
-            new AppMenuItem('warehouseReceipt', 'Warehouse Receipts', 'warehouseReceipt', 'fa-light fa-file-invoice', [], false, 'admin', true),
-            //new AppMenuItem('order', 'Orders', 'order', 'fa-light fa-file-invoice', [], false, 'admin', true),
-            new AppMenuItem('color', 'Colors', 'color', 'fa-solid fa-palette', [], false, 'admin', true),
-            new AppMenuItem('size', 'Sizes', 'size', 'fa-solid fa-signal', [], false, 'admin', true),
-            // new AppMenuItem('shop', 'Shops', 'shop', 'fa-solid fa-shop', [], false, 'admin', true),
-            new AppMenuItem('supplier', 'Suppliers', 'supplier', 'fa-solid fa-users', [], false, 'admin', true),
-            new AppMenuItem('paymentMethods', 'Payment Methods', 'paymentMethods', 'fa-solid fa-users', [], false, 'admin', true),
-            new AppMenuItem('paymentStatus', 'Payment Status', 'paymentStatus', 'fa-solid fa-users', [], false, 'admin', true),
-            new AppMenuItem('category', 'Category', 'category', 'fa-solid fa-bars-progress', [], false, 'admin', true),
-            new AppMenuItem('dashboard', 'Dashboard', 'dashboard', 'fa-solid fa-bars-progress', [], false, 'admin', true),
-
+            new AppMenuItem('product', 'Products', '', 'fa-solid fa-box', [
+                new AppMenuItem('product', 'Products', 'product', 'fa-solid fa-box', [], false, 'admin', true),
+                new AppMenuItem('category', 'Categories', 'category', 'fa-solid fa-tag', [], false, 'admin', true),
+                new AppMenuItem('size', 'Sizes', 'size', 'fa-solid fa-ruler-combined', [], false, 'admin', true),
+                new AppMenuItem('color', 'Colors', 'color', 'fa-solid fa-palette', [], false, 'admin', true),
+            ], true, 'admin', true),
+            new AppMenuItem('customer', 'Customers', 'customer', 'fa-solid fa-user-group', [], false, 'admin', true),
+            new AppMenuItem('invoice', 'Invoices', 'invoice', 'fa-solid fa-file-invoice-dollar', [], false, 'admin', true),
+            new AppMenuItem('warehouseReceipt', 'Warehouse Receipts', 'warehouseReceipt', 'fa-solid fa-warehouse', [], false, 'admin', true),
+            new AppMenuItem('supplier', 'Suppliers', 'supplier', 'fa-solid fa-handshake', [], false, 'admin', true),
+            new AppMenuItem('paymentMethods', 'Payment Methods', 'paymentMethods', 'fa-solid fa-credit-card', [], false, 'admin', true),
+            new AppMenuItem('paymentStatus', 'Payment Status', 'paymentStatus', 'fa-solid fa-check-circle', [], false, 'admin', true),
         ]);
+
 
         vm.sidebar = new AppMenu('main', 'Main Menu', menus.items);
     }

@@ -6,32 +6,62 @@
             controllerAs: 'vm'
         });
 
-    userController.$inject = ['serviceProxies'];
+    userController.$inject = ['serviceProxies', '$timeout'];
 
-    function userController(serviceProxies) {
+    function userController(serviceProxies, $timeout) {
         var vm = this;
         vm.users = [];
         vm.selectedId = null;
 
-        vm.columns = [
-            { headerName: "UserId", field: "Id" },
-            { headerName: "Username", field: "UserName" },
-            { headerName: "Location", field: "Location" },
-            { headerName: "Email", field: "Email" },
-            { headerName: "Phone Number", field: "PhoneNumber" },
-            { headerName: "Join Date", field: "JoinDate" },
-            { headerName: "Status", field: "Status" },
-        ];
+        vm.gridOptions = {
+            columnDefs: [
+                { headerName: "No", valueGetter: "node.rowIndex + 1" },
+                { headerName: "Username", field: "Username" },
+                { headerName: "Email", field: "Email" },
+            ],
+            rowData: [],
+            pagination: true,
+            paginationPageSize: 10,
+            defaultColDef: {
+                sortable: true,
+                filter: true,
+                resizable: true,
+                floatingFilter: true,
+                flex: 1,
+                cellStyle: {
+                    display: 'flex',
+                    alignItems: 'center',
+                }
+            },
+            rowSelection: 'single',
+            enableColResize: true,
+            rowHeight: 35,
+            frameworkComponents: {
+            },
+            onGridReady: function (params) {
+                vm.gridApi = params.api
+                window.addEventListener('resize', () => params.api.sizeColumnsToFit())
+            },
+            onFirstDataRendered: function (params) {
+                params.api.sizeColumnsToFit();
+            },
+            onRowClicked: function (event) {
+                $timeout(() => vm.selectedId = event.data.Id)
+            }
+        };
 
         vm.getUsers = function () {
             serviceProxies.userService.getAll().then(function (response) {
                 vm.users = response;
+                if (vm.gridApi) {
+                    vm.gridApi.setRowData(vm.users);
+                }
             }).catch(function (error) {
                 console.error('Error fetching users:', error);
             });
         };
 
-        vm.reload = function () {
+        vm.reloads = function () {
             vm.getUsers();
         };
 
@@ -56,6 +86,8 @@
         vm.handleRowClick = function (row) {
             vm.selectedId = row.Id;
         };
+
+        vm.getUsers();
     }
 
 

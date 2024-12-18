@@ -2,38 +2,20 @@
   class="sidebar expanded overflow-auto"
   ng-controller="sidebarController as vm"
 >
-  <!-- Logo & Toggle Button -->
-  <div class="d-flex align-items-center justify-content-between p-3">
-    <img
-      src="path/to/logo.png"
-      alt="Logo"
-      class="img-fluid mb-3 mx-auto logo"
-    />
-    <button
-      type="button"
-      class="btn btn-primary sidebarBtn"
-      ng-click="vm.onClickSidebar()"
-    >
-      <i class="fa-solid fa-list"></i>
-    </button>
-  </div>
-
-  <!-- Sidebar Navigation -->
+  <div class="mb-5"></div>
   <nav class="m-0 p-0">
     <ul class="nav flex-column d-flex">
       <li class="nav-item" ng-repeat="item in vm.sidebar.items track by $index">
-        <!-- Normal link items -->
         <a
           ng-if="!item.external"
           class="nav-link text-decoration-none"
           ng-class="{ active: vm.isActive(item) }"
           ui-sref="{{ item.route }}"
         >
-          <i class="fas {{ item.icon }}"></i>
+          <i class="{{ item.icon }}"></i>
           <span>{{ item.displayName }}</span>
         </a>
 
-        <!-- Collapsible external items -->
         <button
           ng-if="item.external"
           class="btn btn-light text-start w-100"
@@ -48,7 +30,6 @@
           <span>{{ item.displayName }}</span>
         </button>
 
-        <!-- Collapsible Submenu -->
         <div class="collapse" id="collapse{{ $index }}">
           <ul class="nav flex-column ms-3">
             <li
@@ -70,15 +51,3 @@
     </ul>
   </nav>
 </div>
-
-<script defer>
-  document.addEventListener("DOMContentLoaded", () => {
-    const sidebarBtn = document.querySelector(".sidebarBtn");
-    if (sidebarBtn) {
-      sidebarBtn.addEventListener("click", () => {
-        const sidebar = document.querySelector(".sidebar");
-        sidebar.classList.toggle("expanded");
-      });
-    }
-  });
-</script>

@@ -56,7 +56,6 @@
         };
 
         vm.isSaveDisabled = function () {
-            // Kiểm tra các trường chính
             if (!vm.category.Name) {
                 return true;
             }

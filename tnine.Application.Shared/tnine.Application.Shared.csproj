@@ -51,20 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authorization\IAccountService\Dto\CreateOrEditRoleForUserDto.cs" />
-    <Compile Include="Authorization\IAccountService\Dto\LoginDto.cs" />
-    <Compile Include="Authorization\IAccountService\Dto\RegisterInput.cs" />
-    <Compile Include="Authorization\IAccountService\Dto\RegisterOutput.cs" />
-    <Compile Include="Authorization\IAccountService\IAccountService.cs" />
+    <Compile Include="Authorization\IUserService\Dto\EditUserDto.cs" />
     <Compile Include="Authorization\IUserService\Dto\GetUserForInputDto.cs" />
     <Compile Include="Authorization\IUserService\Dto\GetUserForViewDto.cs" />
-    <Compile Include="Authorization\IPermissionService\Dto\CreateOrEditPermissionDto.cs" />
-    <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForEditOutputDto.cs" />
-    <Compile Include="Authorization\IPermissionService\Dto\GetPermissionForViewDto.cs" />
-    <Compile Include="Authorization\IPermissionService\Dto\GetPermissionWithRoleDto.cs" />
-    <Compile Include="Authorization\IPermissionService\IPermissionService.cs" />
-    <Compile Include="IApplicationGroupService\IApplicationGroupService.cs" />
-    <Compile Include="IApplicationRolePermissionService\IApplicationRolePermissionService.cs" />
     <Compile Include="Authorization\IRoleService\Dto\CreateOrEditRoleDto.cs" />
     <Compile Include="Authorization\IRoleService\Dto\GetRoleForEditOutputDto.cs" />
     <Compile Include="Authorization\IRoleService\Dto\GetRoleForInputDto.cs" />
@@ -125,11 +114,6 @@
     <Compile Include="IProductWarehouseReceiptService\Dto\GetProductWarehouseReceiptForViewDto.cs" />
     <Compile Include="IProductWarehouseReceiptService\Dto\GetProductWarehouseReceiptInputDto.cs" />
     <Compile Include="IProductWarehouseReceiptService\IProductWarehouseReceiptService.cs" />
-    <Compile Include="IShopService\Dto\CreateOrEditShopDto.cs" />
-    <Compile Include="IShopService\Dto\GetShopForEditOutputDto.cs" />
-    <Compile Include="IShopService\Dto\GetShopForInputDto.cs" />
-    <Compile Include="IShopService\Dto\GetShopForViewDto.cs" />
-    <Compile Include="IShopService\IShopService.cs" />
     <Compile Include="ISizeService\Dto\CreateOrEditSizeDto.cs" />
     <Compile Include="ISizeService\Dto\GetSizeForEditOutputDto.cs" />
     <Compile Include="ISizeService\Dto\GetSizeForViewDto.cs" />
@@ -143,11 +127,6 @@
     <Compile Include="ISupplierService\Dto\GetSupplierForEditOutputDto.cs" />
     <Compile Include="ISupplierService\Dto\GetSupplierForViewDto.cs" />
     <Compile Include="ISupplierService\ISupplierService.cs" />
-    <Compile Include="ITodoService\Dto\CreateOrEditTodoDto.cs" />
-    <Compile Include="ITodoService\Dto\GetTodoForEditOutputDto.cs" />
-    <Compile Include="ITodoService\Dto\GetTodoForInputDto.cs" />
-    <Compile Include="ITodoService\Dto\GetTodoForViewDto.cs" />
-    <Compile Include="ITodoService\ITodoService.cs" />
     <Compile Include="IWarehouseReceiptService\Dto\CreateOrEditWarehouseReceiptAndProductDto.cs" />
     <Compile Include="IWarehouseReceiptService\Dto\CreateOrEditWarehouseReceiptDto.cs" />
     <Compile Include="IWarehouseReceiptService\Dto\GetWarehouseReceiptForEditDto.cs" />
@@ -169,9 +148,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IApplicationGroupService\Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,24 +1,28 @@
 ﻿<header>
-  <nav class="bg-light p-3">
-    <div class="d-flex align-items-center justify-content-between">
-      <div>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search..." />
-          <button class="btn btn-outline-primary">Search</button>
+  <nav class="navbar navbar-expand-lg custom-bg shadow-sm py-2">
+    <div class="container">
+      <a class="navbar-brand text-white fw-bold" href="#">
+        Tnine Sales
+      </a>
+      <div class="d-flex align-items-center">
+        <div class="dropdown">
+          <button
+            class="btn btn-light dropdown-toggle p-0 border-0"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="avatar.png"
+              alt="User Avatar"
+              class="rounded-circle"
+              style="width: 40px; height: 40px; object-fit: cover;"
+            />
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#" ng-click="vm.logout()">Logout</a></li>
+          </ul>
         </div>
-      </div>
-      <div>
-        <button
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img src="" alt="avt-user" class="rounded-circle" />
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" ng-click="vm.logout()">Logout</a></li>
-        </ul>
       </div>
     </div>
   </nav>

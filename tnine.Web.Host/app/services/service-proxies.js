@@ -36,21 +36,6 @@
             }
         };
 
-        serviceProxies.todoService = {
-            getTodos: function () {
-                return $http.get('api/todo');
-            },
-            getTodoById: function (id) {
-                return $http.get('api/todo/' + id);
-            },
-            createOrEdit: function (data) {
-                return $http.post('api/todo', data);
-            },
-            deleteTodo: function (id) {
-                return $http.delete('api/todo/' + id);
-            }
-        };
-
         serviceProxies.roleService = {
             getAll: function () {
                 return baseService.get('api/role');
@@ -67,24 +52,6 @@
             hasRole: function (roleName) {
                 var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
                 return userInfo && userInfo.role && userInfo.role.includes(roleName);
-            }
-        };
-
-        serviceProxies.permissionService = {
-            getAll: function () {
-                return baseService.get('api/permission');
-            },
-            getById: function (id) {
-                return baseService.get('api/permission/' + id);
-            },
-            createOrEdit: function (data) {
-                return baseService.post('api/permission', data);
-            },
-            delete: function (id) {
-                return baseService.remove('api/permission/' + id);
-            },
-            isGranted: function (permissionName) {
-                return baseService.get('api/permission/isGranted', { permissionName: permissionName });
             }
         };
 
@@ -160,21 +127,6 @@
             }
         };
 
-        serviceProxies.shopService = {
-            getAll: function () {
-                return baseService.get('api/shop');
-            },
-            getShopForEdit: function (id) {
-                return baseService.get('api/shop/' + id);
-            },
-            createOrEdit: function (data) {
-                return baseService.post('api/shop', data);
-            },
-            delete: function (id) {
-                return baseService.remove('api/shop/' + id);
-            }
-        };
-
         serviceProxies.categoryService = {
             getAll: function () {
                 return baseService.get('api/category');
@@ -188,7 +140,6 @@
             delete: function (id) {
                 return baseService.remove('api/category/' + id);
             }
-
         };
 
         serviceProxies.invoiceService = {
@@ -209,7 +160,6 @@
             },
         };
 
-
         serviceProxies.colorService = {
             getAll: function () {
                 return baseService.get('api/color');
@@ -224,6 +174,7 @@
                 return baseService.remove('api/color/' + id);
             }
         };
+
         serviceProxies.sizeService = {
             getAll: function () {
                 return baseService.get('api/size');
@@ -238,6 +189,7 @@
                 return baseService.remove('api/size/' + id);
             }
         };
+
         serviceProxies.paymentMethodsService = {
             getAll: function () {
                 return baseService.get('api/PaymentMethods');
@@ -266,7 +218,7 @@
             createOrEdit: function (data) {
                 return baseService.post('api/productVariation/', data);
             }
-        }
+        };
 
         serviceProxies.imageService = {
             upLoad: function (data) {
@@ -302,8 +254,8 @@
             getProductBestSaleOfMonth: function () {
                 return baseService.get('api/dashboard/product-best-sales');
             }
+        };
 
-        }
         serviceProxies.warehouseReceiptService = {
             getAll: function () {
                 return baseService.get('api/warehouse-receipt');
@@ -318,10 +270,10 @@
                 return baseService.remove('api/warehouse-receipt/' + id);
             },
             getTotal: function (id) {
-                return baseService.get('api/warehouse-receipt/total/'+id);
+                return baseService.get('api/warehouse-receipt/total/' + id);
             },
             getSupplier: function (id) {
-                return baseService.get('api/warehouse-receipt/supplier/'+id)
+                return baseService.get('api/warehouse-receipt/supplier/' + id)
             },
             getListSuppliers: function () {
                 return baseService.get('api/supplier');
@@ -335,25 +287,24 @@
             getListProducts: function (id) {
                 return baseService.get('api/product');
             }
-        }
+        };
+
+        serviceProxies.orderService = {
+            getAll: function () {
+                return baseService.get('api/order');
+            },
+            getOrderForEdit: function (id) {
+                return baseService.get('api/order/' + id);
+            },
+            createOrEdit: function (data) {
+                return baseService.post('api/order', data);
+            },
+            delete: function (id) {
+                return baseService.remove('api/order/' + id);
+            }
+        };
 
         return serviceProxies;
     }
-    serviceProxies.orderService = {
-        getAll: function () {
-            return baseService.get('api/order');
-        },
-        getOrderForEdit: function (id) {
-            return baseService.get('api/order/' + id);
-        },
-        createOrEdit: function (data) {
-            return baseService.post('api/order', data);
-        },
-        delete: function (id) {
-            return baseService.remove('api/order/' + id);
-        }
-    };
-
-    
 
 })(angular.module('app.services'));

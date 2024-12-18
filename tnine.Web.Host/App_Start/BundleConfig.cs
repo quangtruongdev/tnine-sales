@@ -48,8 +48,6 @@ namespace tnine.Web.Host
             // Common
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                 "~/app/shared/common/app-common.module.js",
-                "~/app/shared/common/table/table.component.js",
-                "~/app/shared/common/pagination/pagination.component.js",
                 "~/app/shared/common/input-types/tnine-combobox/tnine-combobox.component.js",
                 "~/app/shared/common/input-types/tnine-multiselect/tnine-multiselect.component.js",
                 "~/app/shared/layout/layout.module.js",

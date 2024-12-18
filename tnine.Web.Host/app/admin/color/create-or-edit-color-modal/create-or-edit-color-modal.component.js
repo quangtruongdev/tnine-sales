@@ -46,7 +46,6 @@
         };
 
         vm.isSaveDisabled = function () {
-            // Kiểm tra các trường chính
             if (!vm.color.HexCode || !vm.color.Code) {
                 return true;
             }

@@ -16,7 +16,7 @@
         vm.gridOptions = {
             columnDefs: [
                 { headerName: "No", valueGetter: "node.rowIndex + 1", width: 30 },
-                { headerName: "Name", field: "Name" ,width: 100 },
+                { headerName: "Name", field: "Name", width: 100 },
                 { headerName: "Description", field: "Description" },
             ],
             rowData: [],
@@ -48,7 +48,7 @@
             onRowClicked: function (event) {
                 $timeout(() => vm.selectedId = event.data.Id)
             }
-        },
+        };
 
         vm.getCategories = function () {
             serviceProxies.categoryService.getAll().then(function (response) {

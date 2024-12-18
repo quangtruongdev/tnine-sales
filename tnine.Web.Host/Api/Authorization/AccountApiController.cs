@@ -3,11 +3,9 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using tnine.Application.Shared.Authorization.IAccountService.Dto;
-using tnine.Application.Shared.IAccountService.Dto;
 using tnine.Application.Shared.IRoleService;
 using tnine.Core;
-using tnine.Core.Shared.Dtos;
+using tnine.Web.Host.Models;
 
 namespace tnine.Web.Host.Api
 {
@@ -54,7 +52,7 @@ namespace tnine.Web.Host.Api
         // POST api/Account/Login
         [AllowAnonymous]
         [Route("Login")]
-        public async Task<IHttpActionResult> Login(LoginDto input)
+        public async Task<IHttpActionResult> Login(LoginViewModel input)
         {
             if (!ModelState.IsValid)
             {
@@ -79,7 +77,7 @@ namespace tnine.Web.Host.Api
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterInput input)
+        public async Task<IHttpActionResult> Register(RegisterViewModel input)
         {
             if (!ModelState.IsValid)
             {
@@ -94,28 +92,12 @@ namespace tnine.Web.Host.Api
 
             var user = new ApplicationUser { UserName = input.Email, Email = input.Email };
             var result = await UserManager.CreateAsync(user, input.Password);
-            if (result.Succeeded)
-            {
-                if (input.RoleIds != null)
-                {
-                    foreach (var roleId in input.RoleIds)
-                    {
-                        var role = await _roleService.GetById(new EntityDto<long> { Id = roleId });
-                        if (role == null) return BadRequest("Role not found");
 
-                        var roleResult = await UserManager.AddToRoleAsync(user.Id, role.Role.Name);
-                        if (!roleResult.Succeeded)
-                        {
-                            return BadRequest(string.Join(", ", roleResult.Errors));
-                        }
-                    }
-                }
-                return Ok();
-            }
-            else
+            if (!result.Succeeded)
             {
                 return BadRequest(string.Join(", ", result.Errors));
             }
+            return Ok(result);
         }
 
         [HttpGet]
@@ -142,6 +124,7 @@ namespace tnine.Web.Host.Api
             {
                 IsAuthenticated = User.Identity.IsAuthenticated,
                 Username = User.Identity.Name,
+                Roles = await userManager.GetRolesAsync(user.Id),
             });
         }
 

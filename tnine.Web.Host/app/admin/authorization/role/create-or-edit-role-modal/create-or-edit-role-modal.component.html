@@ -14,14 +14,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Name</span>
+                            <span class="input-group-text">Name*</span>
                             <input type="text" class="form-control" ng-model="vm.role.Name" placeholder="Name">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving">
+                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving || !vm.isValid()">
                     <i class="fa-regular fa-floppy-disk me-1"></i>
                     <span>Save</span>
                 </button>

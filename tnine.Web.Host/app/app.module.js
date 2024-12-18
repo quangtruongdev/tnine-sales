@@ -2,8 +2,8 @@
     var app = angular.module('root', [
        'ui.router',
        'oc.lazyLoad',
-        'app.services',
+       'app.services',
        'angular-loading-bar',
-        'ngMaterial',
+       'ngMaterial',
    ]);
 })();

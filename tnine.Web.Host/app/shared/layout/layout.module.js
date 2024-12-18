@@ -1,5 +1,3 @@
 ﻿(function () {
-    angular.module('app.layout', [
-        'app.services'
-    ]);
+    angular.module("app.layout", ["app.services"]);
 })();

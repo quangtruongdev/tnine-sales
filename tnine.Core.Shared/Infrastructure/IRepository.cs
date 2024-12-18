@@ -34,7 +34,6 @@ namespace tnine.Core.Shared.Infrastructure
         #region DELETE ASYNC
         Task DeleteAsync(TKey id);
         Task DeleteAsync(TEntity entity);
-        //Task DeleteMultiAsync(Expression<Func<TEntity, bool>> where);
         #endregion
 
         #region READ
@@ -53,7 +52,6 @@ namespace tnine.Core.Shared.Infrastructure
         Task<List<TEntity>> GetAllAsync();
         Task<List<TEntity>> GetAllByConditionAsync(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> GetSingleByIdAsync(TKey id);
-        // GetSigleByConditionAsync
         Task<TEntity> GetSingleByConditionAsync(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, string[] includes = null);
 

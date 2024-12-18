@@ -1,22 +1,37 @@
 ﻿<div ng-controller="paymentMethodsController as vm">
-    <div id="myGrid" class="ag-theme-alpine mb-3" ag-grid="vm.gridOptions" style="height: 400px; width: 100%;"></div>
-
-    <div class="d-flex float-end">
-        <div>
-            <md-button type="button" class="md-raised md-primary" ng-click="vm.add()">
-                <i class="fa-solid fa-plus"></i>
-                Add
-            </md-button>
-            <md-button type="button" class="md-raised md-primary" ng-disabled="!vm.selectedId" ng-click="vm.edit()">
-                <i class="fa-solid fa-pen"></i>
-                Edit
-            </md-button>
-            <md-button type="button" class="md-warn md-raised md-hue-1" ng-disabled="!vm.selectedId" ng-click="vm.delete()">
-                <i class="fa-solid fa-trash"></i>
-                Delete
-            </md-button>
-        </div>
+  <h4>Payment Methods</h4>
+  <div
+    id="myGrid"
+    class="ag-theme-alpine mb-3"
+    ag-grid="vm.gridOptions"
+    style="height: 400px; width: 100%"
+  ></div>
+  <div class="d-flex float-end">
+    <div>
+      <md-button type="button" class="md-raised md-primary" ng-click="vm.add()">
+        <i class="fa-solid fa-plus"></i>
+        Add
+      </md-button>
+      <md-button
+        type="button"
+        class="md-raised md-primary"
+        ng-disabled="!vm.selectedId"
+        ng-click="vm.edit()"
+      >
+        <i class="fa-solid fa-pen"></i>
+        Edit
+      </md-button>
+      <md-button
+        type="button"
+        class="md-warn md-raised md-hue-1"
+        ng-disabled="!vm.selectedId"
+        ng-click="vm.delete()"
+      >
+        <i class="fa-solid fa-trash"></i>
+        Delete
+      </md-button>
     </div>
-    <create-or-edit-payment-methods-modal on-saved="vm.reloads()">
-    </create-or-edit-payment-methods-modal>
+  </div>
+  <create-or-edit-payment-methods-modal on-saved="vm.reloads()">
+  </create-or-edit-payment-methods-modal>
 </div>

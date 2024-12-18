@@ -48,7 +48,7 @@
             }
         });
 
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/dashboard');
     }
 
     function configAuth($httpProvider) {

@@ -27,7 +27,7 @@
                 .then(function (result) {
                     sessionStorage.setItem('accountInfo', JSON.stringify(result));
                     if (result.IsAuthenticated) {
-                        $state.go('home');
+                        $state.go('dashboard');
                     }
                 });
         }

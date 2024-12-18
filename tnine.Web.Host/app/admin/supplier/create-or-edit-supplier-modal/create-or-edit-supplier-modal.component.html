@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="input-group mb-3">
-                            <span class="input-group-text">PhoneNumber*</span>
+                            <span class="input-group-text">Phone Number*</span>
                             <input type="text" class="form-control" ng-model="vm.supplier.PhoneNumber"
                                    placeholder="">
                         </div>
@@ -37,10 +37,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit"
-                        class="btn btn-outline-primary"
-                        ng-click="vm.save()"
-                        ng-disabled="vm.saving || vm.isSaveDisabled()">
+                <button type="submit" class="btn btn-outline-primary" ng-click="vm.save()" ng-disabled="vm.saving || !vm.isFormValid()">
                     <i class="fa-regular fa-floppy-disk me-1"></i>
                     <span>Save</span>
                 </button>

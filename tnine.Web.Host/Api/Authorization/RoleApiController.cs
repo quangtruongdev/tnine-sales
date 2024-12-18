@@ -2,7 +2,6 @@
 using System.Web.Http;
 using tnine.Application.Shared.IRoleService;
 using tnine.Application.Shared.IRoleService.Dto;
-using tnine.Core.Shared.Dtos;
 
 namespace tnine.Web.Host.Api
 {
@@ -29,8 +28,7 @@ namespace tnine.Web.Host.Api
         [Route("{id}")]
         public async Task<IHttpActionResult> GetById(long id)
         {
-            var input = new EntityDto<long> { Id = id };
-            var role = await _roleService.GetById(input);
+            var role = await _roleService.GetById(id);
             return Ok(role);
         }
 
@@ -38,11 +36,6 @@ namespace tnine.Web.Host.Api
         [Route("")]
         public async Task<IHttpActionResult> CreateOrEdit([FromBody] CreateOrEditRoleDto input)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    return BadRequest("Invalid data.");
-            //}
-
             try
             {
                 await _roleService.CreateOrEdit(input);
@@ -63,10 +56,9 @@ namespace tnine.Web.Host.Api
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IHttpActionResult> Delete(long id)
+        public async Task<IHttpActionResult> Delete([FromUri] long id)
         {
-            var input = new EntityDto<long> { Id = id };
-            await _roleService.Delete(input);
+            await _roleService.Delete(id);
             return Ok("Role deleted successfully.");
         }
     }
