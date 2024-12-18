@@ -33,5 +33,14 @@ namespace tnine.Web.Host.Api
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
+
+        [HttpGet]
+        [Route("master-data")]
+        public async Task<HttpResponseMessage> GetMasterDataForDashBoard()
+        {
+            var result = await _dashboardService.GetMasterDataForDashBoard();
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
     }
 }

@@ -1,81 +1,141 @@
-﻿(function (app) {
-    app.controller('dashboardController', dashboardController)
-        .component('dashboard', {
-            templateUrl: '/app/admin/dashboard/dashboard.component.html',
-            controller: 'dashboardController',
-            controllerAs: 'vm'
-        });
+﻿(function () {
+    var dashboard = angular.module('tnine.dashboard', []);
 
-    dashboardController.$inject = ['serviceProxies', '$element', '$timeout'];
-
-    function dashboardController(serviceProxies, $element, $timeout) {
+    dashboard.controller('dashboardController', ['$scope', '$timeout', 'serviceProxies', function ($scope, $timeout, serviceProxies) {
         var vm = this;
-        vm.text = "Dashboard";
-        vm.chartData = [];
-        vm.chartLabels = [];
-        vm.products = [];
+        vm.totalRevenue = 0;
+        vm.totalProducts = 0;
+        vm.totalCustomers = 0;
+        vm.averageInvoiceMonthly = 0;
 
-        vm.getDashboardByMonth = function () {
-            serviceProxies.dashboardService.getDashboardByMonth().then(function (response) {
-                response.sort((a, b) => new Date(a.DateTime) - new Date(b.DateTime));
+        var revenueChart, categoryChart, topProductsChart, trafficChart;
 
-                vm.chartData = response.map(item => item.Value);
-                vm.chartLabels = response.map(item => {
-                    const date = new Date(item.DateTime);
-                    const month = date.toLocaleString('default', { month: 'short' });
-                    const year = date.getFullYear();
-                    return `${month} / ${year}`; 
+        function init() {
+            serviceProxies.dashboardService.getMasterData().then(function (result) {
+                $scope.$applyAsync(function () {
+                    vm.masterData = result;
+                    vm.totalRevenue = vm.masterData.TotalRevenue;
+                    vm.totalProducts = vm.masterData.TotalProduct;
+                    vm.averageInvoiceMonthly = vm.masterData.TotalInvoice;
+                    vm.totalCustomers = vm.masterData.TotalCustomer;
+                    vm.productBestSales = vm.masterData.ProductBestSales;
+
+                    vm.monthLabels = vm.masterData.RevenueMonthly.map(item => {
+                        var date = new Date(item.DateTime);
+                        return date.toLocaleString('default', { month: 'short' });
+                    });
+                    vm.revenueChartData = vm.masterData.RevenueMonthly.map(item => item.Value);
+                    vm.additionalRevenueChartData = vm.masterData.RevenueMonthly.map(item => item.TotalInvoiceInMonth);
+
+                    vm.categoryChartData = vm.masterData.CategoriesPercents.map(item => item.Value);
+                    vm.categoryLabels = vm.masterData.CategoriesPercents.map(item => item.Name);
+
+                    vm.topProductsData = vm.productBestSales.map(item => item.Quantity);
+                    vm.productLabels = vm.productBestSales.map(item => item.ProductName);
+
+                    vm.trafficLabels = vm.masterData.ProductSellIn12Months.map(item => {
+                        var date = new Date(item.DateTime);
+                        return date.toLocaleString('default', { month: 'short' });
+                    });
+                    vm.trafficData = vm.masterData.ProductSellIn12Months.map(item => item.Quantity);
+
+                    drawRevenueChart();
+                    drawCategoryChart();
+                    drawTopProductsChart();
+                    drawTrafficChart();
                 });
-
-                drawChart(vm.chartData, vm.chartLabels);
             }).catch(function (error) {
-                console.error('Error fetching dashboard data:', error);
+                console.error('Error fetching master data:', error);
             });
-        };
-
-
-        vm.getProducts = function () {
-            serviceProxies.dashboardService.getProductBestSaleOfMonth().then(function (response) {
-                vm.products = response;
-            }).catch(function (error) {
-
-            });
-        };
+        }
 
         vm.$onInit = function () {
             $timeout(function () {
-                drawChart(vm.chartData, vm.chartLabels);
-                vm.getDashboardByMonth();
-                vm.getProducts();
+                init();
             }, 0);
         };
 
-        function drawChart(data, labels) {
-            var canvas = document.getElementById('chartCanvas');
-            if (!canvas) return;
-
-            var ctx = canvas.getContext('2d');
-            var width = 60;
-            var spacing = 60;
-            var maxHeight = Math.max(...data);
-            var scaleFactor = (canvas.height - 40) / maxHeight;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height); 
-
-            data.forEach(function (value, index) {
-                var height = value * scaleFactor;
-                var x = index * (width + spacing) + spacing;
-                var y = canvas.height - height -20;
-
-                ctx.fillStyle = '#4CAF50';
-                ctx.fillRect(x, y, width, height);
-
-                ctx.fillStyle = '#000';
-                ctx.textAlign = 'center';
-                ctx.fillText(labels[index], x + width / 2, canvas.height - 5);
-                ctx.font = '14px Arial';
-                ctx.fillText(value.toLocaleString(), x + width / 2, y - 5);
+        function drawRevenueChart() {
+            var ctx = document.getElementById('revenueChart').getContext('2d');
+            if (revenueChart) {
+                revenueChart.destroy();
+            }
+            revenueChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: vm.monthLabels,
+                    datasets: [{
+                        label: 'Monthly Revenue (VND)',
+                        data: vm.revenueChartData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2
+                    }],
+                }
             });
         }
-    }
-})(angular.module('app.admin.dashboard'));
+
+        function drawCategoryChart() {
+            var ctx = document.getElementById('categoryChart').getContext('2d');
+            if (categoryChart) {
+                categoryChart.destroy();
+            }
+            categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: vm.categoryLabels,
+                    datasets: [{
+                        data: vm.categoryChartData,
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF'
+                        ]
+                    }]
+                }
+            });
+        }
+
+        function drawTopProductsChart() {
+            var ctx = document.getElementById('topProductsChart').getContext('2d');
+            if (topProductsChart) {
+                topProductsChart.destroy();
+            }
+            topProductsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: vm.productLabels,
+                    datasets: [{
+                        label: 'Quantity Sold',
+                        data: vm.topProductsData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                    }]
+                }
+            });
+        }
+
+        function drawTrafficChart() {
+            var ctx = document.getElementById('trafficChart').getContext('2d');
+            if (trafficChart) {
+                trafficChart.destroy();
+            }
+            trafficChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: vm.trafficLabels,
+                    datasets: [{
+                        label: 'Product Quantity',
+                        data: vm.trafficData,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2
+                    }]
+                }
+            });
+        }
+    }]);
+
+    dashboard.component('dashboard', {
+        templateUrl: '/app/admin/dashboard/dashboard.component.html',
+        controller: 'dashboardController',
+        controllerAs: 'vm'
+    });
+})();

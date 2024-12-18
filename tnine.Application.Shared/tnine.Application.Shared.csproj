@@ -85,6 +85,7 @@
     <Compile Include="IColorService\Dto\GetColorForEditOutputDto.cs" />
     <Compile Include="IColorService\Dto\GetColorForViewDto.cs" />
     <Compile Include="IColorService\IColorService.cs" />
+    <Compile Include="IDashboardService\GetMasterDataForDashBoardDto.cs" />
     <Compile Include="IDashboardService\GetProductBestSalesDto.cs" />
     <Compile Include="IDashboardService\GetValueForDashboardDto.cs" />
     <Compile Include="IDashboardService\IDashboardService.cs" />
